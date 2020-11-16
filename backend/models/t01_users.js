@@ -1,6 +1,6 @@
 'use strict';
 
-const loader = require('./sequelize-loader');
+const loader = require('./mongoose-loader');
 /*
 const Sequelize = loader.Sequelize;
 
