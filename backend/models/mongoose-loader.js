@@ -1,9 +1,9 @@
 'use strict';
 const mongoose = require('mongoose');
-//  mongo 接続情報
-const port = "27017";
-const database = "testdb";
-const conMongo = mongoose.connect(`mongodb://localhost:${port}/${database}`, { useNewUrlParser: true });
+const env = require('../.env').env;
+
+// mongodb://host:port/database
+const conMongo = mongoose.connect(`mongodb://${env.DBHOST}:${env.DBPORT}/${env.DBNAME}`, { useNewUrlParser: true });
 
 module.exports = {
   mongoose: mongoose,
