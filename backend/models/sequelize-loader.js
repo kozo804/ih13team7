@@ -15,9 +15,6 @@ const sequelize = new Sequelize(
 */
 
 module.exports = {
-  database: sequelize,
-  Sequelize: Sequelize,
-  // MongoDB
   mongoose: mongoose,
   conMongo: conMongo
 };
