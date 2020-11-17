@@ -26,13 +26,13 @@ const Test = loader.database.define(
 const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 // 取扱データ形式設定
-var member = new Schema({
+var memberSchema = new Schema({
+  _id: Number,
   name: String,
   email: String,
-  tel: String
+  tel: String,
+  password: String
 });
-// 
-var memberModel = mongoose.model('member', member);
 
 // module.exports = t01_users;
-module.exports = memberModel;
+module.Menber = mongoose.model('Member', memberSchema);
