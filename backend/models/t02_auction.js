@@ -5,14 +5,13 @@ const mongoose = loader.mongoose;
 
 var Schema = mongoose.Schema;
 
-var auction = new Schema({
+var auctionSchema = new Schema({
+	_id: Number,
 	auction_name: String,
-	// start_time: 
-	// end_time: 
+	start_time: Date,
+	end_time: Date,
 	rep_id: Number,
-	vehicle_count: Number
+	car_count: Number
 });
 
-var auctionModel = mongoose.model('auction', auction);
-
-module.exports = auctionModel;
+module.Auction = mongoose.model('Auction', auctionSchema);

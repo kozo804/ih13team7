@@ -4,7 +4,7 @@ const loader = require('./mongoose-loader');
 const mongoose = loader.mongoose;
 
 var Schema = mongoose.Schema;
-var car = new Schema({
+var carSchema = new Schema({
 	model: String,
 	model_year: String,
 	car_name: String,
@@ -42,12 +42,22 @@ var car = new Schema({
 	interior_point: String,
 	exterior_point: String,
 	tag: String,
-	support: Number,
+	support_flg: Boolean,
 	// ------ 出品に関するカラム ----------
-	auction_id: Number,
+	auction_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'Auction',
+	},
+	emp_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'Employees',
+	},
 	listing_number: String,
 	// ------ 落札に関するカラム ---------
-	successful_bid_member_id: Number,
+	successful_bid_member_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'Member'
+	},
 	hammer_price: Number,
 	payment_flg: Number,
 	car_delivery_flg: Number,
@@ -57,6 +67,4 @@ var car = new Schema({
 	// successful_bid_member_id
 });
 
-var carModel = mongoose.model('car', car);
-
-module.exports = carModel;
+module.Car = mongoose.model('Car', carSchema);
