@@ -18,10 +18,11 @@ HalMotors
 └ frontend
      ├ bin ────────── www nodeで最初に起動するファイル
      ├ public
-     ├    ├ views ─── htmlとテンプレート
+     ├    ├ views ─── ejs置き場
      ├    ├ js
      ├    ├ images
-     ├    └ css
+     ├    ├ css
+     ├    └ xxx.html htmlはpublic直下に配置する
      ├ routes ─────── ルーター パスに沿ってレスポンス処理をする
      ├ app.js ─────── expressの初期設定やルーターの定義、エラーハンドリングなどの処理
      │                bin/wwwで読み込んでいる
