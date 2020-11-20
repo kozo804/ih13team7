@@ -10,7 +10,6 @@ HalMotors
 │    ├ public ─────── css jsなど
 │    ├ routes ─────── ルーター パスに沿ってレスポンス処理をする
 │    ├ views ──────── 削除予定
-│    ├ app.js ─────── expressの初期設定やルーターの定義、エラーハンドリングなどの処理
 │    │                bin/wwwで読み込んでいる
 │    └ package.json
 │
@@ -18,7 +17,7 @@ HalMotors
 └ frontend
      ├ bin ────────── www nodeで最初に起動するファイル
      ├ public
-     ├    ├ views ─── ejs置き場
+     ├    ├ views ─── ejs置き場 errorのページはejsで表示される
      ├    ├ js
      ├    ├ images
      ├    ├ css
