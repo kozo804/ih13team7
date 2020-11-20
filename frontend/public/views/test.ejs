@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <form action="/test" method="post" onsubmit="doSomething();return false;">
+      <table>
+        <tr>
+          <td>name</td>
+          <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+          <td>tel</td>
+          <td><input type="text" name="tel"></td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td><input type="text" name="password"></td>
+        </tr>
+      </table>
+      <button type="submit">送信</button>
+    </form>
+  </body>
+</html>
