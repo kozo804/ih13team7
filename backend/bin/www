@@ -91,6 +91,7 @@ function onListening() {
   console.log('listening post ' + port);
 }
 
+
 /**
  * WebSocket
  */
@@ -114,51 +115,51 @@ function onBet(bet) {
  * wobsocketに接続したときの処理
  * @param socket 
  */
-function onConnection(socket) {
-  let id = socket.id;
+// function onConnection(socket) {
+//   let id = socket.id;
 
-  // ルームに参加する処理
-  socket.on("join_room", function (data) {
-    //ルームIDはサーバー側で生成するようにする
-    // とりあえず連番
-    room = room_id;
-    console.log("room_id: " + room);
-    socket.join(room);
-  });
+//   // ルームに参加する処理
+//   socket.on("join_room", function (data) {
+//     //ルームIDはサーバー側で生成するようにする
+//     // とりあえず連番
+//     room = room_id;
+//     console.log("room_id: " + room);
+//     socket.join(room);
+//   });
 
-  console.info("new connection. sessionId: " + id);
-  socket.emit('sync', bets);
-  socket.on('c2s', onMessage);
+//   console.info("new connection. sessionId: " + id);
+//   socket.emit('sync', bets);
+//   socket.on('c2s', onMessage);
 
-  // jsonを入れると、自動的にJSON.stringfyされる
-  // socket.json.emit('send_json', json);
+//   // jsonを入れると、自動的にJSON.stringfyされる
+//   // socket.json.emit('send_json', json);
 
-  // to(id)：自分のみ
-  let sendId = 'your id is ' + id;
-  io.to(socket.id).emit('send_id', sendId);
+//   // to(id)：自分のみ
+//   let sendId = 'your id is ' + id;
+//   io.to(socket.id).emit('send_id', sendId);
 
-  // broadcast：自分以外
-  sendId = id + 'さんが入室しました';
-  socket.broadcast.emit('send_id', sendId);
+//   // broadcast：自分以外
+//   sendId = id + 'さんが入室しました';
+//   socket.broadcast.emit('send_id', sendId);
 
-  // 切断時の処理
-  socket.on('disconnect', function () {
-    console.log(id + ' disconnect');
-    let message = id + 'さんが退室しました';
-    socket.broadcast.emit('leave', message);
-  });
-  socket.on('error', (error) => { console.error(error); });
-}
+//   // 切断時の処理
+//   socket.on('disconnect', function () {
+//     console.log(id + ' disconnect');
+//     let message = id + 'さんが退室しました';
+//     socket.broadcast.emit('leave', message);
+//   });
+//   socket.on('error', (error) => { console.error(error); });
+// }
 
 // 予定時刻にwebsocketを実行する
 // とりあえず6時間おきに実行する
-const interval = 60 * 60 * 5;
-setInterval(function() {
-  // DBから一番近いオークションの開始日時を取得する処理を追加する
-  var date = new Date();
-  var job = schedule.scheduleJob(date, function () {
-    setInterval(function() {
-      io.on('connection', onConnection);
-    }, 6000);
-  });
-}, interval);
+// const interval = 60 * 60 * 5;
+// setInterval(function() {
+//   // DBから一番近いオークションの開始日時を取得する処理を追加する
+//   var date = new Date();
+//   var job = schedule.scheduleJob(date, function () {
+//     setInterval(function() {
+//       io.on('connection', onConnection);
+//     }, 6000);
+//   });
+// }, interval);

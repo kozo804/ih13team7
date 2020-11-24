@@ -35,4 +35,7 @@ var memberSchema = new Schema({
 });
 
 // module.exports = t01_users;
-module.exports = mongoose.model('Member', memberSchema);
+const memberModel = mongoose.model('Member', memberSchema);
+module.exports = {
+  Member: memberModel
+};
