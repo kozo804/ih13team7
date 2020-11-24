@@ -19,6 +19,7 @@ router.post('/', function(req, res, next) {
   
   console.log(req.body.name);
   schema.save();
+  res.render('test', { title: 'Express'});
 });
 
 module.exports = router;
