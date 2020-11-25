@@ -23,6 +23,13 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        options: {
+          loaders: {
+            // <style lang="scss">
+            // vue-style-loaderではcssが反映されなかった
+            scss: 'style-loader!css-loader!sass-loader',
+          }
+        }
       },
       {
         test: /\.js$/,
@@ -31,12 +38,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
     ]
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
+    port: 8080,
+    host: '0.0.0.0',
   },
   plugins: [new VueLoaderPlugin()],
 };
