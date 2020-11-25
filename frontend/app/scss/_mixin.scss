@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+$set-prefix:  -webkit-, -moz-, -ms-, '';
+
+@mixin property_set_prefix($name, $value) {
+	@each $prefix in $set-prefix {
+			#{$prefix}#{$name}: $value;
+	}
+}
