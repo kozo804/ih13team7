@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./EmpHeader";
+import Footer from "./EmpFooter";
 
 export default {
   data() {

@@ -1,5 +1,8 @@
 <template>
-  <p>headerここまで</p>
+  <div>
+    <p>footer</p>
+    <p>footer</p>
+  </div>
 </template>
 
 <script>
