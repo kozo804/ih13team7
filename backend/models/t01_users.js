@@ -27,7 +27,7 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 // 取扱データ形式設定
 var memberSchema = new Schema({
-  _id: Number,
+  // _id: Number,
   name: String,
   email: String,
   tel: String,
@@ -35,4 +35,7 @@ var memberSchema = new Schema({
 });
 
 // module.exports = t01_users;
-module.Menber = mongoose.model('Member', memberSchema);
+const memberModel = mongoose.model('Member', memberSchema);
+module.exports = {
+  Member: memberModel
+};
