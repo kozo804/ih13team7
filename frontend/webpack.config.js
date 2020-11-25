@@ -9,6 +9,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'public/js'),
+    publicPath: '/js/',
     filename: '[name].js'
   },
   resolve: {
@@ -50,6 +51,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     port: 8080,
     host: '0.0.0.0',
+    filename: 'emp_regist_car',
   },
   plugins: [new VueLoaderPlugin()],
 };
