@@ -31,9 +31,9 @@
             <tr>
               <td>型式</td>
               <td><input type="text" name="" value="" /></td>
-              <td>型式</td>
-              <td><input type="text" name="" value="" /></td>
               <td>ミッション</td>
+              <td><input type="text" name="" value="" /></td>
+              <td>燃料</td>
               <td><input type="text" name="" value="" /></td>
             </tr>
             <tr>
@@ -50,6 +50,12 @@
               <td>車歴</td>
               <td><input type="number" name="" value="" /></td>
               <td>車台番号</td>
+              <td><input type="text" name="" value="" /></td>
+            </tr>
+            <tr>
+              <td>NOX</td>
+              <td><input type="number" name="" value="" /></td>
+              <td>所有者歴</td>
               <td><input type="text" name="" value="" /></td>
             </tr>
           </table>
@@ -73,8 +79,6 @@
               <td><input type="number" name="" value="" /></td>
             </tr>
             <tr>
-              <td>NOX</td>
-              <td><input type="number" name="" value="" /></td>
               <td colspan="2" style="text-align: right; padding-right: 10px">
                 リサイクル料金受託済み金額
               </td>
