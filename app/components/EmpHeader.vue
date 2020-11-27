@@ -1,6 +1,6 @@
 <template>
   <header>
-    <p class="header_icon"><img src="" alt="" /></p>
+    <p class="header_icon"><img src="/images/logo.png" alt="" /></p>
     <ul>
       <li class="header_link"><a href="">車両管理</a></li>
       <li class="header_link"><a href="">オークション一覧</a></li>
@@ -19,11 +19,20 @@ header {
   display: flex;
   justify-content: space-between;
   ul {
-    width: 60%;
+    width: 50%;
     height: $height;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  p {
+    width: 20%;
+    text-align: center;
+    border: solid #000000 1px;
+  }
+  img {
+    width: auto;
+    height: $height;
   }
 }
 .header_link {
