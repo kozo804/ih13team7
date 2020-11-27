@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   entry: {
     emp_regist_car: `${entry_dir}/emp_regist_car.js`,
+    test: `${entry_dir}/test.js`,
   },
   output: {
     path: path.join(__dirname, 'public/js'),
