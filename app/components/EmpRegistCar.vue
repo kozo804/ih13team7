@@ -306,21 +306,7 @@
         </section>
         <h2>車両画像</h2>
         <section class="image_area">
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
-          <p><input type="file" /></p>
+          <p v-for="n of 15" :key="n"><input type="file" /></p>
         </section>
         <button type="submit" class="btn btn-primary">確認画面へ</button>
       </form>
