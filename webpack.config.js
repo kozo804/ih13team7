@@ -2,11 +2,13 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const entry_dir = './app';
 
-module.exports = {
+const webpackConfig = {
   mode: 'development',
   entry: {
-    emp_regist_car: `${entry_dir}/emp_regist_car.js`,
-    test: `${entry_dir}/test.js`,
+    // ここにbuildしたいファイルを追加する
+    // 書式 → ビルド後のファイル名: [`${entry_dir}/ビルドしたいファイル名`]
+    emp_regist_car: [`${entry_dir}/emp_regist_car.js`],
+    test: [`${entry_dir}/test.js`],
   },
   output: {
     path: path.join(__dirname, 'public/js'),
@@ -50,9 +52,10 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    port: 8080,
+    port: 9000,
     host: '0.0.0.0',
-    filename: 'emp_regist_car',
   },
   plugins: [new VueLoaderPlugin()],
 };
+
+module.exports = webpackConfig;
