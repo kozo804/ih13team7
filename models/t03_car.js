@@ -65,6 +65,9 @@ var carSchema = new Schema({
 	// model: 
 	// auction_id:
 	// successful_bid_member_id
+
+	// 車両ステータス	String or Number?
+	status: String
 });
 
 module.Car = mongoose.model('Car', carSchema);
