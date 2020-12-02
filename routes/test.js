@@ -20,7 +20,9 @@ router.post('/user', function(req, res, next) {
     console.log('DB接続中... You can cancel from ctrl + c');
   });
 
-  const member = new memberModel.Member({
+  console.log(memberModel.users);
+
+  const member = new memberModel.users({
     name: req.body.name,
     email: req.body.email,
     tel: req.body.tel,
@@ -44,7 +46,7 @@ router.post('/employee', (req, res, next) => {
   db.once('open', function() {
     console.log('DB接続中... You can cancel from ctrl + c');
   });
-  const employee = new employeeModel.Employee({
+  const employee = new employeeModel.employees({
     name: req.body.name,
     password: req.body.password
   });

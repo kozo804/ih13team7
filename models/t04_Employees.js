@@ -13,7 +13,7 @@ var employeesSchema = new Schema({
 });
 
 // module.Employees = mongoose.model('Employees', employeesSchema);
-const employeeModel = mongoose.model('Employee', employeesSchema);
-module.exports = {
-  Employee: employeeModel
-};
+exports.employees = mongoose.model('Employee', employeesSchema);
+// module.exports = {
+//   Employee: employeeModel
+// };
