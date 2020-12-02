@@ -6,8 +6,9 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
 const testRouter = require('./routes/test');
+const empRouter = require('./routes/emp');
 
 const app = express();
 
@@ -44,8 +45,9 @@ if (!isProduction) {
 
 // ルーターの設定
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/test', testRouter);
+app.use('/emp', empRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
