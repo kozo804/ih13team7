@@ -3,13 +3,14 @@ var router = express.Router();
 
 var con = require('../models/mongoose-loader');
 var memberModel = require('../models/t01_users');
+var employeeModel = require('../models/t04_Employees');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('test', { title: 'Express' });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/user', function(req, res, next) {
   // mongoに書き込み
   // member.
   const db = con.mongoose.connection;
@@ -34,6 +35,22 @@ router.post('/', function(req, res, next) {
     // member.speak();
   });
 
+  res.render('test', { title: 'Express'});
+});
+
+router.post('/employee', (req, res, next) => {
+  const db = con.mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+    console.log('DB接続中... You can cancel from ctrl + c');
+  });
+  const employee = new employeeModel.Employee({
+    name: req.body.name,
+    password: req.body.password
+  });
+  employee.save(function (err, employee) {
+    if (err) return console.error(err);
+  });
   res.render('test', { title: 'Express'});
 });
 

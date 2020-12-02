@@ -6,10 +6,14 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 
 var employeesSchema = new Schema({
-	_id: Number,
+	// _id: Number,
 	name: String,
 	password: String,
 
 });
 
-module.Employees = mongoose.model('Employees', employeesSchema);
+// module.Employees = mongoose.model('Employees', employeesSchema);
+const employeeModel = mongoose.model('Employee', employeesSchema);
+module.exports = {
+  Employee: employeeModel
+};
