@@ -7,6 +7,13 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p><a href="/user/login">ユーザー</a></p>
+    <p><a href="/emp/login">社員</a></p>
     <p><a href="/test">テストページ</a></p>
+    <script id="__bs_script__">
+    //<![CDATA[
+      document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.13'><\/script>".replace("HOST", location.hostname));
+    //]]>
+    </script>
   </body>
 </html>
