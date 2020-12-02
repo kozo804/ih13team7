@@ -34,8 +34,4 @@ var memberSchema = new Schema({
   password: String
 });
 
-// module.exports = t01_users;
-const memberModel = mongoose.model('Member', memberSchema);
-module.exports = {
-  Member: memberModel
-};
+module.users = mongoose.model('Users', memberSchema);
