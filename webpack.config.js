@@ -27,26 +27,11 @@ const webpackConfig = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          loaders: {
-            // <style lang="scss">
-            // vue-style-loaderではcssが反映されなかった
-            scss: 'style-loader!css-loader!sass-loader',
-          }
-        }
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
       },
     ]
   },
