@@ -7,7 +7,7 @@ const webpackConfig = {
   entry: {
     // ここにbuildしたいファイルを追加する
     // 書式 → ビルド後のファイル名: [`${entry_dir}/ビルドしたいファイル名`]
-    emp_regist_car: [`${entry_dir}/emp_regist_car.js`],
+    emp_car_regist: [`${entry_dir}/emp_car_regist`],
     test: [`${entry_dir}/test.js`],
   },
   output: {
@@ -27,26 +27,11 @@ const webpackConfig = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          loaders: {
-            // <style lang="scss">
-            // vue-style-loaderではcssが反映されなかった
-            scss: 'style-loader!css-loader!sass-loader',
-          }
-        }
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
       },
     ]
   },
