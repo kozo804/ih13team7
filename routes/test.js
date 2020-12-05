@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/user', function(req, res, next) {
   // mongoに書き込み
-  // member.
   const db = con.mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function() {
@@ -53,6 +52,17 @@ router.post('/employee', (req, res, next) => {
   employee.save(function (err, employee) {
     if (err) return console.error(err);
   });
+  res.render('test', { title: 'Express'});
+});
+
+router.post('/login', (req, res, next) => {
+  const db = con.mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+    console.log('DB接続中... You can cancel from ctrl + c');
+  });
+
+  
   res.render('test', { title: 'Express'});
 });
 

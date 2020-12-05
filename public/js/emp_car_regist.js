@@ -388,17 +388,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./app/test.js":
-/*!*********************!*\
-  !*** ./app/test.js ***!
-  \*********************/
+/***/ "./app/emp_car_regist.js":
+/*!*******************************!*\
+  !*** ./app/emp_car_regist.js ***!
+  \*******************************/
 /*! namespace exports */
 /*! exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var _AxiosBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AxiosBase */ \"./app/AxiosBase.js\");\n\n\n\n\nvue__WEBPACK_IMPORTED_MODULE_1__.default.config.productionTip = false;\nconst EnpReistCar = new vue__WEBPACK_IMPORTED_MODULE_1__.default({\n  el: '#wrapper'\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9hcHAvdGVzdC5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovL2hhbG1vdG9ycy10ZWFtNy8uL2FwcC90ZXN0LmpzPzAzMTgiXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuaW1wb3J0IFZ1ZSBmcm9tICd2dWUnO1xuaW1wb3J0IGF4aW9zQmFzZSBmcm9tICcuL0F4aW9zQmFzZSc7XG5cblZ1ZS5jb25maWcucHJvZHVjdGlvblRpcCA9IGZhbHNlO1xuY29uc3QgRW5wUmVpc3RDYXIgPSBuZXcgVnVlKHtcbiAgZWw6ICcjd3JhcHBlcicsXG59KTtcbiJdLCJtYXBwaW5ncyI6Ijs7O0FBQUE7QUFDQTtBQUFBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFEQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./app/test.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n/* harmony import */ var _AxiosBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AxiosBase */ \"./app/AxiosBase.js\");\n\n\n\n\nvue__WEBPACK_IMPORTED_MODULE_1__.default.config.productionTip = false;\nconst EnpReistCar = new vue__WEBPACK_IMPORTED_MODULE_1__.default({\n  el: '#wrapper',\n  data: {\n    values: ''\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9hcHAvZW1wX2Nhcl9yZWdpc3QuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9oYWxtb3RvcnMtdGVhbTcvLi9hcHAvZW1wX2Nhcl9yZWdpc3QuanM/NmZjYSJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHN0cmljdCc7XG5pbXBvcnQgVnVlIGZyb20gJ3Z1ZSc7XG5pbXBvcnQgYXhpb3NCYXNlIGZyb20gJy4vQXhpb3NCYXNlJztcblxuVnVlLmNvbmZpZy5wcm9kdWN0aW9uVGlwID0gZmFsc2U7XG5cbmNvbnN0IEVucFJlaXN0Q2FyID0gbmV3IFZ1ZSh7XG4gIGVsOiAnI3dyYXBwZXInLFxuICBkYXRhOiB7XG4gICAgdmFsdWVzOiAnJ1xuICB9XG59KTtcbiJdLCJtYXBwaW5ncyI6Ijs7O0FBQUE7QUFDQTtBQUFBO0FBQ0E7QUFFQTtBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBREE7QUFGQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./app/emp_car_regist.js\n");
 
 /***/ }),
 
@@ -498,7 +498,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
-/******/ 	__webpack_require__("./app/test.js");
+/******/ 	__webpack_require__("./app/emp_car_regist.js");
 /******/ 	// This entry module used 'exports' so it can't be inlined
 /******/ })()
 ;
