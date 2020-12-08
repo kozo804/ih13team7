@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="/css/emp_car_regist.css">
+  <title>車両登録</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
+    <p>登録が完了しました</p>
+    <p>3秒後に車両一覧に移動します</p>
+  </div>
+  <script>
+    setTimeout(function () {
+      window.location.href = '/emp/car';
+    }, 3 * 1000);  </script>
+</body>
+
+</html>

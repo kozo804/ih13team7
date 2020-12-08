@@ -5,44 +5,70 @@ const mongoose = loader.mongoose;
 
 var Schema = mongoose.Schema;
 var carSchema = new Schema({
-	model: String,
-	model_year: String,
+	maker: String,
 	car_name: String,
-	registed_model_year: String,
-	door: String,
+	grade: String,
 	shape: String,
-	car_history: String,
-	engine_size: String,
-	fuel: String,
+	registed_model_year: String,
+	model_year: String,
 	inspection: String,
-	mileage: Number,
-	outer_color: String,
-	color_no: Number,
-	inner_color: String,
-	undercarriage_number: String,
+	model: String,
 	mission: String,
-	riding_capacity: String,
+	fuel: String,
+	outer_color: String,
+	inner_color: String,
+	engine_size: String,
+	mileage: Number,
+	car_history: String,
+	undercarriage_number: String,
 	NOX: String,
+	owner: String,
+	door: String,
+	riding_capacity: String,
 	handle: String,
-	air_conditioning: String,
-	equipment: String,
 	meter_exchange_history: String,
 	color_change: String,
-	shift_lever: String,
-	recycleing_amount: String,
-	warranty: Number,
-	guide: Number,
-	considerations: String,
-	sales_point: String,
-	entries_field: String,
 	in_room_sheet: String,
-	auction_desired_price: Number,
-	auction_start_price: Number,
+	recycleing_amount: Number,
+	air_conditioning: String,
+	powor_window: String,
+	powor_steering: String,
+	sunroof: String,
+	leather_seet: String,
+	airbag: String,
+	aliminium_foil: String,
+	navigation: String,
+	warranty: String,
+	guide: String,
+	auction_desired_price: String,
+	auction_start_price: String,
 	evaluation_point: String,
 	interior_point: String,
 	exterior_point: String,
-	tag: String,
-	support_flg: Boolean,
+	considerations: String,
+	sales_point: String,
+	entries_field: String,
+	comment: String,
+
+	// hammer_price: Number,
+	payment_flg: { type: Boolean, default: false },
+	car_delivery_flg: { type: Boolean, default: false },
+	status: { type: Number, default: 0 },
+	
+	//以下未使用
+	// color_no: Number,
+	// warranty: Number,
+	// considerations: String,
+	// sales_point: String,
+	// entries_field: String,
+	// auction_desired_price: Number,
+	// auction_start_price: Number,
+	// evaluation_point: String,
+	// interior_point: String,
+	// exterior_point: String,
+	// tag: String,
+	// support_flg: Boolean,
+
 	// ------ 出品に関するカラム ----------
 	auction_id: {
 		type: Schema.Types.ObjectId,
@@ -58,16 +84,12 @@ var carSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Member'
 	},
-	hammer_price: Number,
-	payment_flg: Number,
-	car_delivery_flg: Number,
 	// ------ 制約 ---------
 	// model: 
 	// auction_id:
 	// successful_bid_member_id
 
 	// 車両ステータス	String or Number?
-	status: String
 });
 
 exports.car = mongoose.model('Car', carSchema);
