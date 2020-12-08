@@ -299,3 +299,8 @@ button {
 .point_area td {
   width: 16.6% !important;
 }
+
+.info_name {
+  color: #388CFD !important;
+  font-weight: normal !important;
+}
