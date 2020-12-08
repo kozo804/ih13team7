@@ -13,7 +13,7 @@
   <div id="wrapper">
     <%- include('./emp_header.ejs'); %>
     <div class="car_info">
-      <form action="/emp/car/confirm" method="post">
+      <form action="/emp/car/confirm" method="post" enctype="multipart/form-data">
 
         <section class="input_area">
           <h2>車両情報</h2>
@@ -282,7 +282,7 @@
         <h2>車両画像</h2>
 
         <section class="image_area">
-          <p v-for="n of 15" :key="n"><input type="file" /></p>
+          <p v-for="n of 15" :key="n"><input type="file" name="file" /></p>
         </section>
         <button type="submit" class="btn btn-primary">確認画面へ</button>
       </form>
