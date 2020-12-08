@@ -3,6 +3,30 @@ var router = express.Router();
 var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car');
 var employeeModel = require('../models/t04_Employees');
+var multer = require('multer');
+var upload = multer({
+  dist: '/public/images/',
+  // rename: function (fieldname, filename) {
+  //   console.log("multer rename function: fieldname" + fieldname);
+  //   console.log("multer rename function: filename" + filename);
+  //   return `emp_`;
+  // },
+  onFileUploadStart: function (file, req, res) {
+    console.log(file.fieldname + ' is starting ...')
+  },
+  onFileUploadData: function (file, data, req, res) {
+    //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
+    console.log(data.toString());
+  },
+  onFileUploadComplete: function (file, req, res) {
+    console.log(file.fieldname + ' uploaded to  ' + file.path)
+  },
+  onError: function (error, next) {
+    console.error(error);
+    next(error);
+  }
+})
+
 
 /* GET users listing. */
 router.get('/top', function (req, res, next) {
@@ -18,7 +42,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/car', function (req, res, next) {
-  
+
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -26,7 +50,7 @@ router.get('/car/regist', function (req, res, next) {
   res.render('emp_car_regist');
 });
 
-router.post('/car/confirm', function (req, res, next) {
+router.post('/car/confirm', upload.array('file'), function (req, res, next) {
   const car_info = {
     maker: req.body.maker,
     car_name: req.body.car_name,
@@ -73,6 +97,7 @@ router.post('/car/confirm', function (req, res, next) {
     entries_field: req.body.entries_field,
     comment: req.body.comment,
   }
+  console.log(req.files);
   // 写真の処理を追加する予定
 
   req.session.car_info = car_info;
@@ -142,7 +167,7 @@ router.post('/car/finish', function (req, res, next) {
       console.error(err);
       return next(err);
     });
-    
+
   // sessionクリア
   req.session.car_info = '';
 
