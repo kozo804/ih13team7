@@ -1,38 +1,50 @@
-<template>
-  <article>
-    <Header></Header>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="/css/emp_car_regist.css">
+  <title>車両登録</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
     <div class="car_info">
-      <form action="" method="post">
+      <form action="/emp/car/confirm" method="post">
+
         <section class="input_area">
           <h2>車両情報</h2>
           <table class="car_name">
             <tr>
               <td>メーカー名</td>
-              <td><input type="text" name="maker" value="" /></td>
+              <td><input type="text" name="maker" value="maker" /></td>
               <td>車名</td>
-              <td><input type="text" name="car_name" value="" /></td>
+              <td><input type="text" name="car_name" value="car_name" /></td>
             </tr>
             <tr>
               <td>グレード</td>
-              <td><input type="text" name="grade" value="" /></td>
+              <td><input type="text" name="grade" value="grade" /></td>
               <td>形状</td>
-              <td><input type="text" name="shape" value="" /></td>
+              <td><input type="text" name="shape" value="shape" /></td>
             </tr>
           </table>
           <table class="car_detail">
             <tr>
               <td>登録年式</td>
-              <td><input type="text" name="registed_model_year" value="" /></td>
+              <td><input type="text" name="registed_model_year" value="year" /></td>
               <td>モデル年式</td>
-              <td><input type="text" name="model_year" value="" /></td>
+              <td><input type="text" name="model_year" value="model" /></td>
               <td>車検</td>
-              <td><input type="text" name="inspection" value="" /></td>
+              <td><input type="text" name="inspection" value="inspection" /></td>
             </tr>
             <tr>
               <td>型式</td>
-              <td><input type="text" name="model" value="" /></td>
+              <td><input type="text" name="model" value="model" /></td>
               <td>ミッション</td>
-              <td><input type="text" name="mission" value="" /></td>
+              <td><input type="text" name="mission" value="mission" /></td>
               <td>燃料</td>
               <td>
                 <select name="fuel">
@@ -45,20 +57,20 @@
             </tr>
             <tr>
               <td>外装色</td>
-              <td><input type="text" name="outer_color" value="" /></td>
+              <td><input type="text" name="outer_color" value="color1" /></td>
               <td>内装色</td>
-              <td><input type="text" name="inner_color" value="" /></td>
+              <td><input type="text" name="inner_color" value="color2" /></td>
               <td>排気量</td>
-              <td><input type="number" name="engine_size" value="" />c.c.</td>
+              <td><input type="number" name="engine_size" value="100" />c.c.</td>
             </tr>
             <tr>
               <td>走行距離</td>
-              <td><input type="number" name="mileage" value="" />km</td>
+              <td><input type="number" name="mileage" value="30" />km</td>
               <td>車歴</td>
-              <td><input type="number" name="car_history" value="" /></td>
+              <td><input type="number" name="car_history" value="2" /></td>
               <td>車台番号</td>
               <td>
-                <input type="text" name="undercarriage_number" value="" />
+                <input type="text" name="undercarriage_number" value="undercarriage_number" />
               </td>
             </tr>
             <tr>
@@ -73,22 +85,9 @@
               <td>所有者歴</td>
               <td>
                 <div class="radio">
-                  <label for="one_owner"
-                    ><input
-                      type="radio"
-                      name="owner"
-                      value="ワンオーナー"
-                      id="one_owner"
-                      checked
-                    />ワンオーナー</label
-                  >
+                  <label for="one_owner"><input type="radio" name="owner" value="ワンオーナー" id="one_owner" checked />ワンオーナー</label>
                   <label for="some_owner">
-                    <input
-                      type="radio"
-                      name="owner"
-                      value="複数オーナー"
-                      id="some_owner"
-                    />複数オーナー
+                    <input type="radio" name="owner" value="複数オーナー" id="some_owner" />複数オーナー
                   </label>
                 </div>
               </td>
@@ -99,9 +98,9 @@
           <table class="car_detail">
             <tr>
               <td>ドア数</td>
-              <td><input type="number" name="door" value="" /></td>
+              <td><input type="number" name="door" value="4" /></td>
               <td>乗車定員</td>
-              <td><input type="number" name="riding_capacity" value="" /></td>
+              <td><input type="number" name="riding_capacity" value="6" /></td>
               <td>ハンドル</td>
               <td>
                 <select name="handle">
@@ -114,42 +113,26 @@
             <tr>
               <td>メーター交換歴</td>
               <td>
-                <input type="number" name="meter_exchange_history" value="" />
+                <input type="number" name="meter_exchange_history" value="1" />
               </td>
               <td>色替</td>
               <td>
                 <div class="radio">
                   <label for="color_change-true">
-                    <input
-                      type="radio"
-                      name="color_change"
-                      value="あり"
-                      id="color_change-true"
-                    />あり
+                    <input type="radio" name="color_change" value="あり" id="color_change-true" />あり
                   </label>
                   <label for="color_change-false">
-                    <input
-                      type="radio"
-                      name="color_change"
-                      value="なし"
-                      id="color_change-false"
-                      checked
-                    />なし
+                    <input type="radio" name="color_change" value="なし" id="color_change-false" checked />なし
                   </label>
                 </div>
               </td>
               <td>室内シート</td>
-              <td><input type="number" name="in_room_sheet" value="" /></td>
+              <td><input type="number" name="in_room_sheet" value="0" /></td>
             </tr>
             <tr>
               <td colspan="3" style="text-align: left">
                 リサイクル料金受託済み金額
-                <input
-                  type="number"
-                  name="recycleing_amount"
-                  value=""
-                  style="width: 30%"
-                />円
+                <input type="number" name="recycleing_amount" value="5000" style="width: 30%" />円
               </td>
             </tr>
           </table>
@@ -161,7 +144,7 @@
               <td>
                 <select name="air_conditioning">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -169,7 +152,7 @@
               <td>
                 <select name="powor_window">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -177,7 +160,7 @@
               <td>
                 <select name="powor_steering">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -185,7 +168,7 @@
               <td>
                 <select name="sunroof">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -196,14 +179,14 @@
                 <select name="leather_seet">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>エアバッグ</td>
               <td>
                 <select name="airbag">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -212,14 +195,14 @@
                 <select name="aliminium_foil">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>ナビゲーション</td>
               <td>
                 <select name="navigation">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -230,14 +213,14 @@
                 <select name="warranty">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>取扱説明書</td>
               <td>
                 <select name="guide">
-                  <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="guide">-</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -249,19 +232,11 @@
               <tr>
                 <td>オークション<span>希望</span>価格</td>
                 <td>
-                  <input
-                    type="number"
-                    name="auction_desired_price"
-                    value=""
-                  />000円
+                  <input type="number" name="auction_desired_price" value="400" />,000円
                 </td>
                 <td>オークション<span>スタート</span>価格</td>
                 <td>
-                  <input
-                    type="number"
-                    name="auction_start_price"
-                    value=""
-                  />000円
+                  <input type="number" name="auction_start_price" value="200" />,000円
                 </td>
               </tr>
             </table>
@@ -269,15 +244,15 @@
               <tr>
                 <td>
                   評価点
-                  <input type="number" name="evaluation_point" value="" />点
+                  <input type="number" name="evaluation_point" value="4" />点
                 </td>
                 <td>
                   内装点
-                  <input type="number" name="interior_point" value="" />点
+                  <input type="number" name="interior_point" value="6" />点
                 </td>
                 <td>
                   外装点
-                  <input type="number" name="exterior_point" value="" />点
+                  <input type="number" name="exterior_point" value="5" />点
                 </td>
               </tr>
             </table>
@@ -286,220 +261,34 @@
           <div class="text_container">
             <div class="text_area">
               <p>注意事項</p>
-              <textarea name="considerations" cols="80" rows="8"></textarea>
+              <textarea name="considerations" cols="80" rows="8">注意</textarea>
             </div>
             <div class="text_area">
               <p>セールスポイント</p>
-              <textarea name="sales_point" cols="80" rows="8"></textarea>
+              <textarea name="sales_point" cols="80" rows="8">セールス</textarea>
             </div>
           </div>
           <div class="text_container">
             <div class="text_area">
               <p>検査員記入欄</p>
-              <textarea name="entries_field" cols="80" rows="8"></textarea>
+              <textarea name="entries_field" cols="80" rows="8">記入</textarea>
             </div>
             <div class="text_area">
               <p>コメント</p>
-              <textarea name="comment" cols="80" rows="8"></textarea>
+              <textarea name="comment" cols="80" rows="8">コメント</textarea>
             </div>
           </div>
         </section>
         <h2>車両画像</h2>
+
         <section class="image_area">
           <p v-for="n of 15" :key="n"><input type="file" /></p>
         </section>
         <button type="submit" class="btn btn-primary">確認画面へ</button>
       </form>
     </div>
-    <Footer></Footer>
-  </article>
-</template>
+  </div>
+  <script src="/js/emp_car_regist.js"></script>
+</body>
 
-<style lang="scss" scoped>
-$input_area-input_width: 70%;
-$input_border: solid #d6d6d6 2px;
-article {
-  width: 100%;
-  border: 1px solid #000;
-}
-
-h2 {
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-  border-bottom: solid #000000 1px;
-}
-
-form {
-  width: 80%;
-  margin: 0 auto;
-}
-
-button {
-  width: 160px;
-  height: 40px;
-  border: none;
-  background-color: #ddeaf6;
-  border-radius: 20px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  display: block;
-  margin: 0 auto;
-}
-
-.image_area,
-.input_area {
-  width: 100%;
-  margin: 0 auto 40px;
-}
-
-.image_area {
-  display: flex;
-  flex-wrap: wrap;
-  p {
-    width: 33.3%;
-  }
-}
-
-.input_area {
-  $tr_height: 32px;
-  margin-bottom: 16px;
-  table {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  tr {
-    height: $tr_height;
-    line-height: $tr_height;
-  }
-  td {
-    height: $tr_height;
-    padding: 8px 0;
-  }
-  input,
-  select {
-    width: 90%;
-    height: $tr_height;
-    font-size: 1.2rem;
-    text-align: right;
-    border: $input_border;
-    border-radius: 8px;
-  }
-  select {
-    background-color: #ffffff;
-  }
-}
-
-.radio {
-  display: flex;
-  justify-content: space-evenly;
-  label {
-    width: 50%;
-  }
-  input {
-    width: 16%;
-  }
-}
-
-.car_name {
-  td:nth-child(odd) {
-    width: 15%;
-    text-align: center;
-  }
-  td:nth-child(even) {
-    width: 35%;
-  }
-}
-
-.car_detail {
-  td:nth-child(odd) {
-    width: 11.1%;
-    text-align: center;
-  }
-  td:nth-child(even) {
-    width: 22.2%;
-  }
-}
-
-.car_equip {
-  td {
-    width: 10%;
-    text-align: center;
-  }
-}
-
-.text_container {
-  padding: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.text_area {
-  width: 48%;
-  p {
-    padding-bottom: 4px;
-  }
-  textarea {
-    width: 100%;
-    padding: 4px;
-    border: $input_border;
-    border-radius: 8px;
-  }
-}
-
-.price_area {
-  text-align: center;
-  td:nth-child(odd) {
-    width: 20%;
-    text-align: center;
-  }
-  td:nth-child(even) {
-    width: 30%;
-  }
-  input {
-    width: 80%;
-    border: $input_border;
-    border-radius: 8px;
-  }
-  span {
-    color: brown;
-    font-weight: 700;
-  }
-}
-
-.point_area {
-  td {
-    width: 16.6% !important;
-  }
-}
-</style>
-
-<script>
-import Header from "./EmpHeader";
-import Footer from "./EmpFooter";
-
-export default {
-  data() {
-    return {
-      values: [],
-    };
-  },
-  mounted() {
-    const axiosBase = this.axiosBase();
-    axiosBase
-      .get("/")
-      .then((response) => {
-        this.values = response.data.values;
-        console.log(response.data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log("error");
-        }
-      });
-  },
-  components: {
-    Header,
-    Footer,
-  },
-};
-</script>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="/css/emp_car_confirm.css">
+  <title>車両登録</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
+    <div class="car_info">
+      <form action="/emp/car/finish" method="post">
+
+        <section class="input_area">
+          <h2>車両情報</h2>
+          <table class="car_name">
+            <tr>
+              <td class="info_name">メーカー名</td>
+              <td><%= car_info.maker %></td>
+              <td class="info_name">車名</td>
+              <td><%= car_info.car_name %></td>
+            </tr>
+            <tr>
+              <td class="info_name">グレード</td>
+              <td><%= car_info.grade %></td>
+              <td class="info_name">形状</td>
+              <td><%= car_info.shape %></td>
+            </tr>
+          </table>
+          <table class="car_detail">
+            <tr>
+              <td class="info_name">登録年式</td>
+              <td><%= car_info.registed_model_year %></td>
+              <td class="info_name">モデル年式</td>
+              <td><%= car_info.model_year %></td>
+              <td class="info_name">車検</td>
+              <td><%= car_info.inspection %></td>
+            </tr>
+            <tr>
+              <td class="info_name">型式</td>
+              <td><%= car_info.model %></td>
+              <td class="info_name">ミッション</td>
+              <td><%= car_info.mission %></td>
+              <td class="info_name">燃料</td>
+              <td><%= car_info.fuel %></td>
+            </tr>
+            <tr>
+              <td class="info_name">外装色</td>
+              <td><%= car_info.outer_color %></td>
+              <td class="info_name">内装色</td>
+              <td><%= car_info.inner_color %></td>
+              <td class="info_name">排気量</td>
+              <td><%= car_info.engine_size %>&nbsp;&nbsp; .c.c</td>
+            </tr>
+            <tr>
+              <td class="info_name">走行距離</td>
+              <td><%= car_info.mileage %>&nbsp;&nbsp; km</td>
+              <td class="info_name">車歴</td>
+              <td><%= car_info.car_history %></td>
+              <td class="info_name">車台番号</td>
+              <td><%= car_info.undercarriage_number %></td>
+            </tr>
+            <tr>
+              <td class="info_name">NOX</td>
+              <td><%= car_info.NOX %></td>
+              <td class="info_name">所有者歴</td>
+              <td><%= car_info.owner %></td>
+            </tr>
+          </table>
+
+          <h2>車両詳細</h2>
+          <table class="car_detail">
+            <tr>
+              <td class="info_name">ドア数</td>
+              <td><%= car_info.door %></td>
+              <td class="info_name">乗車定員</td>
+              <td><%= car_info.riding_capacity %></td>
+              <td class="info_name">ハンドル</td>
+              <td><%= car_info.handle %></td>
+            </tr>
+            <tr>
+              <td class="info_name">メーター交換歴</td>
+              <td><%= car_info.meter_exchange_history %></td>
+              <td class="info_name">色替</td>
+              <td><%= car_info.color_change %></td>
+              <td class="info_name">室内シート</td>
+              <td><%= car_info.in_room_sheet %></td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align: left;">
+                <span class="info_name">リサイクル料金受託済み金額</span>&nbsp;&nbsp;<%= car_info.recycleing_amount %> 円
+              </td>
+            </tr>
+          </table>
+
+          <h2>装備品</h2>
+          <table class="car_equip">
+            <tr>
+              <td class="info_name">エアコン</td>
+              <td>
+                <%= car_info.air_conditioning %>
+              </td>
+              <td class="info_name">パワーウィンドウ</td>
+              <td>
+                <%= car_info.powor_window %>
+              </td>
+              <td class="info_name">パワステ</td>
+              <td>
+                <%= car_info.powor_steering %>
+              </td>
+              <td class="info_name">サンルーフ</td>
+              <td>
+                <%= car_info.sunroof %>
+              </td>
+            </tr>
+            <tr>
+              <td class="info_name">本革シート</td>
+              <td>
+                <%= car_info.leather_seet %>
+              </td>
+              <td class="info_name">エアバッグ</td>
+              <td>
+                <%= car_info.airbag %>
+              </td>
+              <td class="info_name">純正アルミホイール</td>
+              <td>
+                <%= car_info.aliminium_foil %>
+              </td>
+              <td class="info_name">ナビゲーション</td>
+              <td>
+                <%= car_info.navigation %>
+              </td>
+            </tr>
+            <tr>
+              <td class="info_name">新車保証書</td>
+              <td>
+                <%= car_info.warranty %>
+              </td>
+              <td class="info_name">取扱説明書</td>
+              <td>
+                <%= car_info.guide %>
+              </td>
+            </tr>
+          </table>
+          <h2>備考</h2>
+          <div class="price_area">
+            <table class="price_area">
+              <tr>
+                <td class="info_name">オークション<span>希望</span>価格</td>
+                <td>
+                  <%= car_info.auction_desired_price %>&nbsp;&nbsp;,000円
+                </td>
+                <td class="info_name">オークション<span>スタート</span>価格</td>
+                <td>
+                  <%= car_info.auction_start_price %>&nbsp;&nbsp;,000円
+                </td>
+              </tr>
+            </table>
+            <table class="point_area">
+              <tr>
+                <td>
+                  <span class="info_name">評価点</span> <%= car_info.evaluation_point %> 点
+                </td>
+                <td>
+                  <span class="info_name">内装点</span> <%= car_info.interior_point %> 点
+                </td>
+                <td class="info_name">
+                  <span class="info_name">外装点</span> <%= car_info.exterior_point %> 点
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="text_container">
+            <div class="text_area">
+              <p class="info_name">注意事項</p>
+              <p name="considerations" cols="80" rows="8" style="border: solid #dbdbdb 2px;" disabled><%= car_info.considerations %></p>
+            </div>
+            <div class="text_area">
+              <p class="info_name">セールスポイント</p>
+              <p name="sales_point" cols="80" rows="8"><%= car_info.sales_point %></p>
+            </div>
+          </div>
+          <div class="text_container">
+            <div class="text_area">
+              <p class="info_name">検査員記入欄</p>
+              <p name="entries_field" cols="80" rows="8"><%= car_info.entries_field %></p>
+            </div>
+            <div class="text_area">
+              <p class="info_name">コメント</p>
+              <p name="comment" cols="80" rows="8"><%= car_info.comment %></p>
+            </div>
+          </div>
+        </section>
+        <h2>車両画像</h2>
+        <!-- <section class="image_area">
+          <p v-for="n of 15" :key="n"><input type="file" /></p>
+        </section> -->
+        <button type="submit" class="btn btn-primary">登録する</button>
+      </form>
+    </div>
+  </div>
+  <script src="/js/emp_car_regist.js"></script>
+</body>
+
+</html>
