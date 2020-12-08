@@ -20,31 +20,31 @@
           <table class="car_name">
             <tr>
               <td>メーカー名</td>
-              <td><input type="text" name="maker" value="" /></td>
+              <td><input type="text" name="maker" value="maker" /></td>
               <td>車名</td>
-              <td><input type="text" name="car_name" value="" /></td>
+              <td><input type="text" name="car_name" value="car_name" /></td>
             </tr>
             <tr>
               <td>グレード</td>
-              <td><input type="text" name="grade" value="" /></td>
+              <td><input type="text" name="grade" value="grade" /></td>
               <td>形状</td>
-              <td><input type="text" name="shape" value="" /></td>
+              <td><input type="text" name="shape" value="shape" /></td>
             </tr>
           </table>
           <table class="car_detail">
             <tr>
               <td>登録年式</td>
-              <td><input type="text" name="registed_model_year" value="" /></td>
+              <td><input type="text" name="registed_model_year" value="year" /></td>
               <td>モデル年式</td>
-              <td><input type="text" name="model_year" value="" /></td>
+              <td><input type="text" name="model_year" value="model" /></td>
               <td>車検</td>
-              <td><input type="text" name="inspection" value="" /></td>
+              <td><input type="text" name="inspection" value="inspection" /></td>
             </tr>
             <tr>
               <td>型式</td>
-              <td><input type="text" name="model" value="" /></td>
+              <td><input type="text" name="model" value="model" /></td>
               <td>ミッション</td>
-              <td><input type="text" name="mission" value="" /></td>
+              <td><input type="text" name="mission" value="mission" /></td>
               <td>燃料</td>
               <td>
                 <select name="fuel">
@@ -57,20 +57,20 @@
             </tr>
             <tr>
               <td>外装色</td>
-              <td><input type="text" name="outer_color" value="" /></td>
+              <td><input type="text" name="outer_color" value="color1" /></td>
               <td>内装色</td>
-              <td><input type="text" name="inner_color" value="" /></td>
+              <td><input type="text" name="inner_color" value="color2" /></td>
               <td>排気量</td>
-              <td><input type="number" name="engine_size" value="" />c.c.</td>
+              <td><input type="number" name="engine_size" value="100" />c.c.</td>
             </tr>
             <tr>
               <td>走行距離</td>
-              <td><input type="number" name="mileage" value="" />km</td>
+              <td><input type="number" name="mileage" value="30" />km</td>
               <td>車歴</td>
-              <td><input type="number" name="car_history" value="" /></td>
+              <td><input type="number" name="car_history" value="2" /></td>
               <td>車台番号</td>
               <td>
-                <input type="text" name="undercarriage_number" value="" />
+                <input type="text" name="undercarriage_number" value="undercarriage_number" />
               </td>
             </tr>
             <tr>
@@ -98,9 +98,9 @@
           <table class="car_detail">
             <tr>
               <td>ドア数</td>
-              <td><input type="number" name="door" value="" /></td>
+              <td><input type="number" name="door" value="4" /></td>
               <td>乗車定員</td>
-              <td><input type="number" name="riding_capacity" value="" /></td>
+              <td><input type="number" name="riding_capacity" value="6" /></td>
               <td>ハンドル</td>
               <td>
                 <select name="handle">
@@ -113,7 +113,7 @@
             <tr>
               <td>メーター交換歴</td>
               <td>
-                <input type="number" name="meter_exchange_history" value="" />
+                <input type="number" name="meter_exchange_history" value="1" />
               </td>
               <td>色替</td>
               <td>
@@ -127,12 +127,12 @@
                 </div>
               </td>
               <td>室内シート</td>
-              <td><input type="number" name="in_room_sheet" value="" /></td>
+              <td><input type="number" name="in_room_sheet" value="0" /></td>
             </tr>
             <tr>
               <td colspan="3" style="text-align: left">
                 リサイクル料金受託済み金額
-                <input type="number" name="recycleing_amount" value="" style="width: 30%" />円
+                <input type="number" name="recycleing_amount" value="5000" style="width: 30%" />円
               </td>
             </tr>
           </table>
@@ -144,7 +144,7 @@
               <td>
                 <select name="air_conditioning">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -152,7 +152,7 @@
               <td>
                 <select name="powor_window">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -160,7 +160,7 @@
               <td>
                 <select name="powor_steering">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -168,7 +168,7 @@
               <td>
                 <select name="sunroof">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -179,14 +179,14 @@
                 <select name="leather_seet">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>エアバッグ</td>
               <td>
                 <select name="airbag">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -195,14 +195,14 @@
                 <select name="aliminium_foil">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>ナビゲーション</td>
               <td>
                 <select name="navigation">
                   <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -213,14 +213,14 @@
                 <select name="warranty">
                   <option value="">-</option>
                   <option value="○">○</option>
-                  <option value="×">×</option>
+                  <option value="×" selected>×</option>
                 </select>
               </td>
               <td>取扱説明書</td>
               <td>
                 <select name="guide">
-                  <option value="">-</option>
-                  <option value="○">○</option>
+                  <option value="guide">-</option>
+                  <option value="○" selected>○</option>
                   <option value="×">×</option>
                 </select>
               </td>
@@ -232,11 +232,11 @@
               <tr>
                 <td>オークション<span>希望</span>価格</td>
                 <td>
-                  <input type="number" name="auction_desired_price" value="" />000円
+                  <input type="number" name="auction_desired_price" value="400" />,000円
                 </td>
                 <td>オークション<span>スタート</span>価格</td>
                 <td>
-                  <input type="number" name="auction_start_price" value="" />000円
+                  <input type="number" name="auction_start_price" value="200" />,000円
                 </td>
               </tr>
             </table>
@@ -244,15 +244,15 @@
               <tr>
                 <td>
                   評価点
-                  <input type="number" name="evaluation_point" value="" />点
+                  <input type="number" name="evaluation_point" value="4" />点
                 </td>
                 <td>
                   内装点
-                  <input type="number" name="interior_point" value="" />点
+                  <input type="number" name="interior_point" value="6" />点
                 </td>
                 <td>
                   外装点
-                  <input type="number" name="exterior_point" value="" />点
+                  <input type="number" name="exterior_point" value="5" />点
                 </td>
               </tr>
             </table>
@@ -261,21 +261,21 @@
           <div class="text_container">
             <div class="text_area">
               <p>注意事項</p>
-              <textarea name="considerations" cols="80" rows="8"></textarea>
+              <textarea name="considerations" cols="80" rows="8">注意</textarea>
             </div>
             <div class="text_area">
               <p>セールスポイント</p>
-              <textarea name="sales_point" cols="80" rows="8"></textarea>
+              <textarea name="sales_point" cols="80" rows="8">セールス</textarea>
             </div>
           </div>
           <div class="text_container">
             <div class="text_area">
               <p>検査員記入欄</p>
-              <textarea name="entries_field" cols="80" rows="8"></textarea>
+              <textarea name="entries_field" cols="80" rows="8">記入</textarea>
             </div>
             <div class="text_area">
               <p>コメント</p>
-              <textarea name="comment" cols="80" rows="8"></textarea>
+              <textarea name="comment" cols="80" rows="8">コメント</textarea>
             </div>
           </div>
         </section>
