@@ -178,4 +178,12 @@ router.post('/car/finish', function (req, res, next) {
   res.render('emp_car_finish');
 });
 
+router.get('/auction', (req,res,next)=>{
+  // res.render('emp_auction.ejs');
+});
+
+router.get('/auction/regist', (req,res,next)=>{
+  res.render('emp_auction_regist.ejs');
+});
+
 module.exports = router;
