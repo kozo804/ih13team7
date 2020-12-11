@@ -26,7 +26,7 @@ router.get('/auction/:auction_id', function(req, res, next) {
 });
 
 router.get('/auction/:auction_id/bit', function(req, res, next) {
-  
+  res.render('user_auction_auctionid_bit');
 })
 
 module.exports = router;

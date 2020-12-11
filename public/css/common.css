@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@import "./mixin";
-
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -101,4 +99,48 @@ button{
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #ddeaf6;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+header ul {
+  width: 50%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header p {
+  width: 20%;
+  text-align: center;
+}
+
+header img {
+  width: auto;
+  height: 60px;
+}
+
+.header_link {
+  width: 33.3%;
+  height: 40px;
+  line-height: 40px;
+}
+
+.header_link a {
+  width: 150px;
+  height: 100%;
+  color: #000;
+  margin: 0 auto;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  background-color: #f0ccb9;
 }
