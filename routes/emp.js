@@ -4,13 +4,17 @@ var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cd) {
+    console.log(req.file);
+    cd(null, '/public/images/')
+  },
+  filename: function(req, file, cd) {
+    cd(null, `emp_${Date.now()}`)
+  }
+})
 var upload = multer({
-  dist: '/public/images/',
-  // rename: function (fieldname, filename) {
-  //   console.log("multer rename function: fieldname" + fieldname);
-  //   console.log("multer rename function: filename" + filename);
-  //   return `emp_`;
-  // },
+  storage: storage,
   onFileUploadStart: function (file, req, res) {
     console.log(file.fieldname + ' is starting ...')
   },
@@ -42,29 +46,11 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/car', function (req, res, next) {
-//   carModel.find({}, function(err, docs) {
-//     if (!err) { 
-//         console.log(docs);
-        
-//         res.render('emp_car',docs);
-//     }
-//     else {
-//         throw err;
-//     }
-
-// });
-
     carModel.find({ status:0 })
     .then((result)=>{
-      // console.log(result+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-      // result = JSON.stringify(result)
       console.log(result[0].maker);
-
-      // return result
       res.render('emp_car',{result:JSON.stringify(result)});
     });
-
-
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -72,7 +58,7 @@ router.get('/car/regist', function (req, res, next) {
   res.render('emp_car_regist');
 });
 
-router.post('/car/confirm', upload.array('file'), function (req, res, next) {
+router.post('/car/confirm', upload.array('car_picture'), function (req, res, next) {
   const car_info = {
     maker: req.body.maker,
     car_name: req.body.car_name,
@@ -119,7 +105,7 @@ router.post('/car/confirm', upload.array('file'), function (req, res, next) {
     entries_field: req.body.entries_field,
     comment: req.body.comment,
   }
-  console.log(req.files);
+  // console.log(req.files);
   // 写真の処理を追加する予定
 
   req.session.car_info = car_info;
@@ -137,8 +123,10 @@ router.post('/car/finish', function (req, res, next) {
 
   // DBに保存
   const car_info = req.session.car_info;
+
   console.log(car_info);
   const car = new carModel({
+
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
@@ -196,8 +184,12 @@ router.post('/car/finish', function (req, res, next) {
   res.render('emp_car_finish');
 });
 
-router.get('/emp_car',(req,res,next)=>{
-  res.render('emp_car.ejs');
+router.get('/auction', (req,res,next)=>{
+  // res.render('emp_auction.ejs');
+});
 
-})
+router.get('/auction/regist', (req,res,next)=>{
+  res.render('emp_auction_regist.ejs');
+});
+
 module.exports = router;

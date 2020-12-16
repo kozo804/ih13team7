@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='/css/reset.css' />
+  <link rel='stylesheet' href='/css/bootstrapmin.css' />
+  <link rel='stylesheet' href='/css/bootstrapmin.css' />
+  <title>オークション</title>
+</head>
+
+<body>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
+    <div class="bit_history">
+      <!-- <p v-for=""></p> -->
+    </div>
+
+    <div class="auction_area">
+      <p><img src="" width="" height="" alt=""></p>
+      <table class="car_info">
+        <tr>
+          <td class="info_name">メーカー名</td>
+          <td></td>
+          <td class="info_name">車名</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="info_name">登録年式</td>
+          <td></td>
+          <td class="info_name">走行距離</td>
+          <td></td>
+        </tr>
+      </table>
+      <p class="timer"><span>残り時間</span>{{ timer }}</p>
+      <p><span>現在価格</span>{{ now_price }}</p>
+      <div class="bit_area">
+        <p><input type="number" name="bit_price" placeholder="入札額" v-model="bit_price"></p>
+        <button>入札する</button>
+      </div>
+    </div>
+
+    <div class="auciton_schedule">
+
+    </div>
+  </div>
+  <!-- <script src="/js/user_car.js"></script> -->
+</body>
+
+</html>
