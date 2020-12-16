@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
-var carModel = require('../models/t03_car');
+var carModel = require('../models/t03_car').car;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 var upload = multer({
@@ -42,6 +42,28 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/car', function (req, res, next) {
+//   carModel.find({}, function(err, docs) {
+//     if (!err) { 
+//         console.log(docs);
+        
+//         res.render('emp_car',docs);
+//     }
+//     else {
+//         throw err;
+//     }
+
+// });
+
+    carModel.find({ status:0 })
+    .then((result)=>{
+      // console.log(result+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      // result = JSON.stringify(result)
+      console.log(result[0].maker);
+
+      // return result
+      res.render('emp_car',{result:JSON.stringify(result)});
+    });
+
 
 });
 
@@ -116,7 +138,7 @@ router.post('/car/finish', function (req, res, next) {
   // DBに保存
   const car_info = req.session.car_info;
   console.log(car_info);
-  const car = new carModel.car({
+  const car = new carModel({
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
@@ -173,6 +195,7 @@ router.post('/car/finish', function (req, res, next) {
 
   res.render('emp_car_finish');
 });
+
 router.get('/emp_car',(req,res,next)=>{
   res.render('emp_car.ejs');
 
