@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='/css/reset.css' />
-  <link rel='stylesheet' href='/css/bootstrapmin.css' />
-  <link rel='stylesheet' href='/css/bootstrapmin.css' />
+  <link rel='stylesheet' href='/css/common.css' />
+  <link rel='stylesheet' href='/css/bootstrap.min.css' />
   <title>オークション</title>
 </head>
 
@@ -33,19 +32,20 @@
           <td></td>
         </tr>
       </table>
-      <p class="timer"><span>残り時間</span>{{ timer }}</p>
+      <p class="timer"><span>残り時間</span>{{ time }}</p>
       <p><span>現在価格</span>{{ now_price }}</p>
       <div class="bit_area">
         <p><input type="number" name="bit_price" placeholder="入札額" v-model="bit_price"></p>
-        <button>入札する</button>
+        <button @click="bit">入札する</button>
       </div>
     </div>
-
     <div class="auciton_schedule">
 
     </div>
   </div>
-  <!-- <script src="/js/user_car.js"></script> -->
+  <input type="hidden" name="auction_id" value="<%= auction_id %>">
+  <input type="hidden" name="end_date" value="<%= end_date %>">
+  <script src="/js/user_auction_auctionid_bit.js"></script>
 </body>
 
 </html>
