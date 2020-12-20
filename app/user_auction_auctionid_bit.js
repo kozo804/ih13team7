@@ -1,7 +1,7 @@
 'use strict';
 import Vue from 'vue';
 import io from 'socket.io-client';
-import AxiosBase from './AxiosBase';
+// import AxiosBase from './AxiosBase';
 
 Vue.config.productionTip = false;
 
@@ -30,38 +30,54 @@ const user_auction_auctionid_bit = new Vue({
     },
     countdown: function () {
       let self = this;
-      setInterval(function() {
+      setInterval(function () {
         self.now_date = Date.now();
-        console.log(self.now_date);
-      }, 1000);
-    }
+      }, 250);
+    },
   },
   computed: {
-    getDate: function () {
-      this.now_date = Date.now();
+    difference: function () {
+      return this.end_date - this.now_date;
+    },
+    timeOut: function () {
+      return (this.difference <= 0 ? true : false);
+    },
+    bit_button: function () {
+      return (this.timeOut ? "終了" : "入札する");
     },
     time: function () {
-      var difference = this.end_date - this.now_date;
+      // var difference = this.end_date - this.now_date;
+      let difference = this.difference;
       var remaining = '';
       if (difference >= 0) {
-        let hour = Math.floor(difference / (1000 * 60 * 60));
+        let hour = Math.floor(difference / (1000 * 60 * 60)).toString();
         difference -= (hour * (1000 * 60 * 60));
-        let minute = Math.floor(difference / (1000 * 60));
+        let minute = Math.floor(difference / (1000 * 60)).toString();
+        if (minute < 10) {
+          minute = minute.padStart(2, '0');
+        }
         difference -= (minute * (1000 * 60));
-        let second = Math.floor(difference / 1000);
-        remaining += hour + ':';
+        let second = Math.floor(difference / 1000).toString();
+        if (second < 10) {
+          second = second.padStart(2, '0');
+        }
+        if(hour > 0){
+          remaining += hour + ':';
+        }
         remaining += minute + ':';
-        remaining += + second;
+        remaining += second;
       }
       else {
         remaining = "終了";
       }
       return remaining;
     }
+
   },
   mounted() {
     // ルームに参加
     socket.emit("join_room", this.auction_id);
+    // console.log(this.bit_button);
     // socket.on('sync', this.receiveMsg);
 
     // const axios = AxiosBase.axiosBase();

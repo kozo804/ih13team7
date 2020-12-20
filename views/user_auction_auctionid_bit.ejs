@@ -32,11 +32,11 @@
           <td></td>
         </tr>
       </table>
-      <p class="timer"><span>残り時間</span>{{ time }}</p>
-      <p><span>現在価格</span>{{ now_price }}</p>
+      <p class="timer"><span>残り時間</span> {{ time }}</p>
+      <p><span>現在価格</span> {{ now_price }}</p>
       <div class="bit_area">
         <p><input type="number" name="bit_price" placeholder="入札額" v-model="bit_price"></p>
-        <button @click="bit">入札する</button>
+        <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
       </div>
     </div>
     <div class="auciton_schedule">
