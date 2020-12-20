@@ -1,19 +1,20 @@
-// 'use strict';
-// import Vue from 'vue';
-// import axiosBase from './AxiosBase';
-// import resetScss from './scss/_reset.scss';
-// import './scss/_reset.scss';
+'use strict';
+import Vue from 'vue';
+import axiosBase from './AxiosBase';
 
-// Vue.config.productionTip = false;
+Vue.config.productionTip = false;
 
-// Vue.mixin(resetScss);
-// Vue.mixin(axiosBase);
+const EmpCar = new Vue({
+  el: '#wrapper',
+  data: {
+    cars:""
+  },
+  methods:{
+    
+  },
+  mounted () {
+    console.log("aaaaa")
+    console.log(this.$refs.cars)
+  }
+});
 
-// Vue.component('emp-car', require('./components/EmpCar').default);
-
-// // const EnpReistCar = new Vue({
-// //   el: '#wrapper'
-// // });
-// const EmpCars = new Vue({
-//       el: '#wrapper'
-// });

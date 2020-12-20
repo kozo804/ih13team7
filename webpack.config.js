@@ -7,7 +7,6 @@ const webpackConfig = {
   entry: {
     // ここにbuildしたいファイルを追加する
     // 書式 → ビルド後のファイル名: [`${entry_dir}/ビルドしたいファイル名`]
-    emp_regist_car: [`${entry_dir}/emp_regist_car.js`],
     emp_car:[`${entry_dir}/emp_car.js`],
     user_car:[`${entry_dir}/user_car.js`],
     emp_car_regist: [`${entry_dir}/emp_car_regist`],
