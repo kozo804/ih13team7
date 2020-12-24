@@ -155,3 +155,12 @@ h1 {
 .schedule {
   text-align: center;
 }
+
+.schedule .button {
+  background-color: #ffb833;
+  padding: 0.5em;
+}
+
+.schedule .button a {
+  display: block;
+}
