@@ -9,6 +9,7 @@ const webpackConfig = {
     // 書式 → ビルド後のファイル名: [`${entry_dir}/ビルドしたいファイル名`]
     emp_car_regist: [`${entry_dir}/emp_car_regist`],
     test: [`${entry_dir}/test.js`],
+    user_auction_auctionid_bit: [`${entry_dir}/user_auction_auctionid_bit`],
   },
   output: {
     path: path.join(__dirname, 'public/js'),
