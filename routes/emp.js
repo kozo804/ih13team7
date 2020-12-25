@@ -179,7 +179,11 @@ router.post('/car/finish', function (req, res, next) {
 });
 
 router.get('/auction', (req,res,next)=>{
+  // DBからオークション履歴と今後のスケジュール取得
+
+
   res.render('emp_auction.ejs');
+  // res.render('emp_auction', data);
 });
 
 router.get('/auction/regist', (req,res,next)=>{
