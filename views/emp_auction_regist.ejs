@@ -4,27 +4,85 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/emp_auction_regist.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<title>オークション登録</title>
 </head>
 <body>
 	<%- include('emp_header') %>
-	<div class="container-fluid">
+	<div class="container">
 		<h1>オークション登録</h1>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-5">
 				<h4>車種を探す</h4>
 				<div class="row">
 					<h5>メーカーから検索</h5>
+					<div class="row">
+						<div class="col-sm">レクサス</div>
+						<div class="col-sm">トヨタ</div>
+						<div class="col-sm">ホンダ</div>
+						<div class="col-sm">日産</div>
+						<div class="col-sm">スズキ</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">ダイハツ</div>
+						<div class="col-sm">マツダ</div>
+						<div class="col-sm">スバル</div>
+						<div class="col-sm">三菱</div>
+						<div class="col-sm">国産車<br>すべて</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">メルセデス・ベンツ</div>
+						<div class="col-sm">ＢＭＷ</div>
+						<div class="col-sm">フォルクスワーゲン</div>
+						<div class="col-sm">アウディ</div>
+						<div class="col-sm">ミニ</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">ポルシェ</div>
+						<div class="col-sm">ボルボ</div>
+						<div class="col-sm">プジョー</div>
+						<div class="col-sm">ランドローバー</div>
+						<div class="col-sm">輸入車<br>すべて</div>
+					</div>
 				</div>
 				<div class="row">
 					<h5>ボディタイプから検索</h5>
+					<div class="row">
+						<div class="col-sm">軽自動車</div>
+						<div class="col-sm">コンパクトカー</div>
+						<div class="col-sm">ミニバン</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">ステーションワゴン</div>
+						<div class="col-sm">ＳＵＶ・クロカン</div>
+						<div class="col-sm">セダン</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">クーペ</div>
+						<div class="col-sm">ハイブリッド</div>
+						<div class="col-sm">ハッチバック</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-7">
 				<!-- 車両選択 -->
-
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<th scope="col">日程</th>
+							<td>10/10</td>
+						</tr>
+						<tr>
+							<th scope="col">開始時間</th>
+							<td>18:00</td>
+						</tr>
+						<tr>
+							<th scope="col">終了時間</th>
+							<td>19:00</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
