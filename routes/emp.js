@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
-var carModel = require('../models/t03_car');
+var carModel = require('../models/t03_car').car;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -46,7 +46,11 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/car', function (req, res, next) {
-
+    carModel.find({ status:0 })
+    .then((result)=>{
+      console.log(result[0].maker);
+      res.render('emp_car',{result:JSON.stringify(result)});
+    });
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -119,8 +123,10 @@ router.post('/car/finish', function (req, res, next) {
 
   // DBに保存
   const car_info = req.session.car_info;
-  // console.log(car_info);
-  const car = new carModel.car({
+
+  console.log(car_info);
+  const car = new carModel({
+
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
