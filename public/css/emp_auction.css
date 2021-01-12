@@ -143,3 +143,15 @@ header img {
   display: block;
   background-color: #f0ccb9;
 }
+
+h1 {
+  visibility: hidden;
+}
+
+.history {
+  text-align: center;
+}
+
+.schedule {
+  text-align: center;
+}

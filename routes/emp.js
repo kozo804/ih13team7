@@ -185,7 +185,7 @@ router.post('/car/finish', function (req, res, next) {
 });
 
 router.get('/auction', (req,res,next)=>{
-  // res.render('emp_auction.ejs');
+  res.render('emp_auction.ejs');
 });
 
 router.get('/auction/regist', (req,res,next)=>{
