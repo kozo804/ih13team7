@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
+var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -13,6 +14,7 @@ var storage = multer.diskStorage({
     cd(null, `emp_${Date.now()}`)
   }
 })
+
 var upload = multer({
   storage: storage,
   onFileUploadStart: function (file, req, res) {
@@ -185,11 +187,20 @@ router.post('/car/finish', function (req, res, next) {
 });
 
 router.get('/auction', (req,res,next)=>{
+
   res.render('emp_auction.ejs');
 });
 
-router.get('/auction/regist', (req,res,next)=>{
-  res.render('emp_auction_regist.ejs');
+router.get('/auction/regist', async (req,res,next)=>{
+  const cars = await carModel.find({ status:0 });
+
+  res.render('emp_auction_regist.ejs',{cars:cars});
 });
+
+
+router.post('/auction/confirm', async (req,res,next) => {
+  console.log(req.body);
+  res.render('emp_auction_confirm.ejs');
+})
 
 module.exports = router;
