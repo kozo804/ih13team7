@@ -9,82 +9,49 @@
 	<title>オークション登録</title>
 </head>
 <body>
-	<%- include('emp_header') %>
-	<div class="container">
-		<h1>オークション登録</h1>
-		<div class="row">
-			<div class="col-md-5">
-				<h4>車種を探す</h4>
-				<div class="row">
-					<h5>メーカーから検索</h5>
-					<div class="row">
-						<div class="col-sm">レクサス</div>
-						<div class="col-sm">トヨタ</div>
-						<div class="col-sm">ホンダ</div>
-						<div class="col-sm">日産</div>
-						<div class="col-sm">スズキ</div>
-					</div>
-					<div class="row">
-						<div class="col-sm">ダイハツ</div>
-						<div class="col-sm">マツダ</div>
-						<div class="col-sm">スバル</div>
-						<div class="col-sm">三菱</div>
-						<div class="col-sm">国産車<br>すべて</div>
-					</div>
-					<div class="row">
-						<div class="col-sm">メルセデス・ベンツ</div>
-						<div class="col-sm">ＢＭＷ</div>
-						<div class="col-sm">フォルクスワーゲン</div>
-						<div class="col-sm">アウディ</div>
-						<div class="col-sm">ミニ</div>
-					</div>
-					<div class="row">
-						<div class="col-sm">ポルシェ</div>
-						<div class="col-sm">ボルボ</div>
-						<div class="col-sm">プジョー</div>
-						<div class="col-sm">ランドローバー</div>
-						<div class="col-sm">輸入車<br>すべて</div>
-					</div>
-				</div>
-				<div class="row">
-					<h5>ボディタイプから検索</h5>
-					<div class="row">
-						<div class="col-sm">軽自動車</div>
-						<div class="col-sm">コンパクトカー</div>
-						<div class="col-sm">ミニバン</div>
-					</div>
-					<div class="row">
-						<div class="col-sm">ステーションワゴン</div>
-						<div class="col-sm">ＳＵＶ・クロカン</div>
-						<div class="col-sm">セダン</div>
-					</div>
-					<div class="row">
-						<div class="col-sm">クーペ</div>
-						<div class="col-sm">ハイブリッド</div>
-						<div class="col-sm">ハッチバック</div>
-					</div>
-				</div>
+
+	<form action="/emp/auction/confirm" method="post">
+		<input type="text" name="maker" value="aaaaaaaa">
+		<button type="submit">submit</button>
+	</form>
+	<div class="row" id="wrapper">
+		<h1>emp_auction_regist</h1>
+		<form action="/emp/auction/confirm" method="post">
+			<div class="mb-3 col5">
+			  <label for="auction_name" class="form-label">auction_name</label>
+			  <input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
+
 			</div>
-			<div class="col-md-7">
-				<!-- 車両選択 -->
-				<table class="table table-bordered">
-					<tbody>
-						<tr>
-							<th scope="col">日程</th>
-							<td>10/10</td>
-						</tr>
-						<tr>
-							<th scope="col">開始時間</th>
-							<td>18:00</td>
-						</tr>
-						<tr>
-							<th scope="col">終了時間</th>
-							<td>19:00</td>
-						</tr>
-					</tbody>
-				</table>
+			
+			<div class="mb-3">
+			  <label for="start_time" class="form-label">start_time</label>
+			  <input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
 			</div>
-		</div>
+			<% for (var car of cars) {%>
+					<div class="card mt-3">
+						<div class="form-check">
+							<div class="card-body">
+								<h5 class="card-title"><%= car.car_name %></h5>
+								<p class="card-text"><%= car.grade %></p>
+								<p class="card-text"><%= car.outer_color %></p>
+								<p class="card-text">オークション：　出品中</p>
+								<%= car._id %>
+								<a href="" class="btn btn-primary">詳しくはこちら</a>
+							</div>
+							<input v-model="checkCars" name="defaultCheck1" class="form-check-input" type="checkbox" value="<%= car._id %>" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								<%= car.car_name %>
+							</label>
+						  </div>
+						  
+	
+					</div>
+			<% } %>
+			{{data}}
+			<button type="submit" class="btn btn-primary">確認画面</button>
+		</form>
 	</div>
+
+
 </body>
 </html>

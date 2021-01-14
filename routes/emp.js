@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
+var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -13,6 +14,7 @@ var storage = multer.diskStorage({
     cd(null, `emp_${Date.now()}`)
   }
 })
+
 var upload = multer({
   storage: storage,
   onFileUploadStart: function (file, req, res) {
@@ -192,8 +194,38 @@ router.get('/auction', (req,res,next)=>{
   // res.render('emp_auction', data);
 });
 
-router.get('/auction/regist', (req,res,next)=>{
-  res.render('emp_auction_regist.ejs');
+router.get('/auction/regist', async (req,res,next)=>{
+  const cars = await carModel.find({ status:0 });
+
+  res.render('emp_auction_regist.ejs',{cars:cars});
 });
 
+
+router.post('/auction/confirm', async (req,res,next) => {
+  var date = new Date()
+  const auction = {
+    auction_name: req.body.auction_name,
+    start_time: date.getTime(),
+    end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
+    // rep_id: Number,
+    car_count: req.body.defaultCheck1.length,
+    car_ids : []
+  }
+  for(let i=0; i<req.body.defaultCheck1.length; i++){
+    let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
+    auction.car_ids[i]=car[0]
+  }
+  console.log(auction)
+  req.session.auction = auction;
+  res.render('emp_auction_confirm.ejs', {auction:auction});
+});
+
+router.get('/auction/finsh',async (req, res, next) => {
+
+  const auction_data = req.session.auction
+  console.log('auction_data',auction_data)
+  const auction_res = await AuctionModel.create(auction_data)
+  console.log('auction_res', auction_res)
+  res.render('emp_acution_finish.ejs',{auction_res:auction_res})
+})
 module.exports = router;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrapper" class="container">
+        <input type="hidden" name="emp-cars" id="emp-cars" ref="cars" value="<%= result %>">
+        <div class="row">
+            <!-- 左部分 -->
+            <div class="col-3">
+                <p>col-2</p>
+            </div>
+            <!-- 右部分 -->
+            <div class="col-9">
+                <div class="row row-cols-3">
+                    <div class="col">
+                        <div class="card mt-3">
+                            <img :src="imgSrc" class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{car.car_name}}</h5>
+                              <p class="card-text">{{car.grade}}</p>
+                              <p class="card-text">{{car.outer_color}}</p>
+                              <p class="card-text" v-if="car.status == 0">オークション：　出品中</p>
+                              <p class="card-text" v-if="car.status == 1">オークション：　準備中</p>
+                              {{car._id}}
+                              `${car._id}`
+                              <a href="" class="btn btn-primary">詳しくはこちら</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .row -->
+    </div>
+</body>
+</html>
