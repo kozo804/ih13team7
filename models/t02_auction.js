@@ -8,11 +8,11 @@ var Schema = mongoose.Schema;
 var auctionSchema = new Schema({
 	// _id: Number,
 	auction_name: String,
-	start_time: Date,
-	end_time: Date,
+	start_time: Number,
+	end_time: Number,
 	// rep_id: Number,
 	car_count: Number,
 	car_ids : Array
 });
 
-module.Auction = mongoose.model('Auction', auctionSchema);
+module.exports.Auction = mongoose.model('Auction', auctionSchema);

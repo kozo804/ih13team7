@@ -10,7 +10,17 @@ const AuctionResist = new Vue({
     maker: '',
     auctionName: 'カーオークション',
     startTime: '',
-    checkCars: []
+    checkCars: [],
+    data: {}
+  },
+  watch: {
+      checkCars: function () {
+          this.data= {
+            auctionName: this.auctionName,
+            startTime: this.startTime,
+            checkCars: this.checkCars
+          }
+      }
   },
   methods:{
     onFormSubmit: async function () {

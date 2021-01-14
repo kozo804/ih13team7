@@ -6,7 +6,45 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>emp_auction_confirm</h1>
+    <div class="row" id="wrapper">
+        <h1>emp_auction_confirm</h1>
+
+        <div class="card mt-3">
+            <div class="form-check">
+                <div class="card-body">
+                    <h5 class="card-title">オークションネーム<%= auction.auction_name %></h5>
+                    <p class="card-text">開始時間<%= new Date(auction.start_time).toLocaleString() %></p>
+                    <p class="card-text">終了時間<%= new Date(auction.end_time).toLocaleString() %></p>
+                    <p class="card-text">オークション：　選んだ車両</p>
+    
+                    <% for (var car of auction.car_ids) {%>
+                        <div class="card mt-3">
+                            <div class="form-check">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= car.car_name %></h5>
+                                    <p class="card-text"><%= car.grade %></p>
+                                    <p class="card-text"><%= car.outer_color %></p>
+                                    <p class="card-text">オークション：　出品中</p>
+                                    <%= car._id %>
+                                    <a href="" class="btn btn-primary">詳しくはこちら</a>
+                                </div>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    <%= car.car_name %>
+                                </label>
+                              </div>
+                              <hr>
+                        </div>
+                <% } %>
+                </div>
+              </div>
+              <form action="/emp/auction/finsh" method="get">
+                <button type="submit" class="btn btn-primary">確定</button>
+            </form>
+
+
+        </div>
+    </div>
+
 
 </body>
 </html>
