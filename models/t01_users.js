@@ -5,7 +5,6 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 // 取扱データ形式設定
 var memberSchema = new Schema({
-  // _id: Number,
   name: String,
   email: String,
   tel: String,
