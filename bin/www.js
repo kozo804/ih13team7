@@ -149,7 +149,7 @@ function onConnection(socket) {
     db.once('open', function () {
       console.log('DB接続中... You can cancel from ctrl + c');
     });
-    const bit_history = new bitHistory.bitHistory({
+    const bit_history = new bitHistory({
       car_id: bit_data.car_id,
       user_id: bit_data.user_id,
       user_name: bit_data.user_name,
