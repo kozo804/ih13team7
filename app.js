@@ -65,18 +65,18 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
-const Users = require('./models/t01_users');
-const Employees = require('./models/t04_Employees');
+const Users = require('./models/t01_users').users;
+const Employees = require('./models/t04_Employees').employees;
 const con = require('./models/mongoose-loader');
 
 passport.use(
   'emp_login',
   new LocalStrategy(
     {
-      usernameField: 'emp_id',
+      usernameField: 'name',
       passwordField: 'password'
     },
-    function (emp_id, password, done) {
+    function (name, password, done) {
       const db = con.mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function () {
@@ -84,7 +84,7 @@ passport.use(
         console.log('DB接続中... You can cancel from ctrl + c');
       });
 
-      Employees.findOne({ _id: emp_id, password: password })
+      Employees.find({ name: name, password: password })
         .then(function (result) {
           log(result);
           return done(null, result);
@@ -95,14 +95,15 @@ passport.use(
     }
   )
 );
+
 passport.use(
   'user_login',
   new LocalStrategy(
     {
-      usernameField: 'user_id',
+      usernameField: 'email',
       passwordField: 'password'
     },
-    function (user_id, password, done) {
+    function (email, password, done) {
       const db = con.mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function () {
@@ -110,9 +111,9 @@ passport.use(
         console.log('DB接続中... You can cancel from ctrl + c');
       });
 
-      Users.findOne({ _id: user_id, password: password })
+      Users.find({ email: email, password: password })
         .then(function (result) {
-          log(result);
+          console.log('user login result' + result);
           return done(null, result);
         }).catch(function (err) {
           console.log(err);
@@ -140,7 +141,7 @@ app.use(function (err, req, res, next) {
 
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
+
   // render the error page
   res.status(err.status || 500);
   res.render('error');
