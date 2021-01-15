@@ -97,9 +97,10 @@ function onListening() {
  */
 // ・ソケットのひも付け（listen）
 const io = require('socket.io')(server);
-const con = require('../models/mongoose-loader');
 const schedule = require("node-schedule");
-const bitHistory = require('../models/t05_bit_history');
+const con = require('../models/mongoose-loader');
+// const Users = require('./models/t01_users').users;
+const bitHistory = require('../models/t05_bit_history').bitHistory;
 
 var bets = Array();
 var room_id = 0;
@@ -141,20 +142,47 @@ function onConnection(socket) {
   // send_id = id + 'さんが入室しました';
   // socket.broadcast.emit('send_id', send_id);
 
-  socket.on("bit", function(data) {
-    bit_price = data;
+  socket.on("bit", function (bit_data) {
     // dbに登録する処理
     const db = con.mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function () {
-      // we're connected!
       console.log('DB接続中... You can cancel from ctrl + c');
     });
-    // const bit_history = new bitHistory.bitHistory({
-    //   bit: [{user_id: }]
-    // })
-  
+    const bit_history = new bitHistory.bitHistory({
+      car_id: bit_data.car_id,
+      user_id: bit_data.user_id,
+      user_name: bit_data.user_name,
+      price: bit_data.price
+    });
+    bit_history.save()
+      .then(result => {
+        console.log(result);
+        socket.broadcast.emit('bit_broadcast', result.price);
+      })
+      .catch(err => {
+        console.log(err);
+        return;
+      });
+
+
     // dbから取得する処理
+  });
+
+  socket.on("sync", function (car_id) {
+    const db = con.mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function () {
+      console.log('DB接続中... You can cancel from ctrl + c');
+    });
+    bitHistory.find({car_id: car_id})
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+      return;
+    });
   });
 
   // 切断時の処理
