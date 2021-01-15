@@ -6,7 +6,6 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 
 var auctionSchema = new Schema({
-	// _id: Number,
 	auction_name: String,
 	start_time: Number,
 	end_time: Number,
