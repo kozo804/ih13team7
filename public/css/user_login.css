@@ -1,0 +1,82 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.top-container {
+    width: 100%
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-around {
+    justify-content: space-around;
+    align-items: center;
+}
+
+.content {
+    background-image: url('../images/bg.jpg');
+    height: 1000px;
+}
+
+.content-item {
+    width: 250px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    height: 216px;
+    z-index: 1;
+    background: #fff;
+}
+
+.btn-top {
+    background: orange;
+    border-radius: 20px;
+    padding: 6px 10px;
+    border: 0px;
+}
+
+.search {
+    width: 360px;
+    border-radius: 10px 0 0 10px;
+    border: 1px;
+}
+
+.header {
+    width: 100%;
+    height: 120px;
+    background: #94dfe2;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.user-input {
+    width: 14rem;
+    height: 2rem;
+    border: rgb(137, 137, 139);
+}
+
+.user-btn {
+    padding: 8px 34px;
+    border-radius: 13px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.search-btn {
+    border-radius: 0 10px 10px 0;
+    margin-left: -5px;
+    padding: 1 26px;
+    border: 0px;
+}
+
+.login {
+    background: #58d3ef;
+}
+
+.register {
+    background: #eee;
+}
