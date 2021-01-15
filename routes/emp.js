@@ -213,7 +213,10 @@ router.post('/auction/confirm', async (req,res,next) => {
   }
   for(let i=0; i<req.body.defaultCheck1.length; i++){
     let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
-    auction.car_ids[i]=car[0]
+    auction.car_ids[i]={
+      carEndtime: auction.start_time + 30 * i * 1000,
+      carDate: car[0]
+    }
   }
   console.log(auction)
   req.session.auction = auction;
