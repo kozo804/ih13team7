@@ -12,7 +12,7 @@ var auctionSchema = new Schema({
 	end_time: Number,
 	// rep_id: Number,
 	car_count: Number,
-	car_ids : Array
+	car_ids : Object
 });
 
 module.exports.Auction = mongoose.model('Auction', auctionSchema);
