@@ -25,7 +25,7 @@
           <td><input type="text" name="password"></td>
         </tr>
       </table>
-      <button type="submit">登録</button>
+      <button type="submit">送信</button>
     </form>
 
     <form action="/test/employee" method="post" onsubmit="doSomething();return false;">
@@ -38,23 +38,10 @@
           <td>password</td><td><input type="password" name="password"></td>
         </tr>
       </table>
-      <button type="submit">登録</button>
+      <button type="submit">送信</button>
     </form>
 
-    <form action="/test/login/user" method="post" onsubmit="doSomething();return false;">
-      <div>User</div>
-      <table>
-        <tr>
-          <td>email</td><td><input type="text" name="email" value="test@gmail.com"></td>
-        </tr>
-        <tr>
-          <td>password</td><td><input type="password" name="password" value="12345"></td>
-        </tr>
-      </table>
-      <button type="submit">ログイン</button>
-    </form>
-
-    <form action="/test/login/employee" method="post" onsubmit="doSomething();return false;">
+    <form action="/test/login" method="post" onsubmit="doSomething();return false;">
       <div>Employee</div>
       <table>
         <tr>
@@ -66,5 +53,6 @@
       </table>
       <button type="submit">ログイン</button>
     </form>
+
   </body>
 </html>

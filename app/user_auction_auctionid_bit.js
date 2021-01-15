@@ -11,25 +11,16 @@ const user_auction_auctionid_bit = new Vue({
   data: {
     values: '',
     bit_price: '',
-    now_price: 2,
+    now_price: '',
     auction_id: document.getElementsByName("auction_id")[0].value,
     now_date: new Date(),
     end_date: new Date(document.getElementsByName("end_date")[0].value),
-    car_id: document.getElementsByName("car_id")[0].value,
-    user_id: document.getElementsByName("user_id")[0].value,
-    user_name: document.getElementsByName("user_name")[0].value,
   },
   methods: {
     // 入札ボタンを押したときの処理
     bit: function () {
-      this.now_price = this.bit_price;
-      const bit_data = {
-        car_id: this.car_id,
-        user_id: this.user_id,
-        user_name: this.user_name,
-        price: this.bit_price,
-      };
-      socket.emit('bit', bit_data);
+      const price = this.bit_price;
+      socket.emit('bit', price);
     },
     // windowを離れたときにsocketを切断するリスナを設定
     leave: function () {
@@ -44,7 +35,6 @@ const user_auction_auctionid_bit = new Vue({
       }, 250);
     },
   },
-
   computed: {
     difference: function () {
       return this.end_date - this.now_date;
@@ -86,21 +76,14 @@ const user_auction_auctionid_bit = new Vue({
   },
   mounted() {
     // ルームに参加
-    const self = this;
     socket.emit("join_room", this.auction_id);
-    socket.on("bit_broadcast", function(bited_price) {
-      self.bit_price = bited_price;
-      self.now_price = bited_price;
-    });
-    this.countdown();
-    this.leave();
     // console.log(this.bit_button);
-    socket.emit('sync', this.car_id);
-    socket.on('sync_result', function(result) {
-      console.log(result);
-    });
+    // socket.on('sync', this.receiveMsg);
 
     // const axios = AxiosBase.axiosBase();
     // axios.get();
+
+    this.countdown();
+    this.leave();
   }
 });

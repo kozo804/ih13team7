@@ -6,8 +6,10 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 
 var employeesSchema = new Schema({
+	// _id: Number,
 	name: String,
 	password: String,
+
 });
 
 // module.Employees = mongoose.model('Employees', employeesSchema);

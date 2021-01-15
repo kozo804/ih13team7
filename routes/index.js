@@ -3,9 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // console.log(req.session.passport.user._id);
   res.render('index', { title: 'Express' });
 });
+
 
 
 module.exports = router;
