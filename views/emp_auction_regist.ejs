@@ -4,11 +4,54 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/emp_auction_regist.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<!-- <link rel="stylesheet" href="/css/emp_auction_regist.css"> -->
 	<title>オークション登録</title>
 </head>
 <body>
+
+	<form action="/emp/auction/confirm" method="post">
+		<input type="text" name="maker" value="aaaaaaaa">
+		<button type="submit">submit</button>
+	</form>
+	<div class="row" id="wrapper">
+		<h1>emp_auction_regist</h1>
+		<form action="/emp/auction/confirm" method="post">
+			<div class="mb-3 col5">
+			  <label for="auction_name" class="form-label">auction_name</label>
+			  <input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
+
+			</div>
+			
+			<div class="mb-3">
+			  <label for="start_time" class="form-label">start_time</label>
+			  <input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
+			</div>
+			<% for (var car of cars) {%>
+					<div class="card mt-3">
+						<div class="form-check">
+							<div class="card-body">
+								<h5 class="card-title"><%= car.car_name %></h5>
+								<p class="card-text"><%= car.grade %></p>
+								<p class="card-text"><%= car.outer_color %></p>
+								<p class="card-text">オークション：　出品中</p>
+								<%= car._id %>
+								<a href="" class="btn btn-primary">詳しくはこちら</a>
+							</div>
+							<input v-model="checkCars" name="defaultCheck1" class="form-check-input" type="checkbox" value="<%= car._id %>" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								<%= car.car_name %>
+							</label>
+						  </div>
+						  
 	
+					</div>
+			<% } %>
+			{{data}}
+			<button type="submit" class="btn btn-primary">確認画面</button>
+		</form>
+	</div>
+
+
 </body>
 </html>
