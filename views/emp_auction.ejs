@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/emp_auction.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<title>オークション一覧</title>
+</head>
+<body>
+	<%- include('emp_header') %>
+	<div class="container">
+		<h1>オークション一覧</h1>
+		<div class="row">
+			<div class="col-md-6 history">
+				<!-- 今までの履歴 -->
+				<h2>今までの履歴</h2>
+
+				<div>日程：[日付][開始時間]-[終了時間]</div>
+				<div>日程：[日付][開始時間]-[終了時間]</div>
+				
+			</div>
+			<div class="col-md-6 schedule">
+				<!-- 今後のスケジュール -->
+				<h2>今後のスケジュール</h2>
+				<h3>開催中</h3>
+
+				<div>日程：[日付][開始時間]-[終了時間]</div>
+				<div>日程：[日付][開始時間]-[終了時間]</div>
+
+				<a class="btn btn-outline-warning btn-lg" href="/emp/auction/regist" role="button">オークションを追加する</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

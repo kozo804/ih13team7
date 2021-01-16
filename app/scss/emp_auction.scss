@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+@import "./reset";
+
+header {
+  $height: 60px;
+  width: 100%;
+  height: $height;
+  background-color: #ddeaf6;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  ul {
+    width: 50%;
+    height: $height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  p {
+    width: 20%;
+    text-align: center;
+  }
+  img {
+    width: auto;
+    height: $height;
+  }
+}
+
+.header_link {
+  $height: 40px;
+  width: 33.3%;
+  height: $height;
+  line-height: $height;
+  a {
+    width: 150px;
+    height: 100%;
+    color: #000;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    background-color: #f0ccb9;
+	}
+}
+
+h1 {
+	visibility: hidden;
+}
+.history {
+  text-align: center;
+}
+.schedule {
+  text-align: center;
+}

@@ -1,16 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
-var carModel = require('../models/t03_car');
+var carModel = require('../models/t03_car').car;
+var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cd) {
+    console.log(req.file);
+    cd(null, '/public/images/')
+  },
+  filename: function(req, file, cd) {
+    cd(null, `emp_${Date.now()}`)
+  }
+})
+
 var upload = multer({
-  dist: '/public/images/',
-  // rename: function (fieldname, filename) {
-  //   console.log("multer rename function: fieldname" + fieldname);
-  //   console.log("multer rename function: filename" + filename);
-  //   return `emp_`;
-  // },
+  storage: storage,
   onFileUploadStart: function (file, req, res) {
     console.log(file.fieldname + ' is starting ...')
   },
@@ -42,7 +48,11 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/car', function (req, res, next) {
-
+    carModel.find({ status:0 })
+    .then((result)=>{
+      console.log(result[0].maker);
+      res.render('emp_car',{result:JSON.stringify(result)});
+    });
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -50,7 +60,7 @@ router.get('/car/regist', function (req, res, next) {
   res.render('emp_car_regist');
 });
 
-router.post('/car/confirm', upload.array('file'), function (req, res, next) {
+router.post('/car/confirm', upload.array('car_picture'), function (req, res, next) {
   const car_info = {
     maker: req.body.maker,
     car_name: req.body.car_name,
@@ -97,7 +107,7 @@ router.post('/car/confirm', upload.array('file'), function (req, res, next) {
     entries_field: req.body.entries_field,
     comment: req.body.comment,
   }
-  console.log(req.files);
+  // console.log(req.files);
   // 写真の処理を追加する予定
 
   req.session.car_info = car_info;
@@ -115,8 +125,10 @@ router.post('/car/finish', function (req, res, next) {
 
   // DBに保存
   const car_info = req.session.car_info;
+
   console.log(car_info);
-  const car = new carModel.car({
+  const car = new carModel({
+
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
@@ -174,4 +186,46 @@ router.post('/car/finish', function (req, res, next) {
   res.render('emp_car_finish');
 });
 
+router.get('/auction', (req,res,next)=>{
+  // DBからオークション履歴と今後のスケジュール取得
+
+
+  res.render('emp_auction.ejs');
+  // res.render('emp_auction', data);
+});
+
+router.get('/auction/regist', async (req,res,next)=>{
+  const cars = await carModel.find({ status:0 });
+
+  res.render('emp_auction_regist.ejs',{cars:cars});
+});
+
+
+router.post('/auction/confirm', async (req,res,next) => {
+  var date = new Date()
+  const auction = {
+    auction_name: req.body.auction_name,
+    start_time: date.getTime(),
+    end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
+    // rep_id: Number,
+    car_count: req.body.defaultCheck1.length,
+    car_ids : []
+  }
+  for(let i=0; i<req.body.defaultCheck1.length; i++){
+    let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
+    auction.car_ids[i]=car[0]
+  }
+  console.log(auction)
+  req.session.auction = auction;
+  res.render('emp_auction_confirm.ejs', {auction:auction});
+});
+
+router.get('/auction/finsh',async (req, res, next) => {
+
+  const auction_data = req.session.auction
+  console.log('auction_data',auction_data)
+  const auction_res = await AuctionModel.create(auction_data)
+  console.log('auction_res', auction_res)
+  res.render('emp_acution_finish.ejs',{auction_res:auction_res})
+})
 module.exports = router;
