@@ -6,7 +6,10 @@ const mongoose = loader.mongoose;
 var Schema = mongoose.Schema;
 
 var bitSchema = new Schema({
-	bit: [{user_id: String, price: String}]
+	car_id: String,
+	user_id: String, 
+	user_name: String,
+	price: String
 });
 
 exports.bitHistory = mongoose.model('bitHistory', bitSchema);
