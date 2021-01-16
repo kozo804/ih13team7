@@ -1,18 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/css/user_car.css' />
-    <title>Document</title>
+    <!-- <link rel='stylesheet' href='/css/user_car.css' /> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>User_Car</title>
 </head>
 
 <body>
-    <div id="wrapper">
-        <%=result%>
+    <h1>user car</h1>
+    <div id="wrapper" class="container">
+        <input type="hidden" name="user-cars" id="user-cars" ref="cars" value="<%= result %>">
+        <div class="row">
+            <!-- 左部分 -->
+            <div class="col-3">
+                <p>col-2</p>
+            </div>
+            <!-- 右部分 -->
+            <div class="col-9">
+                <div class="d-flex justify-content-center">
+                    <input class="btn btn-info" type="button" value="車両登録">
+                </div>
+                <div class="row row-cols-3">
+                    <div class="col" v-for="car in cars" :key="car.payment_flg">
+                        <div class="card mt-3">
+                            <img :src="imgSrc" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{car.car_name}}</h5>
+                                <p class="card-text">{{car.grade}}</p>
+                                <p class="card-text">{{car.outer_color}}</p>
 
+                                {{car._id}}
+                                `${car._id}`
+                            <a href="" class="btn btn-primary">詳しくはこちら</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .row -->
     </div>
+
     <script src="/js/user_car.js"></script>
 </body>
 
