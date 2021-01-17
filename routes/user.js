@@ -20,7 +20,7 @@ router.get('/car', function (req, res, next) {
   carModel.find({ status: 0 })
     .then((result) => {
       console.log(result[0]);
-      render('user_car', { result: JSON.stringify(result) })
+      res.render('user_car', { result: JSON.stringify(result) })
     })
 });
 
