@@ -8,10 +8,11 @@ var employeeModel = require('../models/t04_Employees');
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
+  res.render('user_login')
 });
 
 router.get('/top', function (req, res, next) {
-
+  res.render('user_top')
 });
 
 router.get('/car', function(req, res, next) {
@@ -22,8 +23,11 @@ router.get('/car', function(req, res, next) {
   })
 });
 
-router.get('/car/:car_id', function (req, res, next) {
 
+router.get('/car/:car_id', async function (req, res, next) {
+console.log(req.params['car_id'])
+const carData = await carModel.find({ _id:req.params['car_id'] })
+res.render('user_car_detail.ejs',{carData:carData})
 });
 
 router.get('/auction', function (req, res, next) {
@@ -81,5 +85,17 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     }
   );
 })
+
+router.post('/login', function (req, res, next) {
+  Users.users.findOne({ name: req.body.user_id, password: req.body.password })
+    .then(function (result) {
+      res.status = 200
+      res.send(result)
+    }).catch(function (err) {
+      console.log(err);
+      res.status = 500
+      res.send()
+    });
+});
 
 module.exports = router;
