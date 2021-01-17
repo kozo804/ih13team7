@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>オークション新規登録完了</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/emp_car_regist.css">
+
 </head>
 <body>
-    <h1>emp_acution_finish</h1>
-    <pre><%= auction_res %></pre>
-
+    <div class="row" id="wrapper">
+		<%- include('./emp_header.ejs'); %>
+		<div class="container">
+            <h1 class="display-2">オークション新規登録完了</h1>
+            <p class="display-4">3秒後にオークション一覧に移動します</p>
+        </div>
+        <script>
+            setTimeout(function () {
+              window.location.href = '/emp/auction';
+            }, 3 * 1000);  
+        </script>
 </body>
 </html>
