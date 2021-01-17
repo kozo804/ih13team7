@@ -28,6 +28,7 @@
     height: 216px;
     z-index: 1;
     background: #fff;
+    padding-top: 18px;
 }
 
 .btn-top {
