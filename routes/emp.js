@@ -186,10 +186,13 @@ router.post('/car/finish', function (req, res, next) {
 
 router.get('/auction', (req,res,next)=>{
   // DBからオークション履歴と今後のスケジュール取得
-
-
-  res.render('emp_auction.ejs');
-  // res.render('emp_auction', data);
+  let history = [];
+  let schedule = [];
+  AuctionModel.find(function (err, result){
+    if (err) return console.log(err);
+    history = result;
+  })
+  res.render('emp_auction', {history: history, schedule: schedule});
 });
 
 router.get('/auction/regist', async (req,res,next)=>{
