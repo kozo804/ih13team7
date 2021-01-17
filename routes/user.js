@@ -4,7 +4,8 @@ const passport = require('passport');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
-var employeeModel = require('../models/t04_Employees');
+var AuctionModel = require('../models/t02_auction').Auction;
+var employeeModel = require('../models/t04_Employees').employees;
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
@@ -15,12 +16,12 @@ router.get('/top', function (req, res, next) {
   res.render('user_top')
 });
 
-router.get('/car', function(req, res, next) {
-  carModel.find({ status:0 })
-  .then((result)=>{
-    console.log(result[0]);
-    render('user_car',{result:JSON.stringify(result)})
-  })
+router.get('/car', function (req, res, next) {
+  carModel.find({ status: 0 })
+    .then((result) => {
+      console.log(result[0]);
+      render('user_car', { result: JSON.stringify(result) })
+    })
 });
 
 
@@ -37,7 +38,7 @@ router.get('/auction', function (req, res, next) {
 router.get('/auction/:auction_id', async function (req, res, next) {
   let id = req.params['auction_id']
   const Auction = await AuctionModel.findById(id)
-  res.render('user_auction.ejs', {Auction:Auction})
+  res.render('user_auction.ejs', { Auction: Auction })
 });
 
 router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
@@ -68,11 +69,32 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
 
   // オークションの詳細を取ってくる処理
   // とりあえず仮置き
-  let endDate = new Date('2021-01-14T16:00:00').toString();
+
+  // 車の開始価格を取ってくる処理
+
+  let endDate = new Date('2021-01-15T19:00:00').toString();
   // console.log(endDate);
   // 
-  
+
   // 車の開始価格を取ってくる処理
+  // const db = con.mongoose.connection;
+  // db.on('error', console.error.bind(console, 'connection error:'));
+  // db.once('open', function () {
+  //   // we're connected!
+  //   console.log('DB接続中... You can cancel from ctrl + c');
+  // });
+
+  AuctionModel.find({car_id: car_id})
+  .then(result => {
+    console.log(result);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+
+
+
 
   res.render(
     'user_auction_auctionid_bit',
