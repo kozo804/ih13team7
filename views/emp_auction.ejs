@@ -17,17 +17,19 @@
 				<!-- 今までの履歴 -->
 				<h2>今までの履歴</h2>
 
-				<div>日程：[日付][開始時間]-[終了時間]</div>
-				<div>日程：[日付][開始時間]-[終了時間]</div>
-				
+				<% for (var i=0; i<6; i++) { %>
+				<a href="#" class="text-secondary">日程：[日付][開始時間]-[終了時間]</a><br>
+				<% } %>
+
 			</div>
 			<div class="col-md-6 schedule">
 				<!-- 今後のスケジュール -->
 				<h2>今後のスケジュール</h2>
 				<h3>開催中</h3>
 
-				<div>日程：[日付][開始時間]-[終了時間]</div>
-				<div>日程：[日付][開始時間]-[終了時間]</div>
+				<% for (var i=0; i<6; i++) { %>
+				<a href="#" class="text-secondary ">日程：[日付][開始時間]-[終了時間]</a><br>
+				<% } %>
 
 				<a class="btn btn-outline-warning btn-lg" href="/emp/auction/regist" role="button">オークションを追加する</a>
 			</div>
