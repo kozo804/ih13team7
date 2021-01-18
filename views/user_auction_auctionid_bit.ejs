@@ -23,7 +23,7 @@
       </div>
   
       <div class="auction_area">
-        <p><img src="car-<%= no %>.jpg" width="" height="" alt=""></p>
+        <!-- <p><img src="car-<%= no %>.jpg"></p> -->
         <p class="timer"><span>残り時間</span> {{ time }}</p>
         <p><span>現在価格</span> {{ now_price }},000円</p>
         <div class="bit_area">
@@ -56,6 +56,7 @@
   <input type="hidden" name="start_price" value="<%= auction_start_price %>">
   <input type="hidden" name="user_id" value="<%= user_id %>">
   <input type="hidden" name="user_name" value="<%= user_name %>">
+  <input type="hidden" name="no" value="<%= no %>">
   <script src="/js/user_auction_auctionid_bit.js"></script>
 </body>
 
