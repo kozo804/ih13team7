@@ -4,48 +4,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='/css/common.css' />
   <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/css/common.css' />
+  <link rel='stylesheet' href='/css/user_auction_auctionid_bit_carid.css' />
   <title>オークション</title>
 </head>
 
 <body>
   <div id="wrapper">
     <%- include('./emp_header.ejs'); %>
-    <div class="bit_history">
-      <!-- <p v-for=""></p> -->
-    </div>
-
-    <div class="auction_area">
-      <p><img src="" width="" height="" alt=""></p>
-      <p class="timer"><span>残り時間</span> {{ time }}</p>
-      <p><span>現在価格</span> {{ now_price }}</p>
-      <div class="bit_area">
-        <p>入札額<input type="number" name="bit_price" placeholder="入札額" v-model="bit_price"></p>
-        <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
+    <section class="main_area">
+      <div class="bit_history">
+        <ul class="bit_data" v-for="bit_data in history">
+          <li>{{ bit_data.user_name }} さん</li>
+          <li>{{ bit_data.price }} 円</li>
+          <li>{{ bit_data.date }}</li>
+        </ul>
       </div>
-      <table class="car_info">
-        <tr>
-          <td class="info_name">メーカー名</td>
-          <td></td>
-          <td class="info_name">車名</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="info_name">登録年式</td>
-          <td></td>
-          <td class="info_name">走行距離</td>
-          <td></td>
-        </tr>
-      </table>
-    </div>
-    <div class="auciton_schedule">
-
-    </div>
+  
+      <div class="auction_area">
+        <p><img src="car-<%= no %>.jpg" width="" height="" alt=""></p>
+        <p class="timer"><span>残り時間</span> {{ time }}</p>
+        <p><span>現在価格</span> {{ now_price }},000円</p>
+        <div class="bit_area">
+          <p>入札額<input type="number" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
+          <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
+        </div>
+        <table class="car_info">
+          <tr>
+            <td class="info_name">メーカー名</td>
+            <td></td>
+            <td class="info_name">車名</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="info_name">登録年式</td>
+            <td></td>
+            <td class="info_name">走行距離</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div class="auciton_schedule">
+        <p>a</p>
+      </div>
+    </section>
   </div>
   <input type="hidden" name="auction_id" value="<%= auction_id %>">
   <input type="hidden" name="car_id" value="<%= car_id %>">
   <input type="hidden" name="end_date" value="<%= auction_end_time %>">
+  <input type="hidden" name="start_price" value="<%= auction_start_price %>">
   <input type="hidden" name="user_id" value="<%= user_id %>">
   <input type="hidden" name="user_name" value="<%= user_name %>">
   <script src="/js/user_auction_auctionid_bit.js"></script>
