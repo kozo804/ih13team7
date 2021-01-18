@@ -91,8 +91,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   let auction_id;
   let user_info;
   let car_id;
-  let no = req.body.no;
-  console.log("no" + no);
+  let no = req.query.no;
   try {
     auction_id = req.params.auction_id;
     user_info = req.session.passport.user[0];
@@ -115,7 +114,6 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
   auction_model.exec()
     .then(result => {
-      // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
       auction_end_time = new Date(result[0].car_ids[no].carEndtime).toString();
 
       // オークションが終了しているかどうかチェック
@@ -126,18 +124,14 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
         const bit_model = bitModel.find({ car_id: car_id });
         bit_model.exec()
           .then(result => {
+            console.log("result");
             let result_length = result.length;
             if (result[result_length - 1].user_id == user_info._id) {
               // 落札している
               render_state = "bided";
               console.log(render_state + " state");
             }
-            console.log(render_state);
-            if (render_state == "yet") {
-              console.log("yet");
-              auction_start_price = result[0].car_ids[0].carData.auction_start_price;
-            }
-            else if (render_state == "finished") {
+            if (render_state == "finished") {
               console.log("finished");
               res.render("user_auction_finished");
             }
@@ -149,9 +143,9 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           .catch(err => {
             console.log(err);
           });
-          console.log(no);
       }
       else {
+        auction_start_price = result[0].car_ids[no].carData.auction_start_price;
         res.render(
           'user_auction_auctionid_bit',
           {
