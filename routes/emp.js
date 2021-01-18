@@ -203,10 +203,14 @@ router.get('/auction/regist', async (req,res,next)=>{
 
 
 router.post('/auction/confirm', async (req,res,next) => {
-  var date = new Date()
+  console.log(req.body)
+  let str = req.body.year+' '+req.body.month+' '+req.body.date+','+req.body.auction_start_time;
+  console.log(str);
+  let date = new Date(str);
+  console.log(date.getTime());
   const auction = {
     auction_name: req.body.auction_name,
-    start_time: date.getTime(),
+    start_time: +date.getTime(),
     end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
     // rep_id: Number,
     car_count: req.body.defaultCheck1.length,
