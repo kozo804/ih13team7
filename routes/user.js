@@ -39,7 +39,7 @@ router.get('/auction', function (req, res, next) {
 router.get('/auction/:auction_id', async function (req, res, next) {
   let id = req.params['auction_id']
   const Auction = await AuctionModel.findById(id)
-  res.render('user_auction.ejs', { Auction: Auction })
+  res.render('user_auction.ejs', { auction: Auction })
 });
 
 router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
