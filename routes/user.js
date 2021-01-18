@@ -26,9 +26,9 @@ router.get('/car', function (req, res, next) {
 
 
 router.get('/car/:car_id', async function (req, res, next) {
-console.log(req.params['car_id'])
-const carData = await carModel.find({ _id:req.params['car_id'] })
-res.render('user_car_detail.ejs',{carData:carData})
+  console.log(req.params['car_id'])
+  const carData = await carModel.find({ _id: req.params['car_id'] })
+  res.render('user_car_detail.ejs', { carData: carData })
 });
 
 router.get('/auction', function (req, res, next) {
@@ -77,35 +77,34 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     // we're connected!
     console.log('DB接続中... You can cancel from ctrl + c');
   });
-  // const auction_model = AuctionModel.find({ "car_ids.carDate._id": "600151e21375720161f92fd4" });
-  const auction_model = AuctionModel.find({ "car_ids.carDate._id": car_id });
+  const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
   auction_model.exec()
     .then(result => {
       // とりあえず仮置き
       // const auction_end_time = new Date('2021-01-15T19:00:00').toString();
       // console.log(endDate);
       // 
-      auction_end_time = result[0].end_time;
-      console.log(auction_end_time);
-      auction_start_price = result[0].car_ids[0].carDate.auction_start_price;
+
+      // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
+      auction_end_time = new Date(result[0].car_ids[0].carEndtime).toString();
+      auction_start_price = result[0].car_ids[0].carData.auction_start_price;
     })
     .catch(err => {
       console.log(err);
     })
-
-
-
-  res.render(
-    'user_auction_auctionid_bit',
-    {
-      auction_id: auction_id,
-      car_id: car_id,//仮置き
-      end_date: auction_end_time,
-      user_id: user_info._id,
-      user_name: user_info.name
-    }
-  );
-})
+    .then(function () {
+      res.render(
+        'user_auction_auctionid_bit',
+        {
+          auction_id: auction_id,
+          car_id: car_id,
+          auction_end_time: auction_end_time,
+          user_id: user_info._id,
+          user_name: user_info.name
+        }
+      );
+    })
+});
 
 router.post('/login', function (req, res, next) {
   Users.users.findOne({ name: req.body.user_id, password: req.body.password })
