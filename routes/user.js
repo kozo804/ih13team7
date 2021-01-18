@@ -89,19 +89,6 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
             if (render_state == "yet") {
               console.log("yet");
               auction_start_price = result[0].car_ids[0].carData.auction_start_price;
-              res.render(
-                'user_auction_auctionid_bit',
-                {
-                  auction_id: auction_id,
-                  car_id: car_id,
-                  auction_end_time: auction_end_time,
-                  auction_start_price: auction_start_price,
-                  user_id: user_info._id,
-                  user_name: user_info.name
-                  // user_id: "2",
-                  // user_name: "test"
-                }
-              );
             }
             else if (render_state == "finished") {
               console.log("finished");
@@ -115,6 +102,21 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           .catch(err => {
             console.log(err);
           });
+      }
+      else {
+        res.render(
+          'user_auction_auctionid_bit',
+          {
+            auction_id: auction_id,
+            car_id: car_id,
+            auction_end_time: auction_end_time,
+            auction_start_price: auction_start_price,
+            user_id: user_info._id,
+            user_name: user_info.name
+            // user_id: "2",
+            // user_name: "test"
+          }
+        );
       }
     })
     .catch(err => {
