@@ -1,6 +1,7 @@
 'use strict';
 import Vue from 'vue';
 import io from 'socket.io-client';
+// import AxiosBase from './AxiosBase';
 
 Vue.config.productionTip = false;
 
@@ -18,7 +19,6 @@ const user_auction_auctionid_bit = new Vue({
     user_id: document.getElementsByName("user_id")[0].value,
     user_name: document.getElementsByName("user_name")[0].value,
     history: '',
-    no: document.getElementsByName("no")[0].value,
   },
   methods: {
     // 入札ボタンを押したときの処理
@@ -81,8 +81,6 @@ const user_auction_auctionid_bit = new Vue({
       else {
         remaining = "終了";
         // 終了時にリロードする処理
-        let url = `/user/auction/${this.auction_id}/bit/${this.car_id}?no=${this.no}`;
-        window.location.href = url;
       }
       return remaining;
     }
@@ -91,7 +89,7 @@ const user_auction_auctionid_bit = new Vue({
   mounted() {
     // ルームに参加
     const self = this;
-    socket.emit("join_room", this.car_id);
+    socket.emit("join_room", this.auction_id);
     socket.on("bit_broadcast", function (bited_price) {
       self.now_price = bited_price / 1000;
       self.bit_price = self.now_price;
@@ -108,8 +106,7 @@ const user_auction_auctionid_bit = new Vue({
       }
     });
     socket.on('bit_history', function(result) {
-      console.log("history" + result);
       self.history = result.reverse();
-    });
+    })
   }
 });

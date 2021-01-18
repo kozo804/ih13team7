@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel='stylesheet' href='/css/user_car.css' /> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/emp_car_regist.css">
+    <title>User_Car 詳細</title>
+</head>
+
+<body>
+    <div id="wrapper">
+    <%- include('./user_header.ejs'); %>
+    <div  class="container"> 
+
+        <div class="row row-cols-4">
+
+            <div class="col">メーカー名：<%= carData[0].maker %></div>
+            <div class="col">車名：<%= carData[0].car_name %></div>
+            <div class="col">グレード：<%= carData[0].grade %></div>
+            <div class="col">形状：<%= carData[0].shape %></div>
+            <div class="col">登録年式：<%= carData[0].registed_model_year %></div>
+            <div class="col">モデル年式：<%= carData[0].model_year %></div>
+            <div class="col">車検：<%= carData[0].inspection %></div>
+            <div class="col">型式：<%= carData[0].model %></div>
+            <div class="col">ミッション：<%= carData[0].mission %></div>
+            <div class="col">燃料：<%= carData[0].fuel %></div>
+            <div class="col">外装色：<%= carData[0].outer_color %></div>
+            <div class="col">内装色：<%= carData[0].inner_color %></div>
+            <div class="col">排気量：<%= carData[0].engine_size %></div>
+            <div class="col">走行距離：<%= carData[0].mileage %></div>
+            <div class="col">車歴：<%= carData[0].car_history %></div>
+            <div class="col">車台番号：<%= carData[0].undercarriage_number %></div>
+            <div class="col">NOX：<%= carData[0].NOX %></div>
+            <div class="col">所有者歴：<%= carData[0].owner %></div>
+            <div class="col">ドア数：<%= carData[0].door %></div>
+            <div class="col">乗車定員：<%= carData[0].riding_capacity %></div>
+            <div class="col">ハンドル：<%= carData[0].handle %></div>
+            <div class="col">メーター交換歴：<%= carData[0].meter_exchange_history %></div>
+            <div class="col">色替：<%= carData[0].color_change %></div>
+            <div class="col">室内シート：<%= carData[0].in_room_sheet %></div>
+            <div class="col">リサイクル料金受託済み金額：<%= carData[0].recycleing_amount %>円</div>
+            <div class="col">エアコン：<%= carData[0].air_conditioning %></div>
+            <div class="col">パワーウィンドウ：<%= carData[0].powor_window %></div>
+            <div class="col">パワステ：<%= carData[0].powor_steering %></div>
+            <div class="col">サンルーフ：<%= carData[0].sunroof %></div>
+            <div class="col">本革シート：<%= carData[0].leather_seet %></div>
+            <div class="col">エアバッグ：<%= carData[0].airbag %></div>
+            <div class="col">純正アルミホイール：<%= carData[0].aliminium_foil %></div>
+            <div class="col">ナビゲーション：<%= carData[0].navigation %></div>
+            <div class="col">新車保証書：<%= carData[0].warranty %></div>
+            <div class="col">取扱説明書：<%= carData[0].guide %></div>
+            <div class="col">オークション希望価格：<%= carData[0].auction_desired_price %>,000円</div>
+            <div class="col">オークションスタート価格：<%= carData[0].auction_start_price %>,000円</div>
+            <div class="col">評価点：<%= carData[0].evaluation_point %>点</div>
+            <div class="col">内装点：<%= carData[0].interior_point %>点</div>
+            <div class="col">外装点：<%= carData[0].exterior_point %>点</div>
+        </div>
+        </div>
+</div>
+    <script src="/js/user_car.js"></script>
+</body>
+
+</html>
