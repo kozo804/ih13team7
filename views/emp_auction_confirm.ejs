@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オークション新規登録確認</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/emp_car_regist.css">
+
+</head>
+<body>
+    <div class="row" id="wrapper">
+        <%- include('./emp_header.ejs'); %>
+        <h1 class="display-3">オークションデータを確認してください</h1>
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col-3 col-md-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">オークションネーム：<%= auction.auction_name %></h5>
+                        <p class="card-text">開始時間<%= new Date(auction.start_time).toLocaleString() %></p>
+                        <p class="card-text">終了時間<%= new Date(auction.end_time).toLocaleString() %></p>
+                        <p class="card-text">オークション：　選んだ車両</p>
+                    </div>
+                </div>
+                <div class="col-10 row row-cols-2">
+                    <% for (var car of auction.car_ids) {%>
+                        <div class="card mt-3 mb-3 p-5">
+                            <div class="form-check">
+                                <div class="card-body">
+                                    <h5 class="card-title">車種名：<%= car.carData.car_name %></h5>
+                                    <p class="card-text">グレード：<%= car.carData.grade %></p>
+                                    <p class="card-text">カラー：<%= car.carData.outer_color %></p>
+                                    <%= car.carData._id %>
+                                </div>
+                              </div>
+                              <hr>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <form action="/emp/auction/finsh" method="get" class="text-center">
+                <div class="col-3 col-md-auto m-5">
+                    <button type="submit" class="btn btn-primary col-3 col-md-auto">確定</button>
+                </div>
+                <!-- <button type="submit" class="btn btn-primary">確定</button> -->
+            </form>
+        </div>
+
+
+
+        </div>
+    </div>
+
+
+</body>
+</html>
