@@ -44,7 +44,20 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-
+  try {
+      employeeModel.employees.find({ name: req.body.emp_id, password: req.body.password })
+        .then(function (result) {
+          console.log('result', result)
+          res.status = 200
+          res.send(result)
+        }).catch(function (err) {
+          console.log(err);
+          res.status = 500
+          res.send()
+        });
+    } catch (e) {
+      console.log(e)
+    }
 });
 
 router.get('/car', async function (req, res, next) {
