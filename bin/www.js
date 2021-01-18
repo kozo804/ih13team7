@@ -99,19 +99,17 @@ function onListening() {
 const io = require('socket.io')(server);
 const schedule = require("node-schedule");
 const con = require('../models/mongoose-loader');
-// const Users = require('./models/t01_users').users;
 const bitHistory = require('../models/t05_bit_history').bitHistory;
 
-var bets = Array();
-var room_id = 0;
-/**
- * websocketで入札を受信したときの処理
- * @param bet
- */
-function onBet(bet) {
-  console.log("bet: " + bet);
-  bets.push(bet);
-  io.emit('s2c', bets);
+
+function toDatetime(array) {
+  array.map(item => {
+    let origin_date = new Date(item.date);
+    let hour = origin_date.getHours();
+    let minute = origin_date.getMinutes();
+    let second = origin_date.getSeconds();
+    item.date = hour + "時" + minute + "分" + second + "秒";
+  })
 }
 
 /**
@@ -143,6 +141,7 @@ function onConnection(socket) {
   // socket.broadcast.emit('send_id', send_id);
 
   socket.on("bit", function (bit_data) {
+    socket.broadcast.emit('bit_broadcast', bit_data.price);
     // dbに登録する処理
     const db = con.mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -153,20 +152,22 @@ function onConnection(socket) {
       car_id: bit_data.car_id,
       user_id: bit_data.user_id,
       user_name: bit_data.user_name,
-      price: bit_data.price
+      price: bit_data.price,
+      date: bit_data.date
     });
     bit_history.save()
       .then(result => {
-        console.log(result);
-        socket.broadcast.emit('bit_broadcast', result.price);
+        bitHistory.find()
+          .then(result => {
+            toDatetime(result);
+            socket.broadcast.emit('bit_history', result);
+            socket.emit('bit_history', result);
+          })
       })
       .catch(err => {
         console.log(err);
         return;
       });
-
-
-    // dbから取得する処理
   });
 
   socket.on("sync", function (car_id) {
@@ -175,14 +176,15 @@ function onConnection(socket) {
     db.once('open', function () {
       console.log('DB接続中... You can cancel from ctrl + c');
     });
-    bitHistory.find({car_id: car_id})
-    .then(result => {
-      console.log(result);
-    })
-    .catch(err => {
-      console.log(err);
-      return;
-    });
+    bitHistory.find({ car_id: car_id })
+      .then(result => {
+        toDatetime(result);
+        socket.emit("sync_result", result);
+      })
+      .catch(err => {
+        console.log(err);
+        return;
+      });
   });
 
   // 切断時の処理
@@ -195,15 +197,3 @@ function onConnection(socket) {
 }
 
 io.on('connection', onConnection);
-// 予定時刻にwebsocketを実行する
-// とりあえず6時間おきに実行する
-// const interval = 60 * 60 * 5;
-// setInterval(function() {
-//   // DBから一番近いオークションの開始日時を取得する処理を追加する
-//   var date = new Date();
-//   var job = schedule.scheduleJob(date, function () {
-//     setInterval(function() {
-//       io.on('connection', onConnection);
-//     }, 6000);
-//   });
-// }, interval);
