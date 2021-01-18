@@ -104,6 +104,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           .catch(err => {
             console.log(err);
           });
+          console.log(no);
       }
       else {
         res.render(
