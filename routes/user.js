@@ -6,6 +6,7 @@ var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
 var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees').employees;
+var bitModel = require('../models/t05_bit_history').bitHistory;
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
@@ -20,7 +21,7 @@ router.get('/car', function (req, res, next) {
   carModel.find({ status: 0 })
     .then((result) => {
       console.log(result[0]);
-      render('user_car', { result: JSON.stringify(result) })
+      res.render('user_car', { result: JSON.stringify(result) })
     })
 });
 
@@ -80,13 +81,39 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
   auction_model.exec()
     .then(result => {
+      // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
+      auction_end_time = new Date(result[0].car_ids[0].carEndtime).toString();
       // とりあえず仮置き
       // const auction_end_time = new Date('2021-01-15T19:00:00').toString();
       // console.log(endDate);
       // 
 
-      // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
-      auction_end_time = new Date(result[0].car_ids[0].carEndtime).toString();
+      // オークションが終了しているかどうかチェック
+      let now = new Date(Date.now()).toString();
+      console.log(auction_end_time);
+      console.log(now);
+      if (now > auction_end_time) {
+        console.log('over');
+        // 落札状態によって、ページを変える
+        console.log(car_id);
+        console.log(user_info._id);
+        const bit_model = bitModel.find({ car_id: car_id });
+        bit_model.exec()
+          .then(result => {
+            let result_length = result.length;
+            console.log(req.session.user_id);
+            if (result[result_length - 1].user_id == req.session.user_id) {
+              console.log("ok");
+            }
+          })
+        // res.render();
+      }
+      else {
+        console.log('in');
+      }
+
+
+
       auction_start_price = result[0].car_ids[0].carData.auction_start_price;
     })
     .catch(err => {
