@@ -1,10 +1,7 @@
 const { render } = require('ejs');
 var express = require('express');
-<<<<<<< HEAD
 const { Result } = require('postcss');
-=======
 const passport = require('passport');
->>>>>>> main
 var router = express.Router();
 var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
@@ -24,9 +21,8 @@ router.get('/login', function (req, res, next) {
 router.get('/top', function (req, res, next) {
 
 });
-<<<<<<< HEAD
 //yasuda user_cer.ejs
-router.get('/car', function(req, res, next) {
+router.get('/car', async function(req, res, next) {
         const db = con.mongoose.connection;
       db.on('error', console.error.bind(console, 'connection error:'));
       db.once('open', function () {
@@ -34,24 +30,20 @@ router.get('/car', function(req, res, next) {
         console.log('DB接続中... You can cancel from ctrl + c');
       });
 
-  carModel.find({ status:0 })
-  .then((result)=>{
-    console.log(result);
-    res.render('user_car',{result:JSON.stringify(result)});
-  });
-=======
+  const cars = await carModel.find({ status:0 })
+  // .then((result)=>{
+  //   console.log(result);
+    
+  // });
+  console.log(cars)
 
-router.get('/car', function (req, res, next) {
-  carModel.find({ status: 0 })
-    .then((result) => {
-      console.log(result[0]);
-      render('user_car', { result: JSON.stringify(result) })
-    })
->>>>>>> main
+  
+  res.render('user_car',{cars:cars});
+
 });
 
 router.get('/car/:car_id', function (req, res, next) {
-
+  console.log(req.params);
 });
 
 router.get('/auction', function (req, res, next) {
