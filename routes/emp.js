@@ -47,12 +47,10 @@ router.post('/login', function (req, res, next) {
 
 });
 
-router.get('/car', function (req, res, next) {
-    carModel.find({ status:0 })
-    .then((result)=>{
-      console.log(result[0].maker);
-      res.render('emp_car',{result:JSON.stringify(result)});
-    });
+router.get('/car', async function (req, res, next) {
+    const result = await carModel.find({ status:0 })
+    res.render('emp_car',{result:result});
+
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -188,10 +186,13 @@ router.post('/car/finish', function (req, res, next) {
 
 router.get('/auction', (req,res,next)=>{
   // DBからオークション履歴と今後のスケジュール取得
-
-
-  res.render('emp_auction.ejs');
-  // res.render('emp_auction', data);
+  let history = [];
+  let schedule = [];
+  AuctionModel.find(function (err, result){
+    if (err) return console.log(err);
+    history = result;
+  })
+  res.render('emp_auction', {history: history, schedule: schedule});
 });
 
 router.get('/auction/regist', async (req,res,next)=>{
@@ -215,7 +216,7 @@ router.post('/auction/confirm', async (req,res,next) => {
     let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
     auction.car_ids[i]={
       carEndtime: auction.start_time + 30 * i * 1000,
-      carDate: car[0]
+      carData: car[0]
     }
   }
   console.log(auction)

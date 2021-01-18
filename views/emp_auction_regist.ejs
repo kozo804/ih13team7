@@ -6,52 +6,61 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/emp_auction_regist.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="/css/emp_car_regist.css">
 	<title>オークション登録</title>
 </head>
 <body>
 
-	<form action="/emp/auction/confirm" method="post">
-		<input type="text" name="maker" value="aaaaaaaa">
-		<button type="submit">submit</button>
-	</form>
 	<div class="row" id="wrapper">
-		<h1>emp_auction_regist</h1>
-		<form action="/emp/auction/confirm" method="post">
-			<div class="mb-3 col5">
-			  <label for="auction_name" class="form-label">auction_name</label>
-			  <input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
+		<%- include('./emp_header.ejs'); %>
+		<div class="container">
+			<div class="row justify-content-md-center">
 
-			</div>
+				<div class="col-3 col-md-auto w-24">
+
+					<form action="/emp/auction/confirm" method="post">
+						<div class="mb-3">
+						  <label for="auction_name" class="form-label">オークションタイトル</label>
+						  <input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
 			
-			<div class="mb-3">
-			  <label for="start_time" class="form-label">start_time</label>
-			  <input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
-			</div>
-			<% for (var car of cars) {%>
-					<div class="card mt-3">
-						<div class="form-check">
-							<div class="card-body">
-								<h5 class="card-title"><%= car.car_name %></h5>
-								<p class="card-text"><%= car.grade %></p>
-								<p class="card-text"><%= car.outer_color %></p>
-								<p class="card-text">オークション：　出品中</p>
-								<%= car._id %>
-								<a href="" class="btn btn-primary">詳しくはこちら</a>
-							</div>
-							<input v-model="checkCars" name="defaultCheck1" class="form-check-input" type="checkbox" value="<%= car._id %>" id="defaultCheck1">
-							<label class="form-check-label" for="defaultCheck1">
-								<%= car.car_name %>
-							</label>
-						  </div>
-						  
-	
-					</div>
-			<% } %>
-			{{data}}
-			<button type="submit" class="btn btn-primary">確認画面</button>
-		</form>
-	</div>
+						</div>
+						
+						<div class="mb-3">
+						  <label for="start_time" class="form-label">開始時間</label>
+						  <input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
+						</div>
+				</div>
+						<div class="col-10 row row-cols-2">
+							<% for (var car of cars) {%>
+								<div class="card mt-3 text-center">
+									<div class="form-check">
+										<div class="card-body m-1 text-center">
+											<h5 class="card-title m-1">車種名：<%= car.car_name %></h5>
+											<p class="card-text m-1">グレード：<%= car.grade %></p>
+											<p class="card-text m-1">カラー：<%= car.outer_color %></p>
+											<p class="card-text m-1">ステーダス：オークション：　出品可能</p>
+											<a href="/emp/car/<%= car._id %>" class="btn btn-info m-1">詳しくはこちら</a>
+										</div>
 
+										<input name="defaultCheck1" value="<%= car._id %>" type="checkbox" class="btn-check" id="<%= car._id %>" autocomplete="off">
+										<label class="btn btn-primary" for="<%= car._id %>">出品</label>
+									  </div>
+									  
+								</div>
+						<% } %>
+						  </div>
+						
+					<div class="col-3 col-md-auto m-5">
+						<button type="submit" class="btn btn-primary col-3 col-md-auto">確認画面</button>
+					</div>
+					</form>
+
+			</div>
+		</div>
+
+
+	</div>
 
 </body>
 </html>
