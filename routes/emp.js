@@ -44,15 +44,26 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-
+  try {
+      employeeModel.employees.find({ name: req.body.emp_id, password: req.body.password })
+        .then(function (result) {
+          console.log('result', result)
+          res.status = 200
+          res.send(result)
+        }).catch(function (err) {
+          console.log(err);
+          res.status = 500
+          res.send()
+        });
+    } catch (e) {
+      console.log(e)
+    }
 });
 
-router.get('/car', function (req, res, next) {
-    carModel.find({ status:0 })
-    .then((result)=>{
-      console.log(result[0].maker);
-      res.render('emp_car',{result:JSON.stringify(result)});
-    });
+router.get('/car', async function (req, res, next) {
+    const result = await carModel.find({ status:0 })
+    res.render('emp_car',{result:result});
+
 });
 
 router.get('/car/regist', function (req, res, next) {
@@ -188,11 +199,24 @@ router.post('/car/finish', function (req, res, next) {
 
 router.get('/auction', (req,res,next)=>{
   // DBからオークション履歴と今後のスケジュール取得
+  // let history = [];
+  let schedule = [];
+  AuctionModel.find(function (err, result){
+    if (err) return console.log(err);
+    for (let i=0; i<result.length; i++){
+      console.log(result[i].start_time);
+      console.log(result[i].car_ids);
+    }
+    history = result;
 
-
-  res.render('emp_auction.ejs');
-  // res.render('emp_auction', data);
+    console.log(history);
+    res.render('emp_auction', {history: history, schedule: schedule});
+  })
 });
+
+router.get('/auction/:auction_id', (req,res,next)=>{
+  res.render('emp_auction_detail');
+})
 
 router.get('/auction/regist', async (req,res,next)=>{
   const cars = await carModel.find({ status:0 });
@@ -202,10 +226,14 @@ router.get('/auction/regist', async (req,res,next)=>{
 
 
 router.post('/auction/confirm', async (req,res,next) => {
-  var date = new Date()
+  console.log(req.body)
+  let str = req.body.year+' '+req.body.month+' '+req.body.date+','+req.body.auction_start_time;
+  console.log(str);
+  let date = new Date(str);
+  console.log(date.getTime());
   const auction = {
     auction_name: req.body.auction_name,
-    start_time: date.getTime(),
+    start_time: +date.getTime(),
     end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
     // rep_id: Number,
     car_count: req.body.defaultCheck1.length,
@@ -215,7 +243,7 @@ router.post('/auction/confirm', async (req,res,next) => {
     let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
     auction.car_ids[i]={
       carEndtime: auction.start_time + 30 * i * 1000,
-      carDate: car[0]
+      carData: car[0]
     }
   }
   console.log(auction)

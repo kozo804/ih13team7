@@ -1,6 +1,5 @@
 const { render } = require('ejs');
 var express = require('express');
-const { Result } = require('postcss');
 const passport = require('passport');
 var router = express.Router();
 var con = require('../models/mongoose-loader');
@@ -9,41 +8,28 @@ var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees').employees;
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
-
-
-
 router.get('/login', function (req, res, next) {
+  res.render('user_login')
 });
 
 router.get('/top', function (req, res, next) {
-
-});
-//yasuda user_cer.ejs
-router.get('/car', async function(req, res, next) {
-        const db = con.mongoose.connection;
-      db.on('error', console.error.bind(console, 'connection error:'));
-      db.once('open', function () {
-        // we're connected!
-        console.log('DB接続中... You can cancel from ctrl + c');
-      });
-
-  const cars = await carModel.find({ status:0 })
-  // .then((result)=>{
-  //   console.log(result);
-    
-  // });
-  console.log(cars)
-
-  
-  res.render('user_car',{cars:cars});
-
+  res.render('user_top')
 });
 
-router.get('/car/:car_id', function (req, res, next) {
-  console.log(req.params);
+router.get('/car', function (req, res, next) {
+  carModel.find({ status: 0 })
+    .then((result) => {
+      console.log(result[0]);
+      res.render('user_car', { cars:result })
+    })
+});
+
+
+router.get('/car/:car_id', async function (req, res, next) {
+console.log(req.params['car_id'])
+const carData = await carModel.find({ _id:req.params['car_id'] })
+console.log(carData);
+res.render('user_car_detail.ejs',{carData:carData})
 });
 
 router.get('/auction', function (req, res, next) {
@@ -53,7 +39,7 @@ router.get('/auction', function (req, res, next) {
 router.get('/auction/:auction_id', async function (req, res, next) {
   let id = req.params['auction_id']
   const Auction = await AuctionModel.findById(id)
-  res.render('user_auction.ejs', { Auction: Auction })
+  res.render('user_auction.ejs', { auction: Auction })
 });
 
 router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
@@ -84,6 +70,9 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
 
   // オークションの詳細を取ってくる処理
   // とりあえず仮置き
+
+  // 車の開始価格を取ってくる処理
+
   let endDate = new Date('2021-01-15T19:00:00').toString();
   // console.log(endDate);
   // 
@@ -107,6 +96,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
 
 
 
+
   res.render(
     'user_auction_auctionid_bit',
     {
@@ -118,5 +108,17 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     }
   );
 })
+
+router.post('/login', function (req, res, next) {
+  Users.users.findOne({ name: req.body.user_id, password: req.body.password })
+    .then(function (result) {
+      res.status = 200
+      res.send(result)
+    }).catch(function (err) {
+      console.log(err);
+      res.status = 500
+      res.send()
+    });
+});
 
 module.exports = router;

@@ -16,7 +16,6 @@ router.post('/user', function (req, res, next) {
   const db = con.mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {
-    // we're connected!
     console.log('DB接続中... You can cancel from ctrl + c');
   });
 
@@ -59,24 +58,12 @@ router.post('/employee', (req, res, next) => {
 router.post(
   '/login/user',
   passport.authenticate('user_login', { successRedirect: '/', failureRedirect: '/test', session: true }),
-  (req, res, next) => {
-    // const db = con.mongoose.connection;
-    // db.on('error', console.error.bind(console, 'connection error:'));
-    // db.once('open', function () {
-    //   console.log('DB接続中... You can cancel from ctrl + c');
-    // });
-  });
+);
 
 
 router.post(
   '/login/employee',
   passport.authenticate('emp_login', { successRedirect: '/', failureRedirect: '/test', session: true }),
-  (req, res, next) => {
-    // const db = con.mongoose.connection;
-    // db.on('error', console.error.bind(console, 'connection error:'));
-    // db.once('open', function () {
-    //   console.log('DB接続中... You can cancel from ctrl + c');
-    // });
-  });
+);
 
 module.exports = router;

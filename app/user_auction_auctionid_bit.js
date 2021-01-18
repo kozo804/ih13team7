@@ -56,7 +56,6 @@ const user_auction_auctionid_bit = new Vue({
       return (this.timeOut ? "終了" : "入札する");
     },
     time: function () {
-      // var difference = this.end_date - this.now_date;
       let difference = this.difference;
       var remaining = '';
       if (difference >= 0) {
@@ -94,7 +93,6 @@ const user_auction_auctionid_bit = new Vue({
     });
     this.countdown();
     this.leave();
-    // console.log(this.bit_button);
     socket.emit('sync', this.car_id);
     socket.on('sync_result', function(result) {
       console.log(result);
