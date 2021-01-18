@@ -33,13 +33,58 @@ router.get('/car/:car_id', async function (req, res, next) {
 });
 
 router.get('/auction', function (req, res, next) {
+  // DBからオークション履歴と今後のスケジュール取得
+  let history = {};
+  let schedule = {};
+  const nowTime = new Date().getTime();
+  console.log(nowTime);
+  
+  AuctionModel.find({end_time: {$lt: nowTime}}, function (err, result){  //{end_time: {$gt: nowTime}},
+    if (err) return console.log(err);
+    for (let i=0; i<result.length; i++){
+      let stime = new Date(result[i].start_time);
+      let etime = new Date(result[i].end_time);
+      let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+      let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
+      let ddate = {
+        "month": stime.getMonth()+1,
+        "day": stime.getDay(),
+        "stime": sstime,
+        "etime": eetime,
+      };
+      result[i].ddate = ddate;
+    }
+    history = result;
 
+    AuctionModel.find({end_time: {$gt: nowTime}}, function(err,result){
+      if (err) return console.log(err);
+      for (let i=0; i<result.length; i++){
+        let stime = new Date(result[i].start_time);
+        let etime = new Date(result[i].end_time);
+        let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+        let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
+        let ddate = {
+          "month": stime.getMonth()+1,
+          "day": stime.getDay(),
+          "stime": sstime,
+          "etime": eetime,
+        };
+        result[i].ddate = ddate;
+      }
+      schedule = result;
+
+      res.render('user_auction', {history: history, schedule: schedule});
+    }).limit(6);
+
+    // console.log(history);
+    
+  }).limit(6);
 });
 
 router.get('/auction/:auction_id', async function (req, res, next) {
   let id = req.params['auction_id']
   const Auction = await AuctionModel.findById(id)
-  res.render('user_auction.ejs', { auction: Auction })
+  res.render('user_auction_detail.ejs', { auction: Auction })
 });
 
 router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
