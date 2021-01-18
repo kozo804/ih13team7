@@ -18,7 +18,7 @@
 				<h2>今までの履歴</h2>
 
 				<% for (var i=0; i<history.length; i++) { %>
-				<a href="#" class="text-secondary">日程：[日付][<%= history.start_time %>]-[<%= history.end_time %>]</a><br>
+				<a href="/emp/auction/<%= history[i]._id %>" class="text-secondary">日程：[日付][<%= history[i].start_time %>]-[<%= history[i].end_time %>]</a><br>
 				<% } %>
 
 			</div>
