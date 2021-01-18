@@ -63,37 +63,39 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     ]
    */
 
+
   // オークションの詳細を取ってくる処理
-  // とりあえず仮置き
-  let endDate = new Date('2021-01-15T19:00:00').toString();
-  // console.log(endDate);
-  // 
-
-  // 車の開始価格を取ってくる処理
-  // const db = con.mongoose.connection;
-  // db.on('error', console.error.bind(console, 'connection error:'));
-  // db.once('open', function () {
-  //   // we're connected!
-  //   console.log('DB接続中... You can cancel from ctrl + c');
-  // });
-
-  AuctionModel.find({car_id: car_id})
-  .then(result => {
-    console.log(result);
-  })
-  .catch(err => {
-    console.log(err);
+  let auction_end_time;
+  let auction_start_price;
+  const db = con.mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function () {
+    // we're connected!
+    console.log('DB接続中... You can cancel from ctrl + c');
   });
-
-
+  // const auction_model = AuctionModel.find({ "car_ids.carDate._id": "600151e21375720161f92fd4" });
+  const auction_model = AuctionModel.find({ "car_ids.carDate._id": car_id });
+  auction_model.exec()
+    .then(result => {
+      // とりあえず仮置き
+      // const auction_end_time = new Date('2021-01-15T19:00:00').toString();
+      // console.log(endDate);
+      // 
+      auction_end_time = result[0].end_time;
+      console.log(auction_end_time);
+      auction_start_price = result[0].car_ids[0].carDate.auction_start_price;
+    })
+    .catch(err => {
+      console.log(err);
+    })
 
 
   res.render(
     'user_auction_auctionid_bit',
     {
       auction_id: auction_id,
-      car_id: '2',//仮置き
-      end_date: endDate,
+      car_id: car_id,//仮置き
+      end_date: auction_end_time,
       user_id: user_info._id,
       user_name: user_info.name
     }
