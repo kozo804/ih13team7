@@ -90,8 +90,6 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
 
       // オークションが終了しているかどうかチェック
       let now = new Date(Date.now()).toString();
-      console.log(auction_end_time);
-      console.log(now);
       if (now > auction_end_time) {
         console.log('over');
         // 落札状態によって、ページを変える
@@ -101,19 +99,17 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
         bit_model.exec()
           .then(result => {
             let result_length = result.length;
-            console.log(req.session.user_id);
-            if (result[result_length - 1].user_id == req.session.user_id) {
-              console.log("ok");
+            if (result[result_length - 1].user_id == user_info._id) {
+              // 落札している
+              res.render("user_auction_bided");
             }
+            res.render("user_auction_finished");
           })
-        // res.render();
+          .catch(err => {
+            console.log(err);
+          });
       }
-      else {
-        console.log('in');
-      }
-
-
-
+      
       auction_start_price = result[0].car_ids[0].carData.auction_start_price;
     })
     .catch(err => {
