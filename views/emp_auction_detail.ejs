@@ -14,14 +14,18 @@
 		<h1>オークション詳細</h1>
 		<div class="row">
 			<div class="col-md-6">
-				<div>日程：</div>
+				<div>日程：<%= auction.data.stime %>-<%= auction.data.etime %></div>
 			</div>
 			<div class="col-md-6">
 				<button class="btn btn-primary">車両変更・登録</button>
 			</div>
 		</div>
 		<div class="row">
-			<button class="btn btn-primary start_button">オークションスタート</button>
+			<!-- <form action="/emp/auction/<%= auction._id %>" method="post">
+				<input type="hidden" name="auction_id" value="<%= auction._id %>"/>
+				<input type="submit" class="btn btn-primary start_button" value="オークションスタート" />
+			</form> -->
+			<button class="btn btn-primary " >オークションスタート</button>
 		</div>
 		<div class="row">
 			<% for (let i=0; i<auction.car_ids.length; i++){ %>

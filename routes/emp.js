@@ -202,7 +202,7 @@ router.get('/auction', (req,res,next)=>{
   let history = {};
   let schedule = {};
   const nowTime = new Date().getTime();
-  console.log(nowTime);
+  // console.log(nowTime);
   
   AuctionModel.find({end_time: {$lt: nowTime}}, {}, {sort: {start_time: 1}, limit: 6}, function (err, result){  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
@@ -291,10 +291,38 @@ router.get('/auction/finsh',async (req, res, next) => {
 
 router.get('/auction/:auction_id', (req,res,next)=>{
   AuctionModel.findOne({"_id": req.params.auction_id}, function (err, result){
-    console.log(result);
-    console.log(result.car_ids[0]);
+    // console.log(result);
+    // console.log(result.car_ids[0]);
+    let stime = new Date(result.start_time);
+    let sstime = ('0' + (stime.getMonth() + 1)).slice(-2) + "/" + ('0' + stime.getDate()).slice(-2) + " " + ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+    let etime = new Date(result.end_time);
+    let eetime = etime.getHours() + ":" + etime.getDate();
+    result.data = {
+      "stime": sstime,
+      "etime": eetime
+    };
+    console.log("result.data.stime: "+result.data.stime);
     res.render('emp_auction_detail', {auction: result});
   });
 });
+
+// router.post('/auction/:auction_id', (req, res, next)=>{
+//   console.log(req.params.auction_id);
+//   console.log(req.body.auction_id);
+//   let auctionId = req.body.auction_id;
+//   let nowTime = new Date().getTime();
+//   AuctionModel.update({_id: auctionId}, {$set: {start_time: nowTime}});
+
+//   AuctionModel.findOne({_id: auctionId}, function(err, result){
+//     if (err) return console.log(err);
+//     // console.log(result);
+//     // console.log(result.car_ids[0].carEndtime);
+//     for (var i=0; i<result.car_ids.length; i++){
+//       result.car_ids[i].carEndtime = nowTime + 30 * 1000 * i;
+//     }
+//     result.end_time = result.car_ids[result.car_count-1].carEndtime;
+//     res.render('emp_auction_detail', {auction: result});
+//   });
+// });
 
 module.exports = router;
