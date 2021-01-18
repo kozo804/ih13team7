@@ -117,15 +117,16 @@ function toDatetime(array) {
  * @param socket 
  */
 function onConnection(socket) {
-  let id = socket.id;
-
+  let user_id = socket.id;
+  let room_id;
   // ルームに参加する処理
   socket.on("join_room", function (data) {
     console.log("room_id: " + data);
     socket.join(data);
+    room_id = data;
   });
 
-  console.info("new connection. sessionId: " + id);
+  console.info("new connection. sessionId: " + user_id);
   // socket.emit('sync', bets);
   // socket.on('c2s', onMessage);
 
@@ -141,7 +142,7 @@ function onConnection(socket) {
   // socket.broadcast.emit('send_id', send_id);
 
   socket.on("bit", function (bit_data) {
-    socket.broadcast.emit('bit_broadcast', bit_data.price);
+    io.to(room_id).emit('bit_broadcast', bit_data.price);
     // dbに登録する処理
     const db = con.mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -157,11 +158,11 @@ function onConnection(socket) {
     });
     bit_history.save()
       .then(result => {
-        bitHistory.find()
+        bitHistory.find({ car_id: bit_data.car_id })
           .then(result => {
             toDatetime(result);
-            socket.broadcast.emit('bit_history', result);
-            socket.emit('bit_history', result);
+            console.log("send room id " + room_id);
+            io.to(room_id).emit('bit_history', result);
           })
       })
       .catch(err => {
@@ -179,7 +180,7 @@ function onConnection(socket) {
     bitHistory.find({ car_id: car_id })
       .then(result => {
         toDatetime(result);
-        socket.emit("sync_result", result);
+        io.to(socket.id).emit("sync_result", result);
       })
       .catch(err => {
         console.log(err);
@@ -189,8 +190,8 @@ function onConnection(socket) {
 
   // 切断時の処理
   socket.on('disconnect', function () {
-    console.log(id + ' disconnect');
-    let message = id + 'さんが退室しました';
+    console.log(user_id + ' disconnect');
+    let message = user_id + 'さんが退室しました';
     socket.broadcast.emit('leave', message);
   });
   socket.on('error', (error) => { console.error(error); });

@@ -20,16 +20,16 @@ router.get('/car', function (req, res, next) {
   carModel.find({ status: 0 })
     .then((result) => {
       console.log(result[0]);
-      res.render('user_car', { cars:result })
+      res.render('user_car', { cars: result })
     })
 });
 
 
 router.get('/car/:car_id', async function (req, res, next) {
-console.log(req.params['car_id'])
-const carData = await carModel.find({ _id:req.params['car_id'] })
-console.log(carData);
-res.render('user_car_detail.ejs',{carData:carData})
+  console.log(req.params['car_id'])
+  const carData = await carModel.find({ _id: req.params['car_id'] })
+  console.log(carData);
+  res.render('user_car_detail.ejs', { carData: carData })
 });
 
 router.get('/auction', function (req, res, next) {
@@ -38,16 +38,16 @@ router.get('/auction', function (req, res, next) {
   let schedule = {};
   const nowTime = new Date().getTime();
   console.log(nowTime);
-  
-  AuctionModel.find({end_time: {$lt: nowTime}}, function (err, result){  //{end_time: {$gt: nowTime}},
+
+  AuctionModel.find({ end_time: { $lt: nowTime } }, function (err, result) {  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
-    for (let i=0; i<result.length; i++){
+    for (let i = 0; i < result.length; i++) {
       let stime = new Date(result[i].start_time);
       let etime = new Date(result[i].end_time);
       let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
       let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
       let ddate = {
-        "month": stime.getMonth()+1,
+        "month": stime.getMonth() + 1,
         "day": stime.getDay(),
         "stime": sstime,
         "etime": eetime,
@@ -56,15 +56,15 @@ router.get('/auction', function (req, res, next) {
     }
     history = result;
 
-    AuctionModel.find({end_time: {$gt: nowTime}}, function(err,result){
+    AuctionModel.find({ end_time: { $gt: nowTime } }, function (err, result) {
       if (err) return console.log(err);
-      for (let i=0; i<result.length; i++){
+      for (let i = 0; i < result.length; i++) {
         let stime = new Date(result[i].start_time);
         let etime = new Date(result[i].end_time);
         let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
         let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
         let ddate = {
-          "month": stime.getMonth()+1,
+          "month": stime.getMonth() + 1,
           "day": stime.getDay(),
           "stime": sstime,
           "etime": eetime,
@@ -73,11 +73,11 @@ router.get('/auction', function (req, res, next) {
       }
       schedule = result;
 
-      res.render('user_auction', {history: history, schedule: schedule});
+      res.render('user_auction', { history: history, schedule: schedule });
     }).limit(6);
 
     // console.log(history);
-    
+
   }).limit(6);
 });
 
@@ -98,10 +98,9 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     car_id = req.params.car_id;
   } catch (e) {
     console.log(e);
-    res.redirect('/test'); //loginページに変える
+    // res.redirect('/test');
     return;
   }
-
 
   // オークションの詳細を取ってくる処理
   let auction_end_time;
@@ -114,8 +113,8 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   });
   const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
   auction_model.exec()
-    .then(result => {
-      auction_end_time = new Date(result[0].car_ids[no].carEndtime).toString();
+    .then(auction_model_result => {
+      auction_end_time = new Date(auction_model_result[0].car_ids[no].carEndtime).toString();
 
       // オークションが終了しているかどうかチェック
       let now = new Date(Date.now()).toString();
@@ -124,10 +123,9 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
         // 落札状態によって、ページを変える
         const bit_model = bitModel.find({ car_id: car_id });
         bit_model.exec()
-          .then(result => {
-            console.log("result");
-            let result_length = result.length;
-            if (result[result_length - 1].user_id == user_info._id) {
+          .then(bit_model_result => {
+            let result_length = bit_model_result.length;
+            if (bit_model_result[result_length - 1].user_id == user_info._id) {
               // 落札している
               render_state = "bided";
               console.log(render_state + " state");
@@ -146,21 +144,25 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           });
       }
       else {
-        auction_start_price = result[0].car_ids[no].carData.auction_start_price;
-        res.render(
-          'user_auction_auctionid_bit',
-          {
-            auction_id: auction_id,
-            car_id: car_id,
-            auction_end_time: auction_end_time,
-            auction_start_price: auction_start_price,
-            user_id: user_info._id,
-            user_name: user_info.name,
-            no: no,
-            // user_id: "2",
-            // user_name: "test"
-          }
-        );
+        carModel.find({ car_id: car_id })
+          .then(car_model_result => {
+            console.log(car_model_result);
+            auction_start_price = auction_model_result[0].car_ids[no].carData.auction_start_price;
+            res.render(
+              'user_auction_auctionid_bit',
+              {
+                auction_id: auction_id,
+                car_id: car_id,
+                auction_end_time: auction_end_time,
+                auction_start_price: auction_start_price,
+                user_id: user_info._id,
+                user_name: user_info.name,
+                no: no,
+                // user_id: "2",
+                // user_name: "test"
+              }
+            );
+          });
       }
     })
     .catch(err => {
