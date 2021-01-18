@@ -6,7 +6,6 @@ var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
 var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees').employees;
-var bitModel = require('../models/t05_bit_history').bitHistory;
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
@@ -21,15 +20,16 @@ router.get('/car', function (req, res, next) {
   carModel.find({ status: 0 })
     .then((result) => {
       console.log(result[0]);
-      res.render('user_car', { result: JSON.stringify(result) })
+      res.render('user_car', { cars:result })
     })
 });
 
 
 router.get('/car/:car_id', async function (req, res, next) {
-  console.log(req.params['car_id'])
-  const carData = await carModel.find({ _id: req.params['car_id'] })
-  res.render('user_car_detail.ejs', { carData: carData })
+console.log(req.params['car_id'])
+const carData = await carModel.find({ _id:req.params['car_id'] })
+console.log(carData);
+res.render('user_car_detail.ejs',{carData:carData})
 });
 
 router.get('/auction', function (req, res, next) {
@@ -103,6 +103,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     return;
   }
 
+
   // オークションの詳細を取ってくる処理
   let auction_end_time;
   let auction_start_price;
@@ -171,6 +172,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
       console.log(err);
     })
 });
+
 
 router.post('/login', function (req, res, next) {
   Users.users.findOne({ name: req.body.user_id, password: req.body.password })
