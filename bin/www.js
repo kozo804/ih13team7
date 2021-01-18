@@ -88,6 +88,8 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
   console.log('listening post ' + port);
+  let nowDate = new Date().toString();
+  console.log('Now Date: ' + nowDate);
 }
 
 /**
@@ -96,6 +98,9 @@ function onListening() {
 // ・ソケットのひも付け（listen）
 const io = require('socket.io')(server);
 const schedule = require("node-schedule");
+const con = require('../models/mongoose-loader');
+// const Users = require('./models/t01_users').users;
+const bitHistory = require('../models/t05_bit_history').bitHistory;
 
 var bets = Array();
 var room_id = 0;
@@ -118,27 +123,67 @@ function onConnection(socket) {
 
   // ルームに参加する処理
   socket.on("join_room", function (data) {
-    //ルームIDはサーバー側で生成するようにする
-    // とりあえず連番
-    room = room_id;
-    console.log("room_id: " + room);
-    socket.join(room);
+    console.log("room_id: " + data);
+    socket.join(data);
   });
 
   console.info("new connection. sessionId: " + id);
-  socket.emit('sync', bets);
-  socket.on('c2s', onMessage);
+  // socket.emit('sync', bets);
+  // socket.on('c2s', onMessage);
 
   // jsonを入れると、自動的にJSON.stringfyされる
   // socket.json.emit('send_json', json);
 
   // to(id)：自分のみ
-  let sendId = 'your id is ' + id;
-  io.to(socket.id).emit('send_id', sendId);
+  // let send_id = 'your id is ' + id;
+  // io.to(socket.id).emit('send_id', send_id);
 
   // broadcast：自分以外
-  sendId = id + 'さんが入室しました';
-  socket.broadcast.emit('send_id', sendId);
+  // send_id = id + 'さんが入室しました';
+  // socket.broadcast.emit('send_id', send_id);
+
+  socket.on("bit", function (bit_data) {
+    // dbに登録する処理
+    const db = con.mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function () {
+      console.log('DB接続中... You can cancel from ctrl + c');
+    });
+    const bit_history = new bitHistory({
+      car_id: bit_data.car_id,
+      user_id: bit_data.user_id,
+      user_name: bit_data.user_name,
+      price: bit_data.price
+    });
+    bit_history.save()
+      .then(result => {
+        console.log(result);
+        socket.broadcast.emit('bit_broadcast', result.price);
+      })
+      .catch(err => {
+        console.log(err);
+        return;
+      });
+
+
+    // dbから取得する処理
+  });
+
+  socket.on("sync", function (car_id) {
+    const db = con.mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function () {
+      console.log('DB接続中... You can cancel from ctrl + c');
+    });
+    bitHistory.find({car_id: car_id})
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.log(err);
+      return;
+    });
+  });
 
   // 切断時の処理
   socket.on('disconnect', function () {
