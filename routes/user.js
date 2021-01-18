@@ -91,6 +91,8 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   let auction_id;
   let user_info;
   let car_id;
+  let no = req.body.no;
+  console.log("no" + no);
   try {
     auction_id = req.params.auction_id;
     user_info = req.session.passport.user[0];
@@ -114,7 +116,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   auction_model.exec()
     .then(result => {
       // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
-      auction_end_time = new Date(result[0].car_ids[0].carEndtime).toString();
+      auction_end_time = new Date(result[0].car_ids[no].carEndtime).toString();
 
       // オークションが終了しているかどうかチェック
       let now = new Date(Date.now()).toString();
@@ -157,7 +159,8 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
             auction_end_time: auction_end_time,
             auction_start_price: auction_start_price,
             user_id: user_info._id,
-            user_name: user_info.name
+            user_name: user_info.name,
+            no: no,
             // user_id: "2",
             // user_name: "test"
           }
