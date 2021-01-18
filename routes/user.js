@@ -55,27 +55,14 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     res.redirect('/test'); //loginページに変える
     return;
   }
-  /**
-   * [
-      {
-        _id: '5ffd51cad1b125039690fcbf',
-        name: 'test',
-        email: 'test@gmail.com',
-        tel: '12345',
-        password: '12345',
-        __v: 0
-      }
-    ]
-   */
-
 
   // オークションの詳細を取ってくる処理
   let auction_end_time;
   let auction_start_price;
+  let render_state = "yet";
   const db = con.mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {
-    // we're connected!
     console.log('DB接続中... You can cancel from ctrl + c');
   });
   const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
@@ -83,53 +70,57 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     .then(result => {
       // 何台目かでcar_ids[no]の添字が変わるから、その番号を送ってくるようにする
       auction_end_time = new Date(result[0].car_ids[0].carEndtime).toString();
-      // とりあえず仮置き
-      // const auction_end_time = new Date('2021-01-15T19:00:00').toString();
-      // console.log(endDate);
-      // 
 
       // オークションが終了しているかどうかチェック
       let now = new Date(Date.now()).toString();
-      console.log(auction_end_time);
-      console.log(now);
       if (now > auction_end_time) {
-        console.log('over');
+        render_state = "finished";
         // 落札状態によって、ページを変える
-        console.log(car_id);
-        console.log(user_info._id);
         const bit_model = bitModel.find({ car_id: car_id });
         bit_model.exec()
           .then(result => {
             let result_length = result.length;
-            console.log(req.session.user_id);
-            if (result[result_length - 1].user_id == req.session.user_id) {
-              console.log("ok");
+            if (result[result_length - 1].user_id == user_info._id) {
+              // 落札している
+              render_state = "bided";
+              console.log(render_state + " state");
+            }
+            console.log(render_state);
+            if (render_state == "yet") {
+              console.log("yet");
+              auction_start_price = result[0].car_ids[0].carData.auction_start_price;
+            }
+            else if (render_state == "finished") {
+              console.log("finished");
+              res.render("user_auction_finished");
+            }
+            else {
+              console.log("bided");
+              res.render("user_auction_bided");
             }
           })
-        // res.render();
+          .catch(err => {
+            console.log(err);
+          });
       }
       else {
-        console.log('in');
+        res.render(
+          'user_auction_auctionid_bit',
+          {
+            auction_id: auction_id,
+            car_id: car_id,
+            auction_end_time: auction_end_time,
+            auction_start_price: auction_start_price,
+            user_id: user_info._id,
+            user_name: user_info.name
+            // user_id: "2",
+            // user_name: "test"
+          }
+        );
       }
-
-
-
-      auction_start_price = result[0].car_ids[0].carData.auction_start_price;
     })
     .catch(err => {
       console.log(err);
-    })
-    .then(function () {
-      res.render(
-        'user_auction_auctionid_bit',
-        {
-          auction_id: auction_id,
-          car_id: car_id,
-          auction_end_time: auction_end_time,
-          user_id: user_info._id,
-          user_name: user_info.name
-        }
-      );
     })
 });
 
