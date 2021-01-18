@@ -18,7 +18,7 @@
 				<h2>今までの履歴</h2>
 
 				<% for (var i=0; i<history.length; i++) { %>
-				<a href="#" class="text-secondary">日程：[日付][<%= history.start_time %>]-[<%= history.end_time %>]</a><br>
+				<a href="/emp/auction/<%= history[i]._id %>" class="text-secondary">日程：[<%= history[i].ddate.month %>/<%= history[i].ddate.day %>][<%= history[i].ddate.stime %>]-[<%= history[i].ddate.etime %>]</a><br>
 				<% } %>
 
 			</div>
@@ -28,7 +28,7 @@
 				<h3>開催中</h3>
 
 				<% for (var i=0; i<schedule.length; i++) { %>
-				<a href="#" class="text-secondary ">日程：[日付][<%= schedule.start_time %>]-[<%= schedule.end_time %>]</a><br>
+				<a href="/emp/auction/<%= schedule[i]._id %>" class="text-secondary ">日程：[<%= schedule[i].ddate.month %>/<%= schedule[i].ddate.day %>][<%= schedule[i].ddate.stime %>]-[<%= schedule[i].ddate.etime %>]</a><br>
 				<% } %>
 
 				<a class="btn btn-outline-warning btn-lg" href="/emp/auction/regist" role="button">オークションを追加する</a>

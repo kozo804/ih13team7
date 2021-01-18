@@ -44,7 +44,20 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-
+  try {
+      employeeModel.employees.find({ name: req.body.emp_id, password: req.body.password })
+        .then(function (result) {
+          console.log('result', result)
+          res.status = 200
+          res.send(result)
+        }).catch(function (err) {
+          console.log(err);
+          res.status = 500
+          res.send()
+        });
+    } catch (e) {
+      console.log(e)
+    }
 });
 
 router.get('/car', async function (req, res, next) {
@@ -186,13 +199,52 @@ router.post('/car/finish', function (req, res, next) {
 
 router.get('/auction', (req,res,next)=>{
   // DBからオークション履歴と今後のスケジュール取得
-  let history = [];
-  let schedule = [];
-  AuctionModel.find(function (err, result){
+  let history = {};
+  let schedule = {};
+  const nowTime = new Date().getTime();
+  console.log(nowTime);
+  
+  AuctionModel.find({end_time: {$lt: nowTime}}, function (err, result){  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
+    for (let i=0; i<result.length; i++){
+      let stime = new Date(result[i].start_time);
+      let etime = new Date(result[i].end_time);
+      let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+      let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
+      let ddate = {
+        "month": stime.getMonth()+1,
+        "day": stime.getDay(),
+        "stime": sstime,
+        "etime": eetime,
+      };
+      result[i].ddate = ddate;
+    }
     history = result;
-  })
-  res.render('emp_auction', {history: history, schedule: schedule});
+
+    AuctionModel.find({end_time: {$gt: nowTime}}, function(err,result){
+      if (err) return console.log(err);
+      for (let i=0; i<result.length; i++){
+        let stime = new Date(result[i].start_time);
+        let etime = new Date(result[i].end_time);
+        let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+        let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
+        let ddate = {
+          "month": stime.getMonth()+1,
+          "day": stime.getDay(),
+          "stime": sstime,
+          "etime": eetime,
+        };
+        result[i].ddate = ddate;
+      }
+      schedule = result;
+
+      res.render('emp_auction', {history: history, schedule: schedule});
+    }).limit(6);
+
+    // console.log(history);
+    
+  }).limit(6);
+  
 });
 
 router.get('/auction/regist', async (req,res,next)=>{
@@ -236,4 +288,13 @@ router.get('/auction/finsh',async (req, res, next) => {
   console.log('auction_res', auction_res)
   res.render('emp_acution_finish.ejs',{auction_res:auction_res})
 })
+
+router.get('/auction/:auction_id', (req,res,next)=>{
+  AuctionModel.findOne({"_id": req.params.auction_id}, function (err, result){
+    console.log(result);
+    console.log(result.car_ids[0]);
+    res.render('emp_auction_detail', {auction: result});
+  });
+});
+
 module.exports = router;

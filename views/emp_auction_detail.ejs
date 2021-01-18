@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/emp_auction_detail.css">
+	<title>オークション詳細</title>
+</head>
+<body>
+	<%- include('emp_header') %>
+	<div class="container">
+		<h1>オークション詳細</h1>
+		<div class="row">
+			<div class="col-md-6">
+				<div>日程：</div>
+			</div>
+			<div class="col-md-6">
+				<button class="btn btn-primary">車両変更・登録</button>
+			</div>
+		</div>
+		<div class="row">
+			<button class="btn btn-primary">オークションスタート</button>
+		</div>
+		<div class="row">
+			<% for (let i=0; i<auction.car_ids.length; i++){ %>
+				<div class="col-md-4 border">
+					<div><%= auction.car_ids[i].carData.maker %></div>
+					<hr>
+					<div><%= auction.car_ids[i].carData.car_name %></div>
+					<hr>
+					<div class="row">
+						<div class="col-md-6">年式</div><div class="col-md-6"><%= auction.car_ids[i].carData.registed_model_year %></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">車検</div><div class="col-md-6"><%= auction.car_ids[i].carData.inspection %></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">保証</div><div class="col-md-6"><%= auction.car_ids[i].carData.warranty %></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">走行</div><div class="col-md-6"><%= auction.car_ids[i].carData.mileage %>km</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">修復</div><div class="col-md-6"><%=  %></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">整備</div><div class="col-md-6"><%=  %></div>
+					</div>
+					<a href="" class="btn btn-outline-primary">詳しくはこちら</a>
+				</div>
+			<% } %>
+		</div>
+	</div>
+</body>
+</html>
