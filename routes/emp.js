@@ -202,9 +202,9 @@ router.get('/auction', (req, res, next) => {
   let history = {};
   let schedule = {};
   const nowTime = new Date().getTime();
-  console.log(nowTime);
-
-  AuctionModel.find({ end_time: { $lt: nowTime } }, function (err, result) {  //{end_time: {$gt: nowTime}},
+  // console.log(nowTime);
+  
+  AuctionModel.find({end_time: {$lt: nowTime}}, {}, {sort: {start_time: 1}, limit: 6}, function (err, result){  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
     for (let i = 0; i < result.length; i++) {
       let stime = new Date(result[i].start_time);
@@ -220,8 +220,8 @@ router.get('/auction', (req, res, next) => {
       result[i].ddate = ddate;
     }
     history = result;
-
-    AuctionModel.find({ end_time: { $gt: nowTime } }, function (err, result) {
+    
+    AuctionModel.find({end_time: {$gt: nowTime}}, {}, {sort: {start_time: 1}, limit: 6}, function(err,result){
       if (err) return console.log(err);
       for (let i = 0; i < result.length; i++) {
         let stime = new Date(result[i].start_time);
@@ -238,13 +238,13 @@ router.get('/auction', (req, res, next) => {
       }
       schedule = result;
 
-      res.render('emp_auction', { history: history, schedule: schedule });
-    }).limit(6);
+      res.render('emp_auction', {history: history, schedule: schedule});
+    });
 
     // console.log(history);
-
-  }).limit(6);
-
+    
+  });
+  
 });
 
 router.get('/auction/regist', async (req, res, next) => {
@@ -289,11 +289,20 @@ router.get('/auction/finsh', async (req, res, next) => {
   res.render('emp_acution_finish.ejs', { auction_res: auction_res })
 })
 
-router.get('/auction/:auction_id', (req, res, next) => {
-  AuctionModel.findOne({ "_id": req.params.auction_id }, function (err, result) {
-    console.log(result);
-    console.log(result.car_ids[0]);
-    res.render('emp_auction_detail', { auction: result, auction_id: req.params.auction_id });
+router.get('/auction/:auction_id', (req,res,next)=>{
+  AuctionModel.findOne({"_id": req.params.auction_id}, function (err, result){
+    // console.log(result);
+    // console.log(result.car_ids[0]);
+    let stime = new Date(result.start_time);
+    let sstime = ('0' + (stime.getMonth() + 1)).slice(-2) + "/" + ('0' + stime.getDate()).slice(-2) + " " + ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
+    let etime = new Date(result.end_time);
+    let eetime = etime.getHours() + ":" + etime.getDate();
+    result.data = {
+      "stime": sstime,
+      "etime": eetime
+    };
+    console.log("result.data.stime: "+result.data.stime);
+    res.render('emp_auction_detail', {auction: result});
   });
 });
 

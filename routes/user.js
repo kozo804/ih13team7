@@ -39,7 +39,7 @@ router.get('/auction', function (req, res, next) {
   const nowTime = new Date().getTime();
   console.log(nowTime);
 
-  AuctionModel.find({ end_time: { $lt: nowTime } }, function (err, result) {  //{end_time: {$gt: nowTime}},
+  AuctionModel.find({ end_time: { $lt: nowTime } }, {}, {sort: {start_time: 1}, limit: 6}, function (err, result) {  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
     for (let i = 0; i < result.length; i++) {
       let stime = new Date(result[i].start_time);
@@ -48,7 +48,7 @@ router.get('/auction', function (req, res, next) {
       let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
       let ddate = {
         "month": stime.getMonth() + 1,
-        "day": stime.getDay(),
+        "day": stime.getDate(),
         "stime": sstime,
         "etime": eetime,
       };
@@ -56,7 +56,7 @@ router.get('/auction', function (req, res, next) {
     }
     history = result;
 
-    AuctionModel.find({ end_time: { $gt: nowTime } }, function (err, result) {
+    AuctionModel.find({ end_time: { $gt: nowTime } }, {}, {sort: {start_time: 1}, limit: 6}, function (err, result) {
       if (err) return console.log(err);
       for (let i = 0; i < result.length; i++) {
         let stime = new Date(result[i].start_time);
@@ -65,7 +65,7 @@ router.get('/auction', function (req, res, next) {
         let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
         let ddate = {
           "month": stime.getMonth() + 1,
-          "day": stime.getDay(),
+          "day": stime.getDate(),
           "stime": sstime,
           "etime": eetime,
         };
@@ -74,11 +74,8 @@ router.get('/auction', function (req, res, next) {
       schedule = result;
 
       res.render('user_auction', { history: history, schedule: schedule });
-    }).limit(6);
-
-    // console.log(history);
-
-  }).limit(6);
+    });
+  });
 });
 
 router.get('/auction/:auction_id', async function (req, res, next) {

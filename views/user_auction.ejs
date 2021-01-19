@@ -16,20 +16,20 @@
 		<div class="row">
 			<div class="col-md-6 history">
 				<!-- 今までの履歴 -->
-				<h2>今までの履歴</h2>
+				<h2 class="display-5">今までの履歴</h2>
 
 				<% for (var i=0; i<history.length; i++) { %>
-				<a href="/user/auction/<%= history[i]._id %>" class="text-secondary">日程：[<%= history[i].ddate.month %>/<%= history[i].ddate.day %>][<%= history[i].ddate.stime %>]-[<%= history[i].ddate.etime %>]</a><br>
+				<a href="/user/auction/<%= history[i]._id %>" class="text-secondary display-6">日程：[<%= history[i].ddate.month %>/<%= history[i].ddate.day %>][<%= history[i].ddate.stime %>]-[<%= history[i].ddate.etime %>]</a><br>
 				<% } %>
 
 			</div>
 			<div class="col-md-6 schedule">
 				<!-- 今後のスケジュール -->
-				<h2>今後のスケジュール</h2>
-				<h3>開催中</h3>
+				<h2 class="display-5">今後のスケジュール</h2>
+				<h3 class="display-5">開催中</h3>
 
 				<% for (var i=0; i<schedule.length; i++) { %>
-				<a href="/user/auction/<%= schedule[i]._id %>" class="text-secondary ">日程：[<%= schedule[i].ddate.month %>/<%= schedule[i].ddate.day %>][<%= schedule[i].ddate.stime %>]-[<%= schedule[i].ddate.etime %>]</a><br>
+				<a href="/user/auction/<%= schedule[i]._id %>" class="text-secondary display-6">日程：[<%= schedule[i].ddate.month %>/<%= schedule[i].ddate.day %>][<%= schedule[i].ddate.stime %>]-[<%= schedule[i].ddate.etime %>]</a><br>
 				<% } %>
 
 				<!-- <a class="btn btn-outline-warning btn-lg" href="/emp/auction/regist" role="button">オークションを追加する</a> -->
