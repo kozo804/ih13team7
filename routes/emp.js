@@ -126,7 +126,6 @@ router.post('/car/confirm', upload.array('car_picture'), function (req, res, nex
     entries_field: req.body.entries_field,
     comment: req.body.comment,
   }
-  // console.log(req.files);
 
   req.session.car_info = car_info;
 
@@ -146,7 +145,6 @@ router.post('/car/finish', function (req, res, next) {
 
   console.log(car_info);
   const car = new carModel({
-
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
