@@ -141,7 +141,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           });
       }
       else {
-        carModel.find({ car_id: car_id })
+        carModel.find({ _id: car_id })
           .then(car_model_result => {
             console.log(car_model_result);
             auction_start_price = auction_model_result[0].car_ids[no].carData.auction_start_price;
@@ -149,6 +149,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
               'user_auction_auctionid_bit',
               {
                 auction_id: auction_id,
+                car_info: car_model_result[0],
                 car_id: car_id,
                 auction_end_time: auction_end_time,
                 auction_start_price: auction_start_price,

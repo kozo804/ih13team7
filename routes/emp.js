@@ -5,6 +5,7 @@ var carModel = require('../models/t03_car').car;
 var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
+const { Auction } = require('../models/t02_auction');
 var storage = multer.diskStorage({
   destination: function (req, file, cd) {
     console.log(req.file);
@@ -305,23 +306,34 @@ router.get('/auction/:auction_id', (req,res,next)=>{
   });
 });
 
-// router.post('/auction/:auction_id', (req, res, next)=>{
-//   console.log(req.params.auction_id);
-//   console.log(req.body.auction_id);
-//   let auctionId = req.body.auction_id;
-//   let nowTime = new Date().getTime();
-//   AuctionModel.update({_id: auctionId}, {$set: {start_time: nowTime}});
+router.post('/auction/:auction_id', function (req, res, next) {
+  let now = new Date(req.body.now).getTime();
+  console.log("now " + now);
+  const auction_model = AuctionModel.find({ _id: req.body.auction_id });
+  auction_model.select("car_ids");
+  auction_model.exec()
+    .then(result => {
+      result[0].start_time = now;
+      for (let i = 0; i < result[0].car_ids.length; i++) {
+        result[0].car_ids[i].carEndtime = now + 30 * 1000 * i;
+        console.log(i + "台目: " + result[0].car_ids[i].carEndtime);
+      }
+      // result[0].end_time = now + 30 * 1000 * (result[0].car_count - 1);
+      result[0].end_time = result[0].car_ids[result[0].car_ids.length - 1].carEndtime;
 
-//   AuctionModel.findOne({_id: auctionId}, function(err, result){
-//     if (err) return console.log(err);
-//     // console.log(result);
-//     // console.log(result.car_ids[0].carEndtime);
-//     for (var i=0; i<result.car_ids.length; i++){
-//       result.car_ids[i].carEndtime = nowTime + 30 * 1000 * i;
-//     }
-//     result.end_time = result.car_ids[result.car_count-1].carEndtime;
-//     res.render('emp_auction_detail', {auction: result});
-//   });
-// });
+      console.log(result[0].end_time);
+      AuctionModel.update({ _id: req.body.auction_id }, result[0])
+        .then(update_esult => {
+          console.log(update_esult);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 module.exports = router;
