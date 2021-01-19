@@ -17,11 +17,11 @@
 				<div>日程：<%= auction.data.stime %>-<%= auction.data.etime %></div>
 			</div>
 			<div class="col-md-6">
+				<button class="btn btn-primary start_button" @click="start">オークションスタート</button>
+
 				<button class="btn btn-primary">車両変更・登録</button>
+
 			</div>
-		</div>
-		<div class="row">
-			<button class="btn btn-primary start_button" @click="start">オークションスタート</button>
 		</div>
 		<div class="row">
 			<% for (let i=0; i<auction.car_ids.length; i++){ %>
