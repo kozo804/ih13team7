@@ -73,10 +73,10 @@ router.get('/car/regist', function (req, res, next) {
 });
 
 router.get('/car/:car_id', async function (req, res, next) {
-console.log(req.params['car_id'])
-const carData = await carModel.find({ _id:req.params['car_id'] })
-console.log(carData);
-res.render('emp_car_detail.ejs',{carData:carData})
+  console.log(req.params['car_id'])
+  const carData = await carModel.find({ _id: req.params['car_id'] })
+  console.log(carData);
+  res.render('emp_car_detail.ejs', { carData: carData })
 });
 
 router.post('/car/confirm', upload.array('car_picture'), function (req, res, next) {
@@ -308,7 +308,7 @@ router.get('/auction/:auction_id', (req, res, next) => {
       "stime": sstime,
       "etime": eetime
     };
-    console.log("result.data.etime: " +result.data.etime);
+    console.log("result.data.etime: " + result.data.etime);
     res.render(
       'emp_auction_detail',
       {
@@ -327,10 +327,8 @@ router.post('/auction/:auction_id', function (req, res, next) {
     .then(result => {
       result[0].start_time = now;
       for (let i = 0; i < result[0].car_ids.length; i++) {
-        result[0].car_ids[i].carEndtime = now + 30 * 1000 * i;
-        console.log(i + "台目: " + result[0].car_ids[i].carEndtime);
+        result[0].car_ids[i].carEndtime = now + 30 * 1000 * (i + 1);
       }
-      // result[0].end_time = now + 30 * 1000 * (result[0].car_count - 1);
       result[0].end_time = result[0].car_ids[result[0].car_ids.length - 1].carEndtime;
 
       console.log(result[0].end_time);
