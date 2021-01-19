@@ -71,6 +71,13 @@ router.get('/car/regist', function (req, res, next) {
   res.render('emp_car_regist');
 });
 
+router.get('/car/:car_id', async function (req, res, next) {
+console.log(req.params['car_id'])
+const carData = await carModel.find({ _id:req.params['car_id'] })
+console.log(carData);
+res.render('emp_car_detail.ejs',{carData:carData})
+});
+
 router.post('/car/confirm', upload.array('car_picture'), function (req, res, next) {
   const car_info = {
     maker: req.body.maker,
