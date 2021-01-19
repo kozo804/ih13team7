@@ -7,17 +7,21 @@
     <!-- <link rel='stylesheet' href='/css/user_car.css' /> -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/emp_car_regist.css">
-    <title>User_Car 詳細</title>
+
+    <title>emp_Car 詳細</title>
 </head>
 
 <body>
     <div id="wrapper">
-    <%- include('./user_header.ejs'); %>
+    <%- include('./emp_header.ejs'); %>
 
     <div  class="container"> 
-
-    <div id="big">
+        <div class="d-flex justify-content-around">
+                <div id="big">
         <img src="/images/car.jpg" alt="">
+    </div>
+       <button type="button" class="btn btn-primary">編集</button>
+
     </div>
     <br><br>
 
@@ -66,7 +70,7 @@
         </div>
         </div>
 </div>
-    <script src="/js/user_car.js"></script>
+
 </body>
 
 </html>
