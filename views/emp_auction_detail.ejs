@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<button class="btn btn-primary start_button">オークションスタート</button>
+			<button class="btn btn-primary start_button" @click="start">オークションスタート</button>
 		</div>
 		<div class="row">
 			<% for (let i=0; i<auction.car_ids.length; i++){ %>
@@ -53,6 +53,7 @@
 			<% } %>
 		</div>
 	</div>
+	<input type="hidden" name="auction_id" value="<%= auction_id %>">
 	<script src="/js/emp_auction_detail.js"></script>
 </body>
 </html>
