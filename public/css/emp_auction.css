@@ -155,3 +155,8 @@ h1 {
 .schedule {
   text-align: center;
 }
+
+.mtb {
+  display: block;
+  padding: 0.5em 0;
+}

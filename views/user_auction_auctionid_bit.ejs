@@ -25,32 +25,32 @@
   
       <div class="auction_area container">
         <div class="">
-          <div class="row justify-content-center">
-            <p class="col"><img src="/images/car-<%= no %>.jpg"></p>
-          </div>
-          
-          <div  class="row justify-content-center">
-            <div class="d-flex justify-center">
-              <div class="spinner-grow text-warning" role="status">
-                <span class="visually-hidden">Loading...</span>
+          <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+              <img src="/images/car-<%= no %>.jpg">
+              <div class="d-flex justify-center m-2">
+                <div class="spinner-grow text-warning" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="timer"><span>残り時間</span> {{ time }}</p>
               </div>
-              <p class="timer"><span>残り時間</span> {{ time }}</p>
-            </div>
-          </div>
-          
-          <div class="row justify-content-center">
-            <p><span>現在価格</span> {{ now_price }},000円</p>
+
+              <div class="d-flex justify-center m-2">
+                <p><span class="badge bg-warning text-dark">現在価格</span>{{ now_price }},000円</p>
+              </div>
+
+              <div class="bit_area">
+                <p><span class="badge bg-primary">入札額</span><input type="number" class="display-6" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
+                <button @click="bit" v-bind:disabled=timeOut type="button" class="btn btn-danger">{{ bit_button }}</button>
+              </div>
+            </div><!--col-md-auto-->
 
 
-          </div>
-          
-          <div class="row justify-content-center">
-            <div class="bit_area">
-              <p>入札額<input type="number" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
-              <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
-            </div>
 
-          </div>
+
+
+          </div><!--row justify-content-md-center-->
+
 
           <table class="car_info">
             <tr>
@@ -70,6 +70,7 @@
       </div>
       <div class="auciton_schedule">
         <img src="/images/bit_cars.png" alt="">
+        <p style="visibility: hidden;">a</p>
       </div>
     </section>
   </div>
