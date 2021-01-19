@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
     console.log(req.file);
     cd(null, '/public/images/')
   },
-  filename: function(req, file, cd) {
+  filename: function (req, file, cd) {
     cd(null, `emp_${Date.now()}`)
   }
 })
@@ -45,24 +45,24 @@ router.get('/login', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
   try {
-      employeeModel.employees.find({ name: req.body.emp_id, password: req.body.password })
-        .then(function (result) {
-          console.log('result', result)
-          res.status = 200
-          res.send(result)
-        }).catch(function (err) {
-          console.log(err);
-          res.status = 500
-          res.send()
-        });
-    } catch (e) {
-      console.log(e)
-    }
+    employeeModel.employees.find({ name: req.body.emp_id, password: req.body.password })
+      .then(function (result) {
+        console.log('result', result)
+        res.status = 200
+        res.send(result)
+      }).catch(function (err) {
+        console.log(err);
+        res.status = 500
+        res.send()
+      });
+  } catch (e) {
+    console.log(e)
+  }
 });
 
 router.get('/car', async function (req, res, next) {
-    const result = await carModel.find({ status:0 })
-    res.render('emp_car',{result:result});
+  const result = await carModel.find({ status: 0 })
+  res.render('emp_car', { result: result });
 
 });
 
@@ -119,7 +119,6 @@ router.post('/car/confirm', upload.array('car_picture'), function (req, res, nex
     comment: req.body.comment,
   }
   // console.log(req.files);
-  // 写真の処理を追加する予定
 
   req.session.car_info = car_info;
 
@@ -197,7 +196,7 @@ router.post('/car/finish', function (req, res, next) {
   res.render('emp_car_finish');
 });
 
-router.get('/auction', (req,res,next)=>{
+router.get('/auction', (req, res, next) => {
   // DBからオークション履歴と今後のスケジュール取得
   let history = {};
   let schedule = {};
@@ -206,31 +205,31 @@ router.get('/auction', (req,res,next)=>{
   
   AuctionModel.find({end_time: {$lt: nowTime}}, {}, {sort: {start_time: 1}, limit: 6}, function (err, result){  //{end_time: {$gt: nowTime}},
     if (err) return console.log(err);
-    for (let i=0; i<result.length; i++){
+    for (let i = 0; i < result.length; i++) {
       let stime = new Date(result[i].start_time);
       let etime = new Date(result[i].end_time);
       let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
       let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
       let ddate = {
-        "month": stime.getMonth()+1,
-        "day": stime.getDate(),
+        "month": stime.getMonth() + 1,
+        "day": stime.getDay(),
         "stime": sstime,
         "etime": eetime,
       };
       result[i].ddate = ddate;
     }
     history = result;
-
+    
     AuctionModel.find({end_time: {$gt: nowTime}}, {}, {sort: {start_time: 1}, limit: 6}, function(err,result){
       if (err) return console.log(err);
-      for (let i=0; i<result.length; i++){
+      for (let i = 0; i < result.length; i++) {
         let stime = new Date(result[i].start_time);
         let etime = new Date(result[i].end_time);
         let sstime = ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
         let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
         let ddate = {
-          "month": stime.getMonth()+1,
-          "day": stime.getDate(),
+          "month": stime.getMonth() + 1,
+          "day": stime.getDay(),
           "stime": sstime,
           "etime": eetime,
         };
@@ -247,16 +246,16 @@ router.get('/auction', (req,res,next)=>{
   
 });
 
-router.get('/auction/regist', async (req,res,next)=>{
-  const cars = await carModel.find({ status:0 });
+router.get('/auction/regist', async (req, res, next) => {
+  const cars = await carModel.find({ status: 0 });
 
-  res.render('emp_auction_regist.ejs',{cars:cars});
+  res.render('emp_auction_regist.ejs', { cars: cars });
 });
 
 
-router.post('/auction/confirm', async (req,res,next) => {
+router.post('/auction/confirm', async (req, res, next) => {
   console.log(req.body)
-  let str = req.body.year+' '+req.body.month+' '+req.body.date+','+req.body.auction_start_time;
+  let str = req.body.year + ' ' + req.body.month + ' ' + req.body.date + ',' + req.body.auction_start_time;
   console.log(str);
   let date = new Date(str);
   console.log(date.getTime());
@@ -266,27 +265,27 @@ router.post('/auction/confirm', async (req,res,next) => {
     end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
     // rep_id: Number,
     car_count: req.body.defaultCheck1.length,
-    car_ids : []
+    car_ids: []
   }
-  for(let i=0; i<req.body.defaultCheck1.length; i++){
-    let car = await carModel.find({ _id:req.body.defaultCheck1[i] });
-    auction.car_ids[i]={
+  for (let i = 0; i < req.body.defaultCheck1.length; i++) {
+    let car = await carModel.find({ _id: req.body.defaultCheck1[i] });
+    auction.car_ids[i] = {
       carEndtime: auction.start_time + 30 * i * 1000,
       carData: car[0]
     }
   }
   console.log(auction)
   req.session.auction = auction;
-  res.render('emp_auction_confirm.ejs', {auction:auction});
+  res.render('emp_auction_confirm.ejs', { auction: auction });
 });
 
-router.get('/auction/finsh',async (req, res, next) => {
+router.get('/auction/finsh', async (req, res, next) => {
 
   const auction_data = req.session.auction
-  console.log('auction_data',auction_data)
+  console.log('auction_data', auction_data)
   const auction_res = await AuctionModel.create(auction_data)
   console.log('auction_res', auction_res)
-  res.render('emp_acution_finish.ejs',{auction_res:auction_res})
+  res.render('emp_acution_finish.ejs', { auction_res: auction_res })
 })
 
 router.get('/auction/:auction_id', (req,res,next)=>{
