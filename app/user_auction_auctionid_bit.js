@@ -10,14 +10,15 @@ const user_auction_auctionid_bit = new Vue({
   el: '#wrapper',
   data: {
     values: '',
-    bit_price: '',
-    now_price: 2,
+    bit_price: document.getElementsByName("start_price")[0].value,
+    now_price: document.getElementsByName("start_price")[0].value,
     auction_id: document.getElementsByName("auction_id")[0].value,
     now_date: new Date(),
     end_date: new Date(document.getElementsByName("end_date")[0].value),
     car_id: document.getElementsByName("car_id")[0].value,
     user_id: document.getElementsByName("user_id")[0].value,
     user_name: document.getElementsByName("user_name")[0].value,
+    history: '',
   },
   methods: {
     // 入札ボタンを押したときの処理
@@ -27,7 +28,8 @@ const user_auction_auctionid_bit = new Vue({
         car_id: this.car_id,
         user_id: this.user_id,
         user_name: this.user_name,
-        price: this.bit_price,
+        price: parseInt(this.bit_price) * 1000,
+        date: new Date(Date.now())
       };
       socket.emit('bit', bit_data);
     },
@@ -70,7 +72,7 @@ const user_auction_auctionid_bit = new Vue({
         if (second < 10) {
           second = second.padStart(2, '0');
         }
-        if(hour > 0){
+        if (hour > 0) {
           remaining += hour + ':';
         }
         remaining += minute + ':';
@@ -78,6 +80,7 @@ const user_auction_auctionid_bit = new Vue({
       }
       else {
         remaining = "終了";
+        // 終了時にリロードする処理
       }
       return remaining;
     }
@@ -87,18 +90,23 @@ const user_auction_auctionid_bit = new Vue({
     // ルームに参加
     const self = this;
     socket.emit("join_room", this.auction_id);
-    socket.on("bit_broadcast", function(bited_price) {
-      self.bit_price = bited_price;
-      self.now_price = bited_price;
+    socket.on("bit_broadcast", function (bited_price) {
+      self.now_price = bited_price / 1000;
+      self.bit_price = self.now_price;
     });
     this.countdown();
     this.leave();
     socket.emit('sync', this.car_id);
-    socket.on('sync_result', function(result) {
+    socket.on('sync_result', function (result) {
       console.log(result);
+      if (result.length >= 1) {
+        self.history = result.reverse();
+        self.now_price = parseInt(result[0].price) / 1000;
+        self.bit_price = parseInt(self.now_price) + 1;
+      }
     });
-
-    // const axios = AxiosBase.axiosBase();
-    // axios.get();
+    socket.on('bit_history', function(result) {
+      self.history = result.reverse();
+    })
   }
 });
