@@ -12,41 +12,64 @@
 
 <body>
   <div id="wrapper">
+
     <%- include('./emp_header.ejs'); %>
     <section class="main_area">
       <div class="bit_history">
-        <ul class="bit_data" v-for="bit_data in history">
-          <li>{{ bit_data.user_name }} さん</li>
-          <li>{{ bit_data.price }} 円</li>
-          <li>{{ bit_data.date }}</li>
+        <ul class="bit_data list-group" v-for="bit_data in history">
+          <li class="list-group-item list-group-item-secondary w-100">{{ bit_data.user_name }} さん</li>
+          <li class="list-group-item list-group-item-success w-100">{{ bit_data.price }} 円</li>
+          <li class="list-group-item list-group-item-info w-100">{{ bit_data.date }}</li>
         </ul>
       </div>
   
-      <div class="auction_area">
-        <!-- <p><img src="car-<%= no %>.jpg"></p> -->
-        <p class="timer"><span>残り時間</span> {{ time }}</p>
-        <p><span>現在価格</span> {{ now_price }},000円</p>
-        <div class="bit_area">
-          <p>入札額<input type="number" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
-          <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
+      <div class="auction_area container">
+        <div class="">
+          <div class="row justify-content-center">
+            <p class="col"><img src="/images/car-<%= no %>.jpg"></p>
+          </div>
+          
+          <div  class="row justify-content-center">
+            <div class="d-flex justify-center">
+              <div class="spinner-grow text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="timer"><span>残り時間</span> {{ time }}</p>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <p><span>現在価格</span> {{ now_price }},000円</p>
+
+
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="bit_area">
+              <p>入札額<input type="number" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
+              <button @click="bit" v-bind:disabled=timeOut>{{ bit_button }}</button>
+            </div>
+
+          </div>
+
+          <table class="car_info">
+            <tr>
+              <td class="info_name">メーカー名</td>
+              <td><%= car_info.maker %></td>
+              <td class="info_name">車名</td>
+              <td><%= car_info.car_name %></td>
+            </tr>
+            <tr>
+              <td class="info_name">登録年式</td>
+              <td><%= car_info.registed_model_year %></td>
+              <td class="info_name">走行距離</td>
+              <td><%= car_info.mileage %>km</td>
+            </tr>
+          </table>
         </div>
-        <table class="car_info">
-          <tr>
-            <td class="info_name">メーカー名</td>
-            <td><%= car_info.maker %></td>
-            <td class="info_name">車名</td>
-            <td><%= car_info.car_name %></td>
-          </tr>
-          <tr>
-            <td class="info_name">登録年式</td>
-            <td><%= car_info.registed_model_year %></td>
-            <td class="info_name">走行距離</td>
-            <td><%= car_info.mileage %>km</td>
-          </tr>
-        </table>
       </div>
       <div class="auciton_schedule">
-        <p>a</p>
+        <img src="/images/bit_cars.png" alt="">
       </div>
     </section>
   </div>
