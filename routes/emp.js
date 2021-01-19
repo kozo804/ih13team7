@@ -296,7 +296,7 @@ router.get('/auction/:auction_id', (req, res, next) => {
     let stime = new Date(result.start_time);
     let sstime = ('0' + (stime.getMonth() + 1)).slice(-2) + "/" + ('0' + stime.getDate()).slice(-2) + " " + ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
     let etime = new Date(result.end_time);
-    let eetime = etime.getHours() + ":" + etime.getDate();
+    let eetime = ('0' + etime.getDate()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
     result.data = {
       "stime": sstime,
       "etime": eetime
