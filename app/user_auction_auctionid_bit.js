@@ -13,7 +13,7 @@ const user_auction_auctionid_bit = new Vue({
     now_price: document.getElementsByName("start_price")[0].value,
     auction_id: document.getElementsByName("auction_id")[0].value,
     now_date: new Date(),
-    end_date: new Date(document.getElementsByName("end_date")[0].value),
+    end_date: document.getElementsByName("end_date")[0].value,
     car_id: document.getElementsByName("car_id")[0].value,
     user_id: document.getElementsByName("user_id")[0].value,
     user_name: document.getElementsByName("user_name")[0].value,
@@ -82,7 +82,7 @@ const user_auction_auctionid_bit = new Vue({
         remaining = "終了";
         // 終了時にリロードする処理
         let url = `/user/auction/${this.auction_id}/bit/${this.car_id}?no=${this.no}`;
-        // window.location.href = url;
+        window.location.href = url;
       }
       return remaining;
     }
