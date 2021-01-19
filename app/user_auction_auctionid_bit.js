@@ -60,7 +60,6 @@ const user_auction_auctionid_bit = new Vue({
     time: function () {
       let difference = this.difference;
       var remaining = '';
-      console.log(difference);
       if (difference >= 0) {
         let hour = Math.floor(difference / (1000 * 60 * 60)).toString();
         difference -= (hour * (1000 * 60 * 60));
