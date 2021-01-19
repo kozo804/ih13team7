@@ -13,7 +13,7 @@
 <body>
   <div id="wrapper">
 
-    <%- include('./emp_header.ejs'); %>
+    <%- include('./user_header.ejs'); %>
     <section class="main_area">
       <div class="bit_history">
         <ul class="bit_data list-group" v-for="bit_data in history">
@@ -43,29 +43,26 @@
                 <p><span class="badge bg-primary">入札額</span><input type="number" class="display-6" name="bit_price" placeholder="入札額" v-model="bit_price">,000円</p>
                 <button @click="bit" v-bind:disabled=timeOut type="button" class="btn btn-danger">{{ bit_button }}</button>
               </div>
+
+              <table class="car_info">
+                <tr>
+                  <td class="table-info">メーカー名</td>
+                  <td><%= car_info.maker %></td>
+                  <td class="table-light">車名</td>
+                  <td><%= car_info.car_name %></td>
+                </tr>
+                <tr>
+                  <td class="table-info">登録年式</td>
+                  <td><%= car_info.registed_model_year %></td>
+                  <td class="table-light">走行距離</td>
+                  <td><%= car_info.mileage %>km</td>
+                </tr>
+              </table>
             </div><!--col-md-auto-->
-
-
-
-
-
           </div><!--row justify-content-md-center-->
 
 
-          <table class="car_info">
-            <tr>
-              <td class="info_name">メーカー名</td>
-              <td><%= car_info.maker %></td>
-              <td class="info_name">車名</td>
-              <td><%= car_info.car_name %></td>
-            </tr>
-            <tr>
-              <td class="info_name">登録年式</td>
-              <td><%= car_info.registed_model_year %></td>
-              <td class="info_name">走行距離</td>
-              <td><%= car_info.mileage %>km</td>
-            </tr>
-          </table>
+          
         </div>
       </div>
       <div class="auciton_schedule">
