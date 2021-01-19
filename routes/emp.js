@@ -213,7 +213,7 @@ router.get('/auction', (req, res, next) => {
       let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
       let ddate = {
         "month": stime.getMonth() + 1,
-        "day": stime.getDay(),
+        "day": stime.getDate(),
         "stime": sstime,
         "etime": eetime,
       };
@@ -230,7 +230,7 @@ router.get('/auction', (req, res, next) => {
         let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
         let ddate = {
           "month": stime.getMonth() + 1,
-          "day": stime.getDay(),
+          "day": stime.getDate(),
           "stime": sstime,
           "etime": eetime,
         };
