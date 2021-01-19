@@ -12,6 +12,12 @@
 <body>
   <div id="wrapper">
     <%- include('./emp_header.ejs'); %>
+    <%
+    car_info.mileage = parseInt(car_info.mileage).toLocaleString();
+    car_info.recycleing_amount = parseInt(car_info.recycleing_amount).toLocaleString();
+    car_info.auction_desired_price = parseInt(car_info.auction_desired_price).toLocaleString();
+    car_info.auction_start_price = parseInt(car_info.auction_start_price).toLocaleString();
+    %>
     <div class="car_info">
       <form action="/emp/car/finish" method="post">
 
@@ -152,11 +158,11 @@
               <tr>
                 <td class="info_name">オークション<span>希望</span>価格</td>
                 <td>
-                  <%= car_info.auction_desired_price %>&nbsp;&nbsp;,000円
+                  <%= car_info.auction_desired_price %>,000円
                 </td>
                 <td class="info_name">オークション<span>スタート</span>価格</td>
                 <td>
-                  <%= car_info.auction_start_price %>&nbsp;&nbsp;,000円
+                  <%= car_info.auction_start_price %>,000円
                 </td>
               </tr>
             </table>
@@ -178,7 +184,7 @@
           <div class="text_container">
             <div class="text_area">
               <p class="info_name">注意事項</p>
-              <p name="considerations" cols="80" rows="8" style="border: solid #dbdbdb 2px;" disabled><%= car_info.considerations %></p>
+              <p name="considerations" cols="80" rows="8" disabled><%= car_info.considerations %></p>
             </div>
             <div class="text_area">
               <p class="info_name">セールスポイント</p>
