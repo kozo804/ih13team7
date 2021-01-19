@@ -303,12 +303,12 @@ router.get('/auction/:auction_id', (req, res, next) => {
     let stime = new Date(result.start_time);
     let sstime = ('0' + (stime.getMonth() + 1)).slice(-2) + "/" + ('0' + stime.getDate()).slice(-2) + " " + ('0' + stime.getHours()).slice(-2) + ":" + ('0' + stime.getMinutes()).slice(-2);
     let etime = new Date(result.end_time);
-    let eetime = ('0' + etime.getDate()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
+    let eetime = ('0' + etime.getHours()).slice(-2) + ":" + ('0' + etime.getMinutes()).slice(-2);
     result.data = {
       "stime": sstime,
       "etime": eetime
     };
-    console.log("result.data.stime: " + result.data.stime);
+    console.log("result.data.etime: " +result.data.etime);
     res.render(
       'emp_auction_detail',
       {
