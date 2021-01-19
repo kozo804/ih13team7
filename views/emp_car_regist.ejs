@@ -20,57 +20,57 @@
           <table class="car_name">
             <tr>
               <td>メーカー名</td>
-              <td><input type="text" name="maker" value="maker" /></td>
+              <td><input type="text" name="maker" value="トヨタ" /></td>
               <td>車名</td>
-              <td><input type="text" name="car_name" value="car_name" /></td>
+              <td><input type="text" name="car_name" value="クラウンロイヤル" /></td>
             </tr>
             <tr>
               <td>グレード</td>
-              <td><input type="text" name="grade" value="grade" /></td>
+              <td><input type="text" name="grade" value="ハイブリッド 2.5 ロイヤルサルーンG" /></td>
               <td>形状</td>
-              <td><input type="text" name="shape" value="shape" /></td>
+              <td><input type="text" name="shape" value="セダン" /></td>
             </tr>
           </table>
           <table class="car_detail">
             <tr>
               <td>登録年式</td>
-              <td><input type="text" name="registed_model_year" value="year" /></td>
+              <td><input type="text" name="registed_model_year" value="2015" /></td>
               <td>モデル年式</td>
-              <td><input type="text" name="model_year" value="model" /></td>
+              <td><input type="text" name="model_year" value="2015" /></td>
               <td>車検</td>
-              <td><input type="text" name="inspection" value="inspection" /></td>
+              <td><input type="text" name="inspection" value="2年" /></td>
             </tr>
             <tr>
               <td>型式</td>
-              <td><input type="text" name="model" value="model" /></td>
+              <td><input type="text" name="model" value="DAA-AWS210" /></td>
               <td>ミッション</td>
-              <td><input type="text" name="mission" value="mission" /></td>
+              <td><input type="text" name="mission" value="AT" /></td>
               <td>燃料</td>
               <td>
                 <select name="fuel">
-                  <option value="ガソリン" selected>ガソリン</option>
+                  <option value="ガソリン">ガソリン</option>
                   <option value="軽油">軽油</option>
                   <option value="電気">電気</option>
-                  <option value="ハイブリッド">ハイブリッド</option>
+                  <option value="ハイブリッド" selected>ハイブリッド</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td>外装色</td>
-              <td><input type="text" name="outer_color" value="color1" /></td>
+              <td><input type="text" name="outer_color" value="白" /></td>
               <td>内装色</td>
-              <td><input type="text" name="inner_color" value="color2" /></td>
+              <td><input type="text" name="inner_color" value="グレー" /></td>
               <td>排気量</td>
-              <td><input type="number" name="engine_size" value="100" />c.c.</td>
+              <td><input type="number" name="engine_size" value="2500" />c.c.</td>
             </tr>
             <tr>
               <td>走行距離</td>
-              <td><input type="number" name="mileage" value="30" />km</td>
+              <td><input type="text" name="mileage" value="300,000" />km</td>
               <td>車歴</td>
-              <td><input type="number" name="car_history" value="2" /></td>
+              <td><input type="text" name="car_history" value="自家用" /></td>
               <td>車台番号</td>
               <td>
-                <input type="text" name="undercarriage_number" value="undercarriage_number" />
+                <input type="text" name="undercarriage_number" value="8743721985211845" />
               </td>
             </tr>
             <tr>
@@ -127,12 +127,12 @@
                 </div>
               </td>
               <td>室内シート</td>
-              <td><input type="number" name="in_room_sheet" value="0" /></td>
+              <td><input type="number" name="in_room_sheet" value="4" /></td>
             </tr>
             <tr>
               <td colspan="3" style="text-align: left">
                 リサイクル料金受託済み金額
-                <input type="number" name="recycleing_amount" value="5000" style="width: 30%" />円
+                <input type="number" name="recycleing_amount" value="50000" style="width: 30%" />円
               </td>
             </tr>
           </table>
@@ -232,11 +232,11 @@
               <tr>
                 <td>オークション<span>希望</span>価格</td>
                 <td>
-                  <input type="number" name="auction_desired_price" value="400" />,000円
+                  <input type="number" name="auction_desired_price" value="2000" />,000円
                 </td>
                 <td>オークション<span>スタート</span>価格</td>
                 <td>
-                  <input type="number" name="auction_start_price" value="200" />,000円
+                  <input type="number" name="auction_start_price" value="2500" />,000円
                 </td>
               </tr>
             </table>
@@ -261,29 +261,29 @@
           <div class="text_container">
             <div class="text_area">
               <p>注意事項</p>
-              <textarea name="considerations" cols="80" rows="8">注意</textarea>
+              <textarea name="considerations" cols="80" rows="8"></textarea>
             </div>
             <div class="text_area">
               <p>セールスポイント</p>
-              <textarea name="sales_point" cols="80" rows="8">セールス</textarea>
+              <textarea name="sales_point" cols="80" rows="8"></textarea>
             </div>
           </div>
           <div class="text_container">
             <div class="text_area">
               <p>検査員記入欄</p>
-              <textarea name="entries_field" cols="80" rows="8">記入</textarea>
+              <textarea name="entries_field" cols="80" rows="8"></textarea>
             </div>
             <div class="text_area">
               <p>コメント</p>
-              <textarea name="comment" cols="80" rows="8">コメント</textarea>
+              <textarea name="comment" cols="80" rows="8"></textarea>
             </div>
           </div>
         </section>
-        <h2>車両画像</h2>
+        <!-- <h2>車両画像</h2>
 
         <section class="image_area">
           <p v-for="n of 15" :key="n"><input type="file" name="car_picture" /></p>
-        </section>
+        </section> -->
         <button type="submit" class="btn btn-primary">確認画面へ</button>
       </form>
     </div>
