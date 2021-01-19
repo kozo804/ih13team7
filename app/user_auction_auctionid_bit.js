@@ -82,7 +82,7 @@ const user_auction_auctionid_bit = new Vue({
         remaining = "終了";
         // 終了時にリロードする処理
         let url = `/user/auction/${this.auction_id}/bit/${this.car_id}?no=${this.no}`;
-        window.location.href = url;
+        // window.location.href = url;
       }
       return remaining;
     }

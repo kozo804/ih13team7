@@ -6,6 +6,7 @@ var con = require('../models/mongoose-loader');
 var carModel = require('../models/t03_car').car;
 var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees').employees;
+var bitModel = require('../models/t05_bit_history').bitHistory;
 
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
@@ -103,7 +104,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
     car_id = req.params.car_id;
   } catch (e) {
     console.log(e);
-    // res.redirect('/test');
+    res.redirect('/user/login');
     return;
   }
 
@@ -119,29 +120,34 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
   const auction_model = AuctionModel.find({ "car_ids.carData._id": car_id });
   auction_model.exec()
     .then(auction_model_result => {
-      auction_end_time = new Date(auction_model_result[0].car_ids[no].carEndtime).toString();
+      auction_end_time = new Date(auction_model_result[0].car_ids[no].carEndtime).getTime();
 
       // オークションが終了しているかどうかチェック
-      let now = new Date(Date.now()).toString();
+      let now = new Date(Date.now()).getTime();
+      console.log("now" + now);
+      console.log("auction_end_time" + auction_end_time);
       if (now > auction_end_time) {
+        console.log("time over");
         render_state = "finished";
         // 落札状態によって、ページを変える
         const bit_model = bitModel.find({ car_id: car_id });
         bit_model.exec()
           .then(bit_model_result => {
             let result_length = bit_model_result.length;
-            if (bit_model_result[result_length - 1].user_id == user_info._id) {
-              // 落札している
-              render_state = "bided";
-              console.log(render_state + " state");
-            }
-            if (render_state == "finished") {
-              console.log("finished");
+            console.log(bit_model_result);
+            if(bit_model_result.length <= 0) {
+              console.log("bit history empty");
               res.render("user_auction_finished");
             }
-            else {
+            else if (bit_model_result[result_length - 1].user_id == user_info._id) {
+              // 落札している
               console.log("bided");
               res.render("user_auction_bided");
+            }
+            else if (render_state == "finished") {
+              // 終了している
+              console.log("finished");
+              res.render("user_auction_finished");
             }
           })
           .catch(err => {
@@ -149,6 +155,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
           });
       }
       else {
+        console.log("yet");
         carModel.find({ _id: car_id })
           .then(car_model_result => {
             console.log(car_model_result);
@@ -159,7 +166,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
                 auction_id: auction_id,
                 car_info: car_model_result[0],
                 car_id: car_id,
-                auction_end_time: auction_end_time,
+                auction_end_time: auction_end_time.toString(),
                 auction_start_price: auction_start_price,
                 user_id: user_info._id,
                 user_name: user_info.name,
