@@ -2,61 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/css/user_login.css' />
-    <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel="stylesheet" href="/css/emp_car_regist.css">
-    <title>User Top</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/css/user_top.css' />
+  <title>User Top</title>
 </head>
-<style>
-    a {
-        color: #000
-    }
-
-    a:hover {
-        color: #000
-    }
-</style>
 
 <body>
-    <div id="wrapper">
-        <%- include('./emp_header.ejs'); %>
-        <div class="content" style="text-align: center;">
-            <div>
-                <div class="row content-nav">
-                    <div class="col-md-3" style="margin-top:120px;margin-left: 200px;">
-                        <a href="/user/auction">
-                            <div class="content-item">
-                                <img style="width:200px" src="/images/deal.jpg" />
-                                <p>オークション</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/user/car">
-                            <div class="content-item" style="margin-top:120px;margin-left: 20px;">
-                                <img style="width:200px" src="/images/car.jpg" />
-                                <p>車輌情報</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#">
-                            <div class="content-item" style="margin-top:120px;margin-left: 20px;">
-                                <img style="width:200px" src="/images/user.jpg" />
-                                <p>個人情報</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
+    <div class="row content-nav icon_area">
+      <div class="col-md-3">
+        <a href="/user/auction">
+          <div class="content-item">
+            <img src="/images/deal.jpg" />
+            <p>オークション</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="/user/car">
+          <div class="content-item">
+            <img src="/images/car.jpg" />
+            <p>車輌情報</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="#">
+          <div class="content-item">
+            <img src="/images/user.jpg" />
+            <p>個人情報</p>
+          </div>
+        </a>
+      </div>
     </div>
-    </div>
-    </div>
-    <script src="/js/user_top.js"></script>
+  </div>
+  <script src="/js/user_top.js"></script>
 </body>
 
 </html>
