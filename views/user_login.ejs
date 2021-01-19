@@ -28,8 +28,8 @@
           <br>
           <div>
             <input type="checkbox" />
-            <label>自動ログイン</label>
-            <a href="#">パスワード忘れた</a>
+            <label>ログイン状態を記憶する</label>
+            <a href="#">パスワード忘れた方はこちら</a>
           </div>
           <br>
           <button type="submit" class="user-btn login" style="margin-right:1rem" id="login">ログイン</button>
@@ -45,33 +45,33 @@
 </body>
 
 <script>
-  let login = document.getElementById('login')
-  login.onclick = function () {
-    let user_id = document.getElementById('user_id').value
-    let password = document.getElementById('password').value
-    let xmlHttp = new XMLHttpRequest();
-    if (xmlHttp == null) {
-      alert('エラー');
-      return;
-    }
-    xmlHttp.open("POST", 'login', true);
-    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlHttp.send('user_id=' + user_id + '&password=' + password);
-    xmlHttp.onreadystatechange = function () {
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-        var d = xmlHttp.responseText; // 返回值 
-        // 处理返回值 
-        if (d) {
-          d = JSON.parse(d)
-          localStorage.setItem('user', d)
-          window.location.href = 'top'
-        } else {
-          alert('パスワードまたはID確認してください')
-        }
-      }
+//   let login = document.getElementById('login')
+//   login.onclick = function () {
+//     let user_id = document.getElementById('user_id').value
+//     let password = document.getElementById('password').value
+//     let xmlHttp = new XMLHttpRequest();
+//     if (xmlHttp == null) {
+//       alert('エラー');
+//       return;
+//     }
+//     xmlHttp.open("POST", 'login', true);
+//     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//     xmlHttp.send('user_id=' + user_id + '&password=' + password);
+//     xmlHttp.onreadystatechange = function () {
+//       if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+//         var d = xmlHttp.responseText; // 返回值 
+//         // 处理返回值 
+//         if (d) {
+//           d = JSON.parse(d)
+//           localStorage.setItem('user', d)
+//           window.location.href = 'top'
+//         } else {
+//           alert('パスワードまたはID確認してください')
+//         }
+//       }
 
-    }; //发送事件后，收到信息了调用函数 
-  }
-</script>
+//     }; //发送事件后，收到信息了调用函数 
+//   }
+// </script>
 
 </html>
