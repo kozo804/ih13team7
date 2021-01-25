@@ -6,34 +6,60 @@ var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 const { Auction } = require('../models/t02_auction');
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cd) {
+//     cd(null, '/')
+//   },
+//   filename: function (req, file, cd) {
+//     cd(null, `car_${Date.now()}`)
+//   }
+// })
 var storage = multer.diskStorage({
-  destination: function (req, file, cd) {
-    console.log(req.file);
-    cd(null, '/public/images/')
+  destination: function (req, file, cb) {
+    cb(null, `public/images`)
   },
-  filename: function (req, file, cd) {
-    cd(null, `emp_${Date.now()}`)
+  filename: function (req, file, cb) {
+    let car_model = carModel.findOne({}).sort({createAt: -1});
+    let car_id;
+    car_model.exec()
+    .then(result => {
+      console.log("result" + result);
+      if(result.length != 0) {
+        car_id = result[0]._id;
+        car_id = parseInt(car_id) + 1;
+      }
+      else {
+        car_id = 1;
+      }
+      cb(null, `car-${car_id}.jpg`);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
-})
+});
+
+// var upload = multer({
+//   storage: storage,
+//   onFileUploadStart: function (file, req, res) {
+//     console.log(file.fieldname + ' is starting ...')
+//   },
+//   onFileUploadData: function (file, data, req, res) {
+//     //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
+//     console.log(data.toString());
+//   },
+//   onFileUploadComplete: function (file, req, res) {
+//     console.log(file.fieldname + ' uploaded to  ' + file.path)
+//   },
+//   onError: function (error, next) {
+//     console.error(error);
+//     next(error);
+//   }
+// })
 
 var upload = multer({
-  storage: storage,
-  onFileUploadStart: function (file, req, res) {
-    console.log(file.fieldname + ' is starting ...')
-  },
-  onFileUploadData: function (file, data, req, res) {
-    //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
-    console.log(data.toString());
-  },
-  onFileUploadComplete: function (file, req, res) {
-    console.log(file.fieldname + ' uploaded to  ' + file.path)
-  },
-  onError: function (error, next) {
-    console.error(error);
-    next(error);
-  }
+  storage: storage
 })
-
 
 /* GET users listing. */
 router.get('/top', function (req, res, next) {
@@ -79,7 +105,7 @@ router.get('/car/:car_id', async function (req, res, next) {
   res.render('emp_car_detail.ejs', { carData: carData })
 });
 
-router.post('/car/confirm', upload.array('car_picture'), function (req, res, next) {
+router.post('/car/confirm', upload.array("car_picture"), function (req, res, next) {
   const car_info = {
     maker: req.body.maker,
     car_name: req.body.car_name,
