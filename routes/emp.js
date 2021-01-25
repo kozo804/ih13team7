@@ -24,11 +24,12 @@ var storage = multer.diskStorage({
     car_model.exec()
     .then(result => {
       console.log("result" + result);
-      if(result.length != 0) {
+      try {
         car_id = result[0]._id;
         car_id = parseInt(car_id) + 1;
       }
-      else {
+      catch(err) {
+        console.log(err);
         car_id = 1;
       }
       cb(null, `car-${car_id}.jpg`);
