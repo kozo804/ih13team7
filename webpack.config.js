@@ -12,7 +12,7 @@ const webpackConfig = {
     emp_car_regist: [`${entry_dir}/emp_car_regist`],
     emp_auction_regist: [`${entry_dir}/emp_auction_regist`],
     emp_auction_detail: [`${entry_dir}/emp_auction_detail`],
-    test: [`${entry_dir}/test.js`],
+    // test: [`${entry_dir}/test.js`],
     user_auction_auctionid_bit: [`${entry_dir}/user_auction_auctionid_bit`],
   },
   output: {
