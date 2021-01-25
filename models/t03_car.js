@@ -54,7 +54,7 @@ var carSchema = new Schema({
 	payment_flg: { type: Boolean, default: false },
 	car_delivery_flg: { type: Boolean, default: false },
 	status: { type: Number, default: 0 },
-	
+
 	//以下未使用
 	// color_no: Number,
 	// warranty: Number,
@@ -90,6 +90,8 @@ var carSchema = new Schema({
 	// successful_bid_member_id
 
 	// 車両ステータス	String or Number?
-});
+},
+	{ timestamps: true }
+);
 
 exports.car = mongoose.model('Car', carSchema);
