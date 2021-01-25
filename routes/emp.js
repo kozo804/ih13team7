@@ -167,7 +167,15 @@ router.post('/car/finish', function (req, res, next) {
   });
 
   // DBに保存
-  const car_info = req.session.car_info;
+  let car_info = req.session.car_info;
+  car_info.mileage = car_info.mileage.replace(',', '');
+  parseInt(car_info.mileage);
+  car_info.recycleing_amount = car_info.recycleing_amount.replace(',', '');
+  parseInt(car_info.recycleing_amount);
+  car_info.auction_desired_price = car_info.auction_desired_price.replace(',', '');
+  parseInt(car_info.auction_desired_price);
+  car_info.auction_start_price = car_info.auction_start_price.replace(',', '');
+  parseInt(car_info.auction_start_price);
 
   console.log(car_info);
   const car = new carModel({
