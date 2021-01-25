@@ -2,9 +2,12 @@
 
 @import "common";
 
-$input_area-input_width: 70%;
-$input_border: solid #d6d6d6 2px;
-
+#wrapper {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../images/bg.jpg");
+  background-size: auto;
+}
 
 a {
   color: #000
@@ -12,16 +15,6 @@ a {
 
 a:hover {
   color: #000
-}
-
-body {
-  background-image: url('../images/bg.jpg');
-  // background-position: center;
-}
-
-#wrapper {
-  width: 100%;
-  height: 100vh;
 }
 
 .icon_area {

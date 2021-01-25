@@ -1,52 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/css/user_login.css' />
-    <link rel='stylesheet' href='/css/bootstrap.min.css' />
-    <link rel="stylesheet" href="/css/emp_car_regist.css">
-    <title>emp Top</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='/css/bootstrap.min.css' />
+  <link rel='stylesheet' href='/css/user_top.css' />
+  <title>emp Top</title>
 </head>
-<style>
-    a {
-        color: #000
-    }
 
-    a:hover {
-        color: #000
-    }
-</style>
 <body>
-    <div id="wrapper">
-        <%- include('./emp_header.ejs'); %>
-
-        <div style="text-align: center;background-image:url('/images/emp_top_bg.jpg');height:1000px">
-            <div>
-                <div class="row content-nav">
-                    <div class="col-md-3" style="margin-top:120px;margin-left: 380px;">
-                        <a href="/emp/auction">
-                            <div class="content-item">
-                                <img style="width:200px" src="/images/deal.jpg" />
-                                <p>オークション</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/emp/car">
-                            <div class="content-item" style="margin-top:120px;margin-left: 68px;">
-                                <img style="width:200px" src="/images/car.jpg" />
-                                <p>車輌情報</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div id="wrapper">
+    <%- include('./emp_header.ejs'); %>
+    <div class="row content-nav icon_area" style="width: 50%;">
+      <div class="col-md-3">
+        <a href="/emp/auction">
+          <div class="content-item">
+            <img src="/images/deal.jpg" />
+            <p>オークション</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a href="/emp/car">
+          <div class="content-item">
+            <img src="/images/car.jpg" />
+            <p>車輌情報</p>
+          </div>
+        </a>
+      </div>
     </div>
-    </div>
-    <script src="/js/user_top.js"></script>
+  </div>
+  <script src="/js/user_top.js"></script>
 </body>
 
 </html>
