@@ -5,6 +5,7 @@ const mongoose = loader.mongoose;
 
 var Schema = mongoose.Schema;
 var carSchema = new Schema({
+	car_no: Number,
 	maker: String,
 	car_name: String,
 	grade: String,
