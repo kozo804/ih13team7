@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="js">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/emp_auction_regist.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
-
 	<link rel="stylesheet" href="/css/emp_car_regist.css">
 	<title>オークション登録</title>
 </head>
+
 <body>
 
 	<div class="row" id="wrapper">
@@ -21,23 +22,22 @@
 
 					<form action="/emp/auction/confirm" method="post">
 						<div class="mb-3">
-						  <label for="auction_name" class="form-label">オークションタイトル</label>
-						  <input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
-			
+							<label for="auction_name" class="form-label">オークションタイトル</label>
+							<input type="text" v-model="auctionName" name="auction_name" class="form-control" id="auction_name">
 						</div>
-						
+
 						<div class="mb-3">
 
-							  <label for="start_time" class="form-label">開始時間</label>
-							  <select name="year" class="form-select" aria-label="Default select example">
+							<label for="start_time" class="form-label">開始時間</label>
+							<select name="year" class="form-select" aria-label="Default select example">
 								<option>年を選んでください</option>
 								<option value="2021" selected>2021年</option>
 								<option value="2022">2022年</option>
 								<option value="2023">2023年</option>
 								<option value="2024">2024年</option>
 								<option value="2025">2025年</option>
-							  </select>
-							  <select name="month" class="form-select" aria-label="Default select example">
+							</select>
+							<select name="month" class="form-select" aria-label="Default select example">
 								<option>月を選んでください</option>
 								<option value="1">1月</option>
 								<option value="2">2月</option>
@@ -87,33 +87,33 @@
 								<option value="31">31日</option>
 
 							</select>
-						 	<input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
+							<input type="time" v-model="startTime" name="auction_start_time" class="form-control" id="start_time">
 						</div>
 				</div>
-						<div class="col-10 row row-cols-2">
-							<% for (var car of cars) {%>
-								<div class="card mt-3 text-center">
-									<div class="form-check">
-										<div class="card-body m-1 text-center">
-											<h5 class="card-title m-1">車種名：<%= car.car_name %></h5>
-											<p class="card-text m-1">グレード：<%= car.grade %></p>
-											<p class="card-text m-1">カラー：<%= car.outer_color %></p>
-											<p class="card-text m-1">ステーダス：オークション：　出品可能</p>
-											<a href="/emp/car/<%= car._id %>" class="btn btn-info m-1">詳しくはこちら</a>
-										</div>
-
-										<input name="defaultCheck1" value="<%= car._id %>" type="checkbox" class="btn-check" id="<%= car._id %>" autocomplete="off">
-										<label class="btn btn-primary" for="<%= car._id %>">出品</label>
-									  </div>
-									  
-								</div>
-						<% } %>
-						  </div>
-						
-					<div class="col-3 col-md-auto m-5">
-						<button type="submit" class="btn btn-primary col-3 col-md-auto">確認画面</button>
+				<div class="col-10 row row-cols-2">
+					<% for (var car of cars) {%>
+					<div class="card mt-3 text-center">
+						<div class="form-check">
+							<div class="card-body m-1 text-center">
+								<p><img src="/images/car-<%= car.car_no%>.jpg" width="50%" height="auto" alt="" class="card-img-top"></p>
+								<h5 class="card-title m-1">車種名：<%= car.car_name %></h5>
+								<p class="card-text m-1">グレード：<%= car.grade %></p>
+								<p class="card-text m-1">カラー：<%= car.outer_color %></p>
+								<p class="card-text m-1">ステーダス：オークション：　出品可能</p>
+								<a href="/emp/car/<%= car._id %>" class="btn btn-info m-1">詳しくはこちら</a>
+								<p><input type="hidden" name="car_no" value="<%= car.car_no%>"></p>
+							</div>
+							<input name="defaultCheck1" value="<%= car._id %>" type="checkbox" class="btn-check" id="<%= car._id %>" autocomplete="off">
+							<label class="btn btn-primary" for="<%= car._id %>">出品</label>
+						</div>
 					</div>
-					</form>
+					<% } %>
+				</div>
+
+				<div class="col-3 col-md-auto m-5">
+					<button type="submit" class="btn btn-primary col-3 col-md-auto">確認画面</button>
+				</div>
+				</form>
 
 			</div>
 		</div>
@@ -122,4 +122,5 @@
 	</div>
 
 </body>
+
 </html>

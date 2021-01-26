@@ -6,57 +6,32 @@ var AuctionModel = require('../models/t02_auction').Auction;
 var employeeModel = require('../models/t04_Employees');
 var multer = require('multer');
 const { Auction } = require('../models/t02_auction');
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cd) {
-//     cd(null, '/')
-//   },
-//   filename: function (req, file, cd) {
-//     cd(null, `car_${Date.now()}`)
-//   }
-// })
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, `public/images`)
   },
   filename: function (req, file, cb) {
-    let car_model = carModel.findOne({}).sort({createAt: -1});
-    let car_id;
+    let car_model = carModel.findOne({}).sort({car_no: -1});
+    let car_no;
     car_model.exec()
     .then(result => {
-      console.log("result" + result);
+      console.log("result " + result);
       try {
-        car_id = result[0]._id;
-        car_id = parseInt(car_id) + 1;
+        car_no = result.car_no;
+        car_no = parseInt(car_no) + 1;
       }
       catch(err) {
         console.log(err);
-        car_id = 1;
+        car_no = 1;        
       }
-      cb(null, `car-${car_id}.jpg`);
+      req.session.car_no = car_no;
+      cb(null, `car-${car_no}.jpg`);
     })
     .catch(err => {
       console.log(err);
     });
   }
 });
-
-// var upload = multer({
-//   storage: storage,
-//   onFileUploadStart: function (file, req, res) {
-//     console.log(file.fieldname + ' is starting ...')
-//   },
-//   onFileUploadData: function (file, data, req, res) {
-//     //dataはBufferオブジェクト。何も指定しないとutf-8でデコードされます。
-//     console.log(data.toString());
-//   },
-//   onFileUploadComplete: function (file, req, res) {
-//     console.log(file.fieldname + ' uploaded to  ' + file.path)
-//   },
-//   onError: function (error, next) {
-//     console.error(error);
-//     next(error);
-//   }
-// })
 
 var upload = multer({
   storage: storage
@@ -81,7 +56,7 @@ router.post('/login', function (req, res, next) {
       }).catch(function (err) {
         console.log(err);
         res.status = 500
-        res.send()
+        res.send();
       });
   } catch (e) {
     console.log(e)
@@ -108,6 +83,7 @@ router.get('/car/:car_id', async function (req, res, next) {
 
 router.post('/car/confirm', upload.array("car_picture"), function (req, res, next) {
   const car_info = {
+    car_no: req.session.car_no,
     maker: req.body.maker,
     car_name: req.body.car_name,
     grade: req.body.grade,
@@ -180,6 +156,7 @@ router.post('/car/finish', function (req, res, next) {
 
   console.log(car_info);
   const car = new carModel({
+    car_no: car_info.car_no,
     maker: car_info.maker,
     car_name: car_info.car_name,
     grade: car_info.grade,
@@ -306,7 +283,8 @@ router.post('/auction/confirm', async (req, res, next) => {
     end_time: +date.getTime() + 30 * req.body.defaultCheck1.length * 1000,
     // rep_id: Number,
     car_count: req.body.defaultCheck1.length,
-    car_ids: []
+    car_ids: [],
+    car_no: req.body.car_no,
   }
   for (let i = 0; i < req.body.defaultCheck1.length; i++) {
     let car = await carModel.find({ _id: req.body.defaultCheck1[i] });

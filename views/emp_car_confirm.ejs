@@ -204,7 +204,7 @@
         </section>
         <h2>車両画像</h2>
         <section class="image_area">
-          <p v-for="n of 15" :key="n"><input type="file" /></p>
+          <p><img src="/images/car-<%= car_info.car_no%>.jpg" width="300px" height="auto"></p>
         </section>
         <button type="submit" class="btn btn-primary">登録する</button>
       </form>

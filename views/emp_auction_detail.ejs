@@ -26,6 +26,7 @@
 		<div class="row">
 			<% for (let i=0; i<auction.car_ids.length; i++){ %>
 				<div class="col-md-4 border">
+					<img src="/images/car-<%= auction.car_ids[i].carData.car_no %>.jpg" width="" height="" alt="" class="card-img-top">
 					<div><%= auction.car_ids[i].carData.maker %></div>
 					<hr>
 					<div><%= auction.car_ids[i].carData.car_name %></div>
