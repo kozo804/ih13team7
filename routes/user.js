@@ -170,7 +170,7 @@ router.get('/auction/:auction_id/bit/:car_id', function (req, res, next) {
                 auction_start_price: auction_start_price,
                 user_id: user_info._id,
                 user_name: user_info.name,
-                no: no,
+                no: parseInt(no + 1),
                 // user_id: "2",
                 // user_name: "test"
               }
